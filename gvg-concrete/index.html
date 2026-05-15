@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local SEO Audit — GVG Concrete | Tulare, CA</title>
+<style>
+:root {
+  --primary: #1a365d;
+  --primary-light: #2d5a9e;
+  --accent: #e53e3e;
+  --accent-orange: #dd6b20;
+  --accent-green: #38a169;
+  --accent-yellow: #d69e2e;
+  --bg: #f7fafc;
+  --card-bg: #ffffff;
+  --text: #2d3748;
+  --text-light: #718096;
+  --border: #e2e8f0;
+  --critical-bg: #fff5f5;
+  --critical-border: #fc8181;
+  --high-bg: #fffbeb;
+  --high-border: #f6ad55;
+  --medium-bg: #f0fff4;
+  --medium-border: #68d391;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:1200px; margin:0 auto; padding:0 24px; }
+
+/* Header */
+.header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color:#fff; padding:48px 0 36px; }
+.header h1 { font-size:2.2rem; font-weight:700; margin-bottom:8px; }
+.header .subtitle { font-size:1.1rem; opacity:0.9; }
+.header .meta { margin-top:16px; display:flex; gap:24px; flex-wrap:wrap; font-size:0.95rem; opacity:0.85; }
+.header .meta span { display:flex; align-items:center; gap:6px; }
+
+/* Navigation */
+.toc { background:var(--card-bg); border-bottom:1px solid var(--border); padding:16px 0; position:sticky; top:0; z-index:100; box-shadow:0 2px 4px rgba(0,0,0,0.04); }
+.toc-inner { display:flex; gap:8px; flex-wrap:wrap; }
+.toc a { text-decoration:none; color:var(--primary); font-size:0.82rem; padding:6px 12px; border-radius:6px; background:#edf2f7; transition:all 0.2s; font-weight:500; }
+.toc a:hover { background:var(--primary); color:#fff; }
+
+/* Sections */
+section { margin:32px 0; }
+.section-title { font-size:1.5rem; font-weight:700; color:var(--primary); margin-bottom:20px; padding-bottom:12px; border-bottom:3px solid var(--primary); display:flex; align-items:center; gap:10px; }
+.section-title .num { background:var(--primary); color:#fff; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+
+/* Cards */
+.card { background:var(--card-bg); border-radius:12px; padding:24px; margin-bottom:20px; box-shadow:0 1px 3px rgba(0,0,0,0.08); border:1px solid var(--border); }
+.card h3 { font-size:1.1rem; margin-bottom:12px; color:var(--primary); }
+
+/* Stat boxes */
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:24px; }
+.stat-box { background:var(--card-bg); border-radius:10px; padding:20px; text-align:center; border:1px solid var(--border); box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+.stat-box .value { font-size:2rem; font-weight:700; }
+.stat-box .label { font-size:0.85rem; color:var(--text-light); margin-top:4px; }
+.stat-box.critical .value { color:var(--accent); }
+.stat-box.warning .value { color:var(--accent-orange); }
+.stat-box.good .value { color:var(--accent-green); }
+.stat-box.info .value { color:var(--primary-light); }
+
+/* Tables */
+table { width:100%; border-collapse:collapse; margin:12px 0; font-size:0.9rem; }
+th { background:var(--primary); color:#fff; padding:10px 14px; text-align:left; font-weight:600; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.5px; }
+td { padding:10px 14px; border-bottom:1px solid var(--border); }
+tr:hover td { background:#f8fafc; }
+tr:last-child td { border-bottom:none; }
+
+/* Badges */
+.badge { display:inline-block; padding:3px 10px; border-radius:12px; font-size:0.75rem; font-weight:600; }
+.badge-red { background:#fed7d7; color:#c53030; }
+.badge-orange { background:#feebc8; color:#c05621; }
+.badge-green { background:#c6f6d5; color:#276749; }
+.badge-blue { background:#bee3f8; color:#2a69ac; }
+.badge-gray { background:#e2e8f0; color:#4a5568; }
+
+/* Priority boxes */
+.priority-box { border-radius:10px; padding:20px; margin-bottom:16px; }
+.priority-critical { background:var(--critical-bg); border-left:4px solid var(--accent); }
+.priority-high { background:var(--high-bg); border-left:4px solid var(--accent-orange); }
+.priority-medium { background:var(--medium-bg); border-left:4px solid var(--accent-green); }
+.priority-ongoing { background:#ebf8ff; border-left:4px solid #4299e1; }
+.priority-box h4 { font-size:1rem; margin-bottom:10px; }
+.priority-box ul { margin-left:20px; }
+.priority-box li { margin-bottom:6px; font-size:0.92rem; }
+
+/* Score circles */
+.scores-row { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin:20px 0; }
+.score-circle { text-align:center; }
+.score-circle .circle { width:80px; height:80px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:700; margin:0 auto 8px; }
+.score-circle .circle.green { background:#c6f6d5; color:#276749; border:3px solid #38a169; }
+.score-circle .circle.orange { background:#feebc8; color:#c05621; border:3px solid #dd6b20; }
+.score-circle .circle.red { background:#fed7d7; color:#c53030; border:3px solid #e53e3e; }
+.score-circle .lbl { font-size:0.8rem; color:var(--text-light); }
+
+/* Screenshots */
+.screenshot { margin:16px 0; text-align:center; }
+.screenshot img { max-width:100%; border-radius:8px; border:1px solid var(--border); box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+.screenshot .caption { font-size:0.82rem; color:var(--text-light); margin-top:8px; font-style:italic; }
+
+/* Comparison highlight */
+.compare-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:16px 0; }
+.compare-box { border-radius:10px; padding:20px; }
+.compare-box.client { background:#fff5f5; border:2px solid #fc8181; }
+.compare-box.competitor { background:#f0fff4; border:2px solid #68d391; }
+.compare-box h4 { margin-bottom:10px; font-size:0.95rem; }
+
+/* Timeline */
+.timeline { position:relative; padding-left:30px; }
+.timeline::before { content:''; position:absolute; left:10px; top:0; bottom:0; width:3px; background:var(--primary); border-radius:2px; }
+.timeline-item { position:relative; margin-bottom:24px; }
+.timeline-item::before { content:''; position:absolute; left:-24px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--primary); border:2px solid #fff; box-shadow:0 0 0 2px var(--primary); }
+.timeline-item h4 { font-size:0.95rem; color:var(--primary); }
+.timeline-item p { font-size:0.88rem; color:var(--text-light); margin-top:4px; }
+
+/* Responsive */
+@media (max-width:768px) {
+  .compare-row { grid-template-columns:1fr; }
+  .stats-grid { grid-template-columns:repeat(2, 1fr); }
+  .header h1 { font-size:1.6rem; }
+}
+
+/* Print */
+@media print {
+  .toc { position:static; }
+  .header { padding:24px 0; }
+  body { font-size:11pt; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="container">
+    <h1>Local SEO & Google Maps Audit</h1>
+    <div class="subtitle">GVG Concrete — gvgconcrete.com</div>
+    <div class="meta">
+      <span>Tulare, CA 93274</span>
+      <span>|</span>
+      <span>Audit Date: May 15, 2026</span>
+      <span>|</span>
+      <span>(559) 723-7481</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <div class="container">
+    <div class="toc-inner">
+      <a href="#executive">Executive Summary</a>
+      <a href="#serp">Local Pack & SERP</a>
+      <a href="#gbp">GBP Audit</a>
+      <a href="#technical">Technical SEO</a>
+      <a href="#performance">Performance</a>
+      <a href="#siteaudit">Site Audit</a>
+      <a href="#citations">Citations</a>
+      <a href="#competitors">Competitors</a>
+      <a href="#actions">Action Plan</a>
+      <a href="#roadmap">90-Day Roadmap</a>
+      <a href="#quickref">Quick Reference</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== EXECUTIVE SUMMARY ===== -->
+<section id="executive">
+  <h2 class="section-title"><span class="num">0</span> Executive Summary</h2>
+
+  <div class="stats-grid">
+    <div class="stat-box critical">
+      <div class="value">0 / 9</div>
+      <div class="label">Local Pack Appearances</div>
+    </div>
+    <div class="stat-box critical">
+      <div class="value">0</div>
+      <div class="label">Google Reviews</div>
+    </div>
+    <div class="stat-box warning">
+      <div class="value">6</div>
+      <div class="label">Total Website Pages</div>
+    </div>
+    <div class="stat-box good">
+      <div class="value">Pos 2-5</div>
+      <div class="label">Organic Ranking Range</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Top 3 Critical Issues</h3>
+    <table>
+      <tr>
+        <td><span class="badge badge-red">CRITICAL</span></td>
+        <td><strong>GBP Category Wrong & Zero Reviews</strong> — Listed as "Construction company" instead of "Concrete contractor." Combined with 0 reviews, GVG is invisible in the Google Maps local pack for ALL 9 keywords tested. Competitors have 5-26 reviews and the correct category.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-red">CRITICAL</span></td>
+        <td><strong>Phone Number Mismatch (NAP Inconsistency)</strong> — GBP lists (559) 556-1484 but the website shows (559) 723-7481. This signals to Google that the business information is unreliable and directly suppresses local pack eligibility.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-red">CRITICAL</span></td>
+        <td><strong>No Schema Markup & Minimal Website Structure</strong> — Zero structured data (no LocalBusiness schema), only 6 pages total with no individual service pages, no location pages, and no blog. The site cannot compete for long-tail keywords.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>The Big Picture</h3>
+    <p>GVG Concrete has a <strong>solid organic presence</strong> — ranking in positions 2-5 for most Tulare concrete keywords. However, the business is <strong>completely invisible on Google Maps</strong>, which is where 46% of all Google searches have local intent. The root causes are a misconfigured Google Business Profile (wrong category, wrong phone, zero reviews) and a thin website with no schema markup. Fixing these issues could dramatically increase lead generation within 60-90 days.</p>
+  </div>
+</section>
+
+<!-- ===== SECTION 1: LOCAL PACK & SERP ===== -->
+<section id="serp">
+  <h2 class="section-title"><span class="num">1</span> Google Maps / Local Pack Rankings</h2>
+
+  <div class="card">
+    <h3>Local Pack Results — 9 Keywords Tested</h3>
+    <p style="margin-bottom:12px; color:var(--accent); font-weight:600;">GVG Concrete does NOT appear in the local pack for ANY keyword tested.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th>GVG Local Pack</th>
+          <th>GVG Organic</th>
+          <th>Local Pack #1</th>
+          <th>Local Pack #2</th>
+          <th>Local Pack #3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>concrete contractor tulare ca</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-blue">#3</span></td>
+          <td>VRG Concrete (4.8&#9733; / 26)</td>
+          <td>Bully Concrete (5.0&#9733; / 16)</td>
+          <td>Ontiveros Concrete (5.0&#9733; / 5)</td>
+        </tr>
+        <tr>
+          <td>stamped concrete tulare ca</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-blue">#4</span></td>
+          <td>Conquered Concrete (4.4&#9733; / 15)</td>
+          <td>Ontiveros Concrete (5.0&#9733; / 5)</td>
+          <td>Visalia Concrete & Stamp (4.9&#9733; / 15)</td>
+        </tr>
+        <tr>
+          <td>concrete driveway tulare ca</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-blue">#5</span></td>
+          <td>VRG Concrete (4.8&#9733; / 26)</td>
+          <td>Bully Concrete (5.0&#9733; / 16)</td>
+          <td>Conquered Concrete (4.4&#9733; / 15)</td>
+        </tr>
+        <tr>
+          <td>foundation contractor tulare ca</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-blue">#4</span></td>
+          <td>Bully Concrete (5.0&#9733; / 16)</td>
+          <td>VRG Concrete (4.8&#9733; / 26)</td>
+          <td>Conquered Concrete (4.4&#9733; / 15)</td>
+        </tr>
+        <tr>
+          <td>retaining wall contractor tulare ca</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-gray">Not in Top 9</span></td>
+          <td>Bully Concrete (5.0&#9733; / 16)</td>
+          <td>Conquered Concrete (4.4&#9733; / 15)</td>
+          <td>LOBOS Landscaping (5.0&#9733; / 2)</td>
+        </tr>
+        <tr>
+          <td>concrete patio tulare ca</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-blue">#3</span></td>
+          <td>VRG Concrete (4.8&#9733; / 26)</td>
+          <td>Bully Concrete (5.0&#9733; / 16)</td>
+          <td>Ontiveros Concrete (5.0&#9733; / 5)</td>
+        </tr>
+        <tr>
+          <td>concrete contractor visalia ca</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-gray">Not in Top 9</span></td>
+          <td>Visalia Concrete & Stamp (4.9&#9733; / 15)</td>
+          <td>Spectrum Concrete (4.9&#9733; / 29)</td>
+          <td>FASTER CONCRETE (5.0&#9733; / 21)</td>
+        </tr>
+        <tr>
+          <td>concrete repair tulare ca</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-blue">#2</span></td>
+          <td>Bully Concrete (5.0&#9733; / 16)</td>
+          <td>Conquered Concrete (4.4&#9733; / 15)</td>
+          <td>Ontiveros Concrete (5.0&#9733; / 5)</td>
+        </tr>
+        <tr>
+          <td>concrete contractor near me</td>
+          <td><span class="badge badge-red">Not Showing</span></td>
+          <td><span class="badge badge-gray">Not in Top 9</span></td>
+          <td>VRG Concrete (4.8&#9733; / 26)</td>
+          <td>Bully Concrete (5.0&#9733; / 16)</td>
+          <td>Conquered Concrete (4.4&#9733; / 15)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Key Insight: Organic Rankings vs Local Pack</h3>
+    <p>GVG ranks <strong>organically in positions 2-5</strong> for 6 out of 9 keywords — this proves the website has decent authority and relevance. The fact that GVG ranks organically but <strong>never in the local pack</strong> definitively points to <strong>Google Business Profile issues</strong>, not website issues, as the primary blocker.</p>
+  </div>
+
+  <div class="screenshot">
+    <img src="serp-concrete-contractor-tulare.jpg" alt="Google Maps search results for concrete contractor tulare ca showing GVG absent" onerror="this.style.display='none'">
+    <div class="caption">Google Maps results for "concrete contractor tulare ca" — GVG Concrete is completely absent while competitors dominate</div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: GBP AUDIT ===== -->
+<section id="gbp">
+  <h2 class="section-title"><span class="num">2</span> Google Business Profile Audit</h2>
+
+  <div class="card">
+    <h3>GBP Listing Found</h3>
+    <p>One listing found. No duplicate listings detected (searched by business name and both phone numbers).</p>
+
+    <div class="compare-row" style="margin-top:16px;">
+      <div class="compare-box client">
+        <h4>GVG Concrete (Client)</h4>
+        <table>
+          <tr><td><strong>Business Name</strong></td><td>GVG concrete <span class="badge badge-orange">lowercase</span></td></tr>
+          <tr><td><strong>Primary Category</strong></td><td>Construction company <span class="badge badge-red">WRONG</span></td></tr>
+          <tr><td><strong>Secondary Categories</strong></td><td>None <span class="badge badge-red">MISSING</span></td></tr>
+          <tr><td><strong>Reviews</strong></td><td>0 reviews <span class="badge badge-red">ZERO</span></td></tr>
+          <tr><td><strong>Rating</strong></td><td>No rating</td></tr>
+          <tr><td><strong>Address</strong></td><td>950 Alderwood St, Tulare, CA 93274</td></tr>
+          <tr><td><strong>Phone</strong></td><td>(559) 556-1484 <span class="badge badge-red">MISMATCH</span></td></tr>
+          <tr><td><strong>Website Phone</strong></td><td>(559) 723-7481</td></tr>
+          <tr><td><strong>Hours</strong></td><td>Opens 7 AM <span class="badge badge-orange">Website says 8 AM</span></td></tr>
+          <tr><td><strong>Website</strong></td><td>gvgconcrete.com</td></tr>
+          <tr><td><strong>Business Description</strong></td><td>None <span class="badge badge-red">MISSING</span></td></tr>
+          <tr><td><strong>Services Section</strong></td><td>Not configured <span class="badge badge-red">MISSING</span></td></tr>
+          <tr><td><strong>Google Posts</strong></td><td>None <span class="badge badge-red">MISSING</span></td></tr>
+          <tr><td><strong>Photos</strong></td><td>A few work photos present</td></tr>
+          <tr><td><strong>Owner Responds to Reviews</strong></td><td>N/A (no reviews)</td></tr>
+        </table>
+      </div>
+      <div class="compare-box competitor">
+        <h4>VRG Concrete (#1 Competitor)</h4>
+        <table>
+          <tr><td><strong>Business Name</strong></td><td>VRG Concrete Construction <span class="badge badge-green">Proper</span></td></tr>
+          <tr><td><strong>Primary Category</strong></td><td>Concrete contractor <span class="badge badge-green">CORRECT</span></td></tr>
+          <tr><td><strong>Reviews</strong></td><td>26 reviews <span class="badge badge-green">Active</span></td></tr>
+          <tr><td><strong>Rating</strong></td><td>4.8 / 5.0</td></tr>
+          <tr><td><strong>Address</strong></td><td>2793 Lakeridge Ave, Tulare, CA 93274</td></tr>
+          <tr><td><strong>Phone</strong></td><td>(559) 679-7680</td></tr>
+          <tr><td><strong>Hours</strong></td><td>Opens 8 AM</td></tr>
+          <tr><td><strong>Website</strong></td><td>vrgconcrete.com</td></tr>
+          <tr><td><strong>Reviews Tab</strong></td><td>Dedicated reviews tab visible</td></tr>
+          <tr><td><strong>Photos</strong></td><td>Active photo gallery</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--accent);">
+    <h3>Why GVG Is Invisible on Google Maps</h3>
+    <ol style="margin-left:20px;">
+      <li style="margin-bottom:8px;"><strong>Wrong Primary Category:</strong> "Construction company" is a generic parent category. Google prioritizes listings with exact-match categories like "Concrete contractor" when users search for concrete services.</li>
+      <li style="margin-bottom:8px;"><strong>Zero Reviews:</strong> Google's algorithm heavily weights review count and velocity. Competitors with 5+ reviews will always outrank a zero-review listing.</li>
+      <li style="margin-bottom:8px;"><strong>Phone Number Mismatch:</strong> The GBP phone (559-556-1484) differs from the website (559-723-7481). This NAP inconsistency signals untrustworthiness to Google.</li>
+      <li style="margin-bottom:8px;"><strong>No Business Description:</strong> Missing description means fewer keyword signals for Google to match queries.</li>
+      <li style="margin-bottom:8px;"><strong>No Services Configured:</strong> The GBP services section is empty, providing zero category signals.</li>
+      <li style="margin-bottom:8px;"><strong>No Google Posts:</strong> Inactive profile signals an unmanaged business.</li>
+    </ol>
+  </div>
+
+  <div class="screenshot">
+    <img src="gbp-listing-a.jpg" alt="GVG Concrete GBP listing showing Construction company category and zero reviews" onerror="this.style.display='none'">
+    <div class="caption">GVG Concrete's GBP listing — note "Construction company" category, no reviews, and different phone number</div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: TECHNICAL SEO ===== -->
+<section id="technical">
+  <h2 class="section-title"><span class="num">3</span> Website Technical SEO</h2>
+
+  <div class="card">
+    <h3>Schema Markup Analysis</h3>
+    <div class="compare-row">
+      <div class="compare-box client">
+        <h4>GVG Concrete — Schema</h4>
+        <ul style="margin-left:16px;">
+          <li><strong>LocalBusiness Schema:</strong> <span class="badge badge-red">MISSING</span></li>
+          <li><strong>Organization Schema:</strong> <span class="badge badge-red">MISSING</span></li>
+          <li><strong>Service Schema:</strong> <span class="badge badge-red">MISSING</span></li>
+          <li><strong>FAQ Schema:</strong> <span class="badge badge-red">MISSING</span></li>
+          <li><strong>BreadcrumbList Schema:</strong> <span class="badge badge-red">MISSING</span></li>
+          <li><strong>Review/AggregateRating:</strong> <span class="badge badge-red">MISSING</span></li>
+        </ul>
+        <p style="margin-top:12px; font-size:0.88rem; color:var(--accent);">Zero structured data markup found on any page.</p>
+      </div>
+      <div class="compare-box competitor">
+        <h4>Industry Best Practice</h4>
+        <ul style="margin-left:16px;">
+          <li>LocalBusiness with full NAP + geo coords</li>
+          <li>Service schema for each service offered</li>
+          <li>FAQ schema on service pages</li>
+          <li>BreadcrumbList for site navigation</li>
+          <li>AggregateRating with review data</li>
+          <li>OpeningHoursSpecification</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>On-Page SEO Audit</h3>
+    <table>
+      <thead>
+        <tr><th>Element</th><th>Homepage</th><th>Services Page</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Title Tag</td>
+          <td>GVG Concrete — Tulare Concrete Contractors</td>
+          <td>GVG Concrete Services — Foundations, Patios, Driveways & More</td>
+          <td><span class="badge badge-green">Good</span></td>
+        </tr>
+        <tr>
+          <td>Meta Description</td>
+          <td>Not found in page source</td>
+          <td>Not found in page source</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td>H1 Tag</td>
+          <td>Built on skill, delivered with care — welcome to better concrete.</td>
+          <td>Built to Last — Expert Concrete Services for Homes and Businesses</td>
+          <td><span class="badge badge-orange">Weak — no keywords</span></td>
+        </tr>
+        <tr>
+          <td>Content Depth</td>
+          <td>~1,200 words</td>
+          <td>~1,200 words</td>
+          <td><span class="badge badge-orange">Thin</span></td>
+        </tr>
+        <tr>
+          <td>Image Alt Text</td>
+          <td>"contractor", "Ilustrattion shape 1"</td>
+          <td>"Foundations", "Stamped Concrete", etc.</td>
+          <td><span class="badge badge-orange">Basic</span></td>
+        </tr>
+        <tr>
+          <td>Internal Linking</td>
+          <td>6 main nav links + service anchors</td>
+          <td>Anchor links to service sections</td>
+          <td><span class="badge badge-orange">Minimal</span></td>
+        </tr>
+        <tr>
+          <td>Breadcrumbs</td>
+          <td>Not visible</td>
+          <td>Home / Services</td>
+          <td><span class="badge badge-green">Present on subpages</span></td>
+        </tr>
+        <tr>
+          <td>FAQ Section</td>
+          <td>None</td>
+          <td>None</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td>Map Embed</td>
+          <td>None</td>
+          <td>None</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td>Canonical Tags</td>
+          <td>Not found</td>
+          <td>Not found</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Site Structure & Indexation</h3>
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Total Pages in Sitemap</td><td>6 unique URLs</td><td><span class="badge badge-red">Very thin site</span></td></tr>
+        <tr><td>Pages Indexed (Google)</td><td>4 pages</td><td><span class="badge badge-orange">2 pages not indexed</span></td></tr>
+        <tr><td>Pages Crawled (SEMrush)</td><td>16 pages</td><td>Includes sub-resources</td></tr>
+        <tr><td>Individual Service Pages</td><td>0 — all on one page</td><td><span class="badge badge-red">Major gap</span></td></tr>
+        <tr><td>Location / Area Pages</td><td>0</td><td><span class="badge badge-red">Major gap</span></td></tr>
+        <tr><td>Blog Posts</td><td>0</td><td><span class="badge badge-red">No content strategy</span></td></tr>
+        <tr><td>robots.txt</td><td>Minimal — no directives or sitemap ref</td><td><span class="badge badge-orange">Needs update</span></td></tr>
+        <tr><td>Sitemap in robots.txt</td><td>Not referenced</td><td><span class="badge badge-red">Missing</span></td></tr>
+        <tr><td>HTTPS</td><td>Yes — site loads on HTTPS</td><td><span class="badge badge-green">Good</span></td></tr>
+        <tr><td>Hreflang Tags</td><td>Present but conflicting (SEMrush error)</td><td><span class="badge badge-red">11 conflicts</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== SECTION 3A: PERFORMANCE ===== -->
+<section id="performance">
+  <h2 class="section-title"><span class="num">3A</span> Page Performance & Core Web Vitals</h2>
+
+  <div class="card">
+    <h3>Lighthouse Scores (Desktop)</h3>
+    <div class="scores-row">
+      <div class="score-circle">
+        <div class="circle orange">88</div>
+        <div class="lbl">Performance</div>
+      </div>
+      <div class="score-circle">
+        <div class="circle orange">88</div>
+        <div class="lbl">Accessibility</div>
+      </div>
+      <div class="score-circle">
+        <div class="circle green">96</div>
+        <div class="lbl">Best Practices</div>
+      </div>
+      <div class="score-circle">
+        <div class="circle green">92</div>
+        <div class="lbl">SEO</div>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:0.85rem; color:var(--text-light);">Source: PageSpeed Insights — Captured May 15, 2026. No real user (CrUX) data available.</p>
+  </div>
+
+  <div class="card">
+    <h3>Core Web Vitals (Lab Data)</h3>
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Threshold</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>First Contentful Paint (FCP)</td>
+          <td>0.3s</td>
+          <td>&lt; 1.8s</td>
+          <td><span class="badge badge-green">Good</span></td>
+        </tr>
+        <tr>
+          <td>Largest Contentful Paint (LCP)</td>
+          <td>2.0s</td>
+          <td>&lt; 2.5s</td>
+          <td><span class="badge badge-orange">Needs Improvement</span></td>
+        </tr>
+        <tr>
+          <td>Total Blocking Time (TBT)</td>
+          <td>50ms</td>
+          <td>&lt; 200ms</td>
+          <td><span class="badge badge-green">Good</span></td>
+        </tr>
+        <tr>
+          <td>Cumulative Layout Shift (CLS)</td>
+          <td>0</td>
+          <td>&lt; 0.1</td>
+          <td><span class="badge badge-green">Good</span></td>
+        </tr>
+        <tr>
+          <td>Speed Index</td>
+          <td>1.8s</td>
+          <td>&lt; 3.4s</td>
+          <td><span class="badge badge-orange">Moderate</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Performance Opportunities</h3>
+    <table>
+      <thead>
+        <tr><th>Issue</th><th>Potential Savings</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Use efficient cache lifetimes</td><td>5,075 KiB</td><td><span class="badge badge-red">High</span></td></tr>
+        <tr><td>Font display optimization</td><td>1,130 ms</td><td><span class="badge badge-red">High</span></td></tr>
+        <tr><td>Improve image delivery</td><td>272 KiB</td><td><span class="badge badge-orange">Medium</span></td></tr>
+        <tr><td>Reduce unused JavaScript</td><td>136 KiB</td><td><span class="badge badge-orange">Medium</span></td></tr>
+        <tr><td>Reduce unused CSS</td><td>33 KiB</td><td><span class="badge badge-blue">Low</span></td></tr>
+        <tr><td>Render blocking requests</td><td>90 ms</td><td><span class="badge badge-blue">Low</span></td></tr>
+        <tr><td>Enormous network payloads</td><td>Total: 5,092 KiB</td><td><span class="badge badge-orange">Medium</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="screenshot">
+    <img src="pagespeed-results.png" alt="PageSpeed Insights results for gvgconcrete.com">
+    <div class="caption">PageSpeed Insights report — Performance 88, Accessibility 88, Best Practices 96, SEO 92</div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3B: SITE AUDIT ===== -->
+<section id="siteaudit">
+  <h2 class="section-title"><span class="num">3B</span> Technical Site Audit (SEMrush)</h2>
+
+  <div class="stats-grid">
+    <div class="stat-box info">
+      <div class="value">16</div>
+      <div class="label">Pages Crawled</div>
+    </div>
+    <div class="stat-box critical">
+      <div class="value">3</div>
+      <div class="label">Errors</div>
+    </div>
+    <div class="stat-box warning">
+      <div class="value">6</div>
+      <div class="label">Warnings</div>
+    </div>
+    <div class="stat-box good">
+      <div class="value">7</div>
+      <div class="label">Notices</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Errors (Critical)</h3>
+    <table>
+      <thead>
+        <tr><th>Issue</th><th>Affected</th><th>Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hreflang conflicts within page source code</td>
+          <td>11 issues</td>
+          <td><span class="badge badge-red">High</span> — Confuses search engines about language/region targeting</td>
+        </tr>
+        <tr>
+          <td>Broken internal JavaScript and CSS files</td>
+          <td>11 issues</td>
+          <td><span class="badge badge-red">High</span> — Affects rendering and functionality</td>
+        </tr>
+        <tr>
+          <td>Broken internal images</td>
+          <td>4 issues</td>
+          <td><span class="badge badge-orange">Medium</span> — Missing images harm user experience</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Warnings</h3>
+    <table>
+      <thead>
+        <tr><th>Issue</th><th>Affected</th><th>Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Uncached JavaScript and CSS files</td>
+          <td>195 issues</td>
+          <td><span class="badge badge-orange">Medium</span> — Slows repeat visits significantly</td>
+        </tr>
+        <tr>
+          <td>Unminified JavaScript and CSS files</td>
+          <td>13 issues</td>
+          <td><span class="badge badge-orange">Medium</span> — Larger file sizes than necessary</td>
+        </tr>
+        <tr>
+          <td>Pages without H1 heading</td>
+          <td>10 pages</td>
+          <td><span class="badge badge-orange">Medium</span> — Missing primary heading hurts SEO signals</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="screenshot">
+    <img src="semrush-site-audit.png" alt="SEMrush Site Audit showing errors and warnings">
+    <div class="caption">SEMrush Site Audit — 3 errors, 6 warnings, 7 notices across 16 crawled pages</div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: CITATIONS ===== -->
+<section id="citations">
+  <h2 class="section-title"><span class="num">4</span> Citation Consistency</h2>
+
+  <div class="card">
+    <h3>Canonical NAP (Reference)</h3>
+    <table>
+      <tr><td><strong>Business Name</strong></td><td>GVG Concrete</td></tr>
+      <tr><td><strong>Address</strong></td><td>950 Alderwood St, Tulare, CA 93274</td></tr>
+      <tr><td><strong>GBP Phone</strong></td><td>(559) 556-1484</td></tr>
+      <tr><td><strong>Website Phone</strong></td><td>(559) 723-7481</td></tr>
+      <tr><td><strong>Website</strong></td><td>https://www.gvgconcrete.com</td></tr>
+    </table>
+    <p style="margin-top:12px; color:var(--accent); font-weight:600;">WARNING: Two different phone numbers in use. This is a fundamental NAP problem that must be resolved before citation building.</p>
+  </div>
+
+  <div class="card">
+    <h3>Citation Audit Results</h3>
+    <table>
+      <thead>
+        <tr><th>Source</th><th>Found?</th><th>Name</th><th>Address</th><th>Phone</th><th>Website</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Google GBP</strong></td>
+          <td><span class="badge badge-green">Yes</span></td>
+          <td><span class="badge badge-orange">GVG concrete</span></td>
+          <td><span class="badge badge-green">Match</span></td>
+          <td><span class="badge badge-red">559-556-1484</span></td>
+          <td><span class="badge badge-green">Match</span></td>
+          <td><span class="badge badge-red">Issues</span></td>
+        </tr>
+        <tr>
+          <td><strong>BBB</strong></td>
+          <td><span class="badge badge-green">Yes</span></td>
+          <td><span class="badge badge-green">GVG Concrete</span></td>
+          <td><span class="badge badge-green">Match</span></td>
+          <td><span class="badge badge-orange">559-723-7481</span></td>
+          <td><span class="badge badge-red">Not listed</span></td>
+          <td><span class="badge badge-orange">Partial — not accredited, no website</span></td>
+        </tr>
+        <tr>
+          <td><strong>Facebook</strong></td>
+          <td><span class="badge badge-orange">Partial</span></td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="badge badge-orange">559-723-7481 (in posts)</span></td>
+          <td>—</td>
+          <td><span class="badge badge-red">No Business Page — posts in groups only</span></td>
+        </tr>
+        <tr>
+          <td><strong>Bing Places</strong></td>
+          <td><span class="badge badge-orange">Partial</span></td>
+          <td><span class="badge badge-green">Match</span></td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="badge badge-orange">Minimal data extractable</span></td>
+        </tr>
+        <tr>
+          <td><strong>Nextdoor</strong></td>
+          <td><span class="badge badge-orange">Partial</span></td>
+          <td><span class="badge badge-orange">GVG Concrete Services</span></td>
+          <td><span class="badge badge-red">Visalia (wrong city!)</span></td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="badge badge-red">Wrong city, wrong name</span></td>
+        </tr>
+        <tr>
+          <td><strong>Craigslist</strong></td>
+          <td><span class="badge badge-orange">Partial</span></td>
+          <td><span class="badge badge-red">(GVG. Concrete)</span></td>
+          <td>—</td>
+          <td><span class="badge badge-red">BOTH numbers listed</span></td>
+          <td>—</td>
+          <td><span class="badge badge-red">Inconsistent name, dual phones</span></td>
+        </tr>
+        <tr>
+          <td><strong>Yelp</strong></td>
+          <td><span class="badge badge-gray">Not Found</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td><span class="badge badge-red">Missing — critical gap</span></td>
+        </tr>
+        <tr>
+          <td><strong>Yellow Pages</strong></td>
+          <td><span class="badge badge-gray">Not Found</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td><strong>Apple Maps</strong></td>
+          <td><span class="badge badge-gray">Not Found</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td><strong>MapQuest</strong></td>
+          <td><span class="badge badge-gray">Not Found</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td><strong>Angi</strong></td>
+          <td><span class="badge badge-gray">Not Found</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td><strong>Thumbtack</strong></td>
+          <td><span class="badge badge-gray">Not Found</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td><strong>Houzz</strong></td>
+          <td><span class="badge badge-gray">Not Found</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+        <tr>
+          <td><strong>Manta</strong></td>
+          <td><span class="badge badge-gray">Not Found</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td><span class="badge badge-red">Missing</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px; padding:16px; background:#fff5f5; border-radius:8px; border-left:4px solid var(--accent);">
+      <strong>Citation Consistency Score: 0 of 14 sources fully consistent</strong>
+      <p style="font-size:0.9rem; margin-top:4px;">Of 14 citation sources checked, 7 have no listing at all, and the 7 that exist have NAP inconsistencies (wrong phone, wrong name format, wrong city). The dual phone number problem is the most damaging issue: (559) 556-1484 appears on GBP while (559) 723-7481 appears on the website, BBB, and Facebook posts. Additionally, the website does not display the full street address — only "Tulare, CA" — which prevents citation consistency even when directories pull data from the site.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: COMPETITORS ===== -->
+<section id="competitors">
+  <h2 class="section-title"><span class="num">5</span> Competitor Benchmarking</h2>
+
+  <div class="card">
+    <h3>Tulare-Area Concrete Contractor Competitive Landscape</h3>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Business</th>
+          <th>GBP Rating</th>
+          <th>Reviews</th>
+          <th>Category</th>
+          <th>Address</th>
+          <th>Local Pack Appearances (of 9 KWs)</th>
+          <th>Website</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#fff5f5;">
+          <td><strong>GVG Concrete</strong></td>
+          <td>No rating</td>
+          <td><strong>0</strong></td>
+          <td><span class="badge badge-red">Construction company</span></td>
+          <td>950 Alderwood St</td>
+          <td><strong>0 / 9</strong></td>
+          <td>gvgconcrete.com</td>
+        </tr>
+        <tr>
+          <td><strong>VRG Concrete Construction</strong></td>
+          <td>4.8 &#9733;</td>
+          <td><strong>26</strong></td>
+          <td><span class="badge badge-green">Concrete contractor</span></td>
+          <td>2793 Lakeridge Ave</td>
+          <td><strong>5 / 9</strong></td>
+          <td>vrgconcrete.com</td>
+        </tr>
+        <tr>
+          <td><strong>Bully Concrete</strong></td>
+          <td>5.0 &#9733;</td>
+          <td><strong>16</strong></td>
+          <td><span class="badge badge-green">Concrete contractor</span></td>
+          <td>1722 W Bane Ave</td>
+          <td><strong>7 / 9</strong></td>
+          <td>bullyconcrete.com</td>
+        </tr>
+        <tr>
+          <td><strong>Conquered Concrete of the Valley</strong></td>
+          <td>4.4 &#9733;</td>
+          <td><strong>15</strong></td>
+          <td><span class="badge badge-green">Concrete contractor</span></td>
+          <td>241 Cumberland St</td>
+          <td><strong>6 / 9</strong></td>
+          <td>conqueredconcrete.com</td>
+        </tr>
+        <tr>
+          <td><strong>Ontiveros Concrete</strong></td>
+          <td>5.0 &#9733;</td>
+          <td><strong>5</strong></td>
+          <td><span class="badge badge-green">Concrete contractor</span></td>
+          <td>12555 Colony Ave</td>
+          <td><strong>4 / 9</strong></td>
+          <td>ontiverosconcrete.com</td>
+        </tr>
+        <tr>
+          <td><strong>Visalia Concrete & Stamp</strong></td>
+          <td>4.9 &#9733;</td>
+          <td><strong>15</strong></td>
+          <td><span class="badge badge-green">Concrete contractor</span></td>
+          <td>Visalia, CA</td>
+          <td><strong>2 / 9</strong></td>
+          <td>visaliaconcreteandstamp.com</td>
+        </tr>
+        <tr>
+          <td><strong>tulareconcrete.com</strong></td>
+          <td>No GBP found</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><strong>0 (organic only)</strong></td>
+          <td>tulareconcrete.com</td>
+        </tr>
+        <tr>
+          <td><strong>Spectrum Concrete Solutions</strong></td>
+          <td>4.9 &#9733;</td>
+          <td><strong>29</strong></td>
+          <td><span class="badge badge-green">Concrete contractor</span></td>
+          <td>Visalia, CA</td>
+          <td><strong>1 / 9</strong></td>
+          <td>visaliaconcretecontractor.com</td>
+        </tr>
+        <tr>
+          <td><strong>FASTER CONCRETE INC</strong></td>
+          <td>5.0 &#9733;</td>
+          <td><strong>21</strong></td>
+          <td><span class="badge badge-green">Concrete contractor</span></td>
+          <td>Visalia, CA</td>
+          <td><strong>1 / 9</strong></td>
+          <td>fasterconcreteinc.com</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Competitive Gap Analysis</h3>
+    <table>
+      <thead>
+        <tr><th>Factor</th><th>GVG Concrete</th><th>Top Competitors</th><th>Gap</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Reviews</td>
+          <td><strong>0</strong></td>
+          <td>VRG: 26, Bully: 16, Conquered: 15</td>
+          <td><span class="badge badge-red">Critical — need 15+ reviews</span></td>
+        </tr>
+        <tr>
+          <td>GBP Category</td>
+          <td>Construction company</td>
+          <td>All use "Concrete contractor"</td>
+          <td><span class="badge badge-red">Wrong category</span></td>
+        </tr>
+        <tr>
+          <td>Total Website Pages</td>
+          <td>6</td>
+          <td>Tulare Concrete: 15+, VRG: 10+</td>
+          <td><span class="badge badge-red">Thin content</span></td>
+        </tr>
+        <tr>
+          <td>Individual Service Pages</td>
+          <td>0 — all on one page</td>
+          <td>Tulare Concrete: 8 pages (~12,000 words total)</td>
+          <td><span class="badge badge-red">1 ranking URL vs 8+</span></td>
+        </tr>
+        <tr>
+          <td>Schema Markup</td>
+          <td>None</td>
+          <td>Tulare Concrete: LocalBusiness + FAQ + Service schemas</td>
+          <td><span class="badge badge-red">No rich result eligibility</span></td>
+        </tr>
+        <tr>
+          <td>Service Areas Listed</td>
+          <td>Tulare only</td>
+          <td>Ontiveros: 11 cities, Tulare Concrete: 8 cities</td>
+          <td><span class="badge badge-red">Missing geographic reach</span></td>
+        </tr>
+        <tr>
+          <td>FAQ Content</td>
+          <td>None</td>
+          <td>Tulare Concrete: FAQ with schema markup</td>
+          <td><span class="badge badge-red">Missing rich result opportunity</span></td>
+        </tr>
+        <tr>
+          <td>Citation Presence</td>
+          <td>~7 partial, 0 consistent</td>
+          <td>Competitors on 5-10+ directories</td>
+          <td><span class="badge badge-red">Extremely low</span></td>
+        </tr>
+        <tr>
+          <td>Blog / Content Marketing</td>
+          <td>None</td>
+          <td>None (zero competitors have one!)</td>
+          <td><span class="badge badge-green">First-mover opportunity</span></td>
+        </tr>
+        <tr>
+          <td>Portfolio / Projects</td>
+          <td>21 projects</td>
+          <td>Tulare Concrete: 0, others: few</td>
+          <td><span class="badge badge-green">Largest portfolio in market</span></td>
+        </tr>
+        <tr>
+          <td>Years in Business</td>
+          <td>Since 2005 (20+ years)</td>
+          <td>3-15 years</td>
+          <td><span class="badge badge-green">Longest track record</span></td>
+        </tr>
+        <tr>
+          <td>Licensed & Insured</td>
+          <td>CSLB 1140188</td>
+          <td>Varies</td>
+          <td><span class="badge badge-green">Strong trust signal</span></td>
+        </tr>
+        <tr>
+          <td>Named Founder Story</td>
+          <td>Guillermo Villeda — personal story</td>
+          <td>Most competitors are faceless</td>
+          <td><span class="badge badge-green">Powerful trust differentiator</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Biggest Competitive Threat</h3>
+    <p><strong>TulareConcrete.com</strong> is the most technically sophisticated competitor despite being founded in 2024. They have 8 individual service pages with ~12,000 words total content, LocalBusiness + FAQPage + Service schema markup, and 8 service area cities listed. However, they have <strong>zero reviews and zero portfolio content</strong> — giving GVG a window to close the technical gap while maintaining a real-world credibility advantage.</p>
+    <p style="margin-top:8px;"><strong>VRG Concrete's SSL is currently broken</strong> — this creates a temporary opportunity to capture their search traffic if GVG acts quickly on GBP fixes.</p>
+  </div>
+
+  <div class="card">
+    <h3>Untapped Opportunities</h3>
+    <ul style="margin-left:16px;">
+      <li><strong>Blog content:</strong> Zero competitors have a blog — first-mover advantage for educational content and long-tail keywords</li>
+      <li><strong>Bilingual content:</strong> Tulare County is ~65% Hispanic — only Bully Concrete offers any Spanish content. Bilingual pages could capture an underserved market</li>
+      <li><strong>Video content:</strong> Only Ontiveros has video — project walkthroughs and testimonials would differentiate GVG</li>
+      <li><strong>Pricing transparency:</strong> Only Tulare Concrete shares price ranges — adding pricing guides builds trust and captures high-intent searches</li>
+      <li><strong>Satisfaction guarantee:</strong> Visalia Concrete advertises "100% Satisfaction Guaranteed" — GVG could match or exceed this</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: ACTION PLAN ===== -->
+<section id="actions">
+  <h2 class="section-title"><span class="num">6</span> Prioritized Action Plan</h2>
+
+  <div class="priority-box priority-critical">
+    <h4>CRITICAL — Do This Week</h4>
+    <table>
+      <thead><tr><th>#</th><th>Action</th><th>Expected Impact</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Fix GBP Primary Category</strong> — Change from "Construction company" to "Concrete contractor." Add secondary categories: "Concrete work contractor," "Paving contractor," "Foundation contractor."</td>
+          <td>Enables local pack eligibility for all concrete keywords</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Fix Phone Number</strong> — Update GBP phone to match website: (559) 723-7481. Or update the website to match GBP. One phone everywhere.</td>
+          <td>Resolves NAP inconsistency that suppresses rankings</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Fix Business Name</strong> — Capitalize to "GVG Concrete" to match website branding.</td>
+          <td>NAP consistency improvement</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Fix GBP Hours</strong> — Align GBP hours (7 AM) with website hours (8 AM). Pick one and make them match.</td>
+          <td>NAP consistency improvement</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Complete GBP Profile</strong> — Add: business description (750 chars max), all services with descriptions, attributes, and at least 10 high-quality photos of recent projects.</td>
+          <td>Stronger profile signals for Google ranking algorithm</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Add Full Address to Website</strong> — The website only shows "Tulare, CA" — add the complete address "950 Alderwood St, Tulare, CA 93274" to the footer and contact page. This is essential for NAP consistency.</td>
+          <td>Enables citation consistency across all platforms</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><strong>Create a Facebook Business Page</strong> — Currently GVG only has group posts, no dedicated page. A business page is required for citations and customer engagement.</td>
+          <td>Critical citation source + social proof</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><strong>Fix Nextdoor Listing</strong> — Currently shows as "GVG Concrete Services" in Visalia (wrong name, wrong city). Update to correct name and Tulare location.</td>
+          <td>Fix misdirected local signals</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="priority-box priority-high">
+    <h4>HIGH PRIORITY — Within 30 Days</h4>
+    <table>
+      <thead><tr><th>#</th><th>Action</th><th>Expected Impact</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>9</td>
+          <td><strong>Launch Review Campaign</strong> — Systematically ask past clients for Google reviews. Target: 5 reviews in first month, 15+ within 90 days. Create a simple review link to share via text/email.</td>
+          <td>Reviews are the #1 factor for local pack ranking</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td><strong>Add LocalBusiness Schema</strong> — Implement JSON-LD structured data on every page: LocalBusiness type, full NAP, geo coordinates, opening hours, services, area served.</td>
+          <td>Rich results eligibility, stronger local signals</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td><strong>Create Individual Service Pages</strong> — Build dedicated pages for: Foundations, Stamped Concrete, Driveways, Patios, Retaining Walls, Concrete Repair, New Construction. Each 800+ words with unique content, FAQs, and photos.</td>
+          <td>Target long-tail keywords, improve topical authority</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td><strong>Build Core Citations</strong> — Create listings on: Yelp, Facebook, BBB, Bing Places, Apple Maps, Yellow Pages, MapQuest, Angi, Thumbtack, Houzz. Ensure identical NAP on every platform.</td>
+          <td>Citation volume and consistency boost local rankings</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td><strong>Fix Technical Errors</strong> — Resolve hreflang conflicts (11), fix broken JS/CSS files (11), fix broken images (4), add missing meta descriptions, add canonical tags.</td>
+          <td>Improves crawlability and indexation</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td><strong>Update robots.txt</strong> — Add sitemap reference and appropriate directives.</td>
+          <td>Better crawl efficiency</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="priority-box priority-medium">
+    <h4>MEDIUM PRIORITY — 30-60 Days</h4>
+    <table>
+      <thead><tr><th>#</th><th>Action</th><th>Expected Impact</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>15</td>
+          <td><strong>Create Location / Service Area Pages</strong> — Build pages targeting neighboring cities: Visalia, Porterville, Hanford, Dinuba, Exeter. Each with unique content about serving that area.</td>
+          <td>Expand geographic keyword targeting</td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td><strong>Start Google Posts</strong> — Post weekly updates: project photos, tips, seasonal offers, team highlights. Keep GBP active and engaging.</td>
+          <td>Signals active business to Google, improves CTR</td>
+        </tr>
+        <tr>
+          <td>17</td>
+          <td><strong>Add FAQ Schema</strong> — Create FAQ sections on each service page with common questions. Mark up with FAQ schema for rich results.</td>
+          <td>Featured snippet opportunities, increased SERP real estate</td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td><strong>Embed Google Map</strong> — Add an embedded Google Map on the contact page and footer showing business location.</td>
+          <td>Local relevance signal</td>
+        </tr>
+        <tr>
+          <td>19</td>
+          <td><strong>Performance Optimization</strong> — Enable caching (5,075 KiB savings), optimize font loading (1,130ms savings), compress images, minify JS/CSS.</td>
+          <td>Faster load times, better user experience</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="priority-box priority-ongoing">
+    <h4>ONGOING — Monthly Activities</h4>
+    <ul>
+      <li><strong>Review Generation:</strong> Ask every completed job client for a Google review. Target 2-4 new reviews per month.</li>
+      <li><strong>Google Posts:</strong> Publish 2-4 posts per month with project photos and updates.</li>
+      <li><strong>Content Publishing:</strong> Add 1-2 blog posts per month (concrete tips, project spotlights, seasonal maintenance guides).</li>
+      <li><strong>Photo Updates:</strong> Upload new project photos to GBP monthly.</li>
+      <li><strong>Review Responses:</strong> Respond to every review within 24 hours (positive and negative).</li>
+      <li><strong>Ranking Monitoring:</strong> Track local pack and organic positions for target keywords monthly.</li>
+      <li><strong>Citation Monitoring:</strong> Quarterly audit of all citations to ensure NAP consistency.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== SECTION 7: 90-DAY ROADMAP ===== -->
+<section id="roadmap">
+  <h2 class="section-title"><span class="num">7</span> 90-Day Roadmap</h2>
+
+  <div class="card">
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>Week 1 — GBP Emergency Fixes</h4>
+        <p>Fix category to "Concrete contractor," correct phone number, update hours, capitalize business name, add business description, add services, upload 10+ photos.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Week 2 — Review Campaign Launch</h4>
+        <p>Create Google review shortcut link. Contact 10-15 past clients via text/email requesting reviews. Target: 5 reviews by end of week 2.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Weeks 3-4 — Technical SEO & Schema</h4>
+        <p>Implement LocalBusiness JSON-LD schema on all pages. Fix hreflang conflicts, broken files, missing meta descriptions. Update robots.txt with sitemap reference. Add canonical tags.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Weeks 5-6 — Content Expansion</h4>
+        <p>Build 7 individual service pages (Foundations, Stamped Concrete, Driveways, Patios, Retaining Walls, Concrete Repair, New Construction). Each 800+ words with unique content and photos.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Weeks 7-8 — Citation Building</h4>
+        <p>Create consistent listings on all 10+ citation platforms. Start Google Posts (weekly cadence). Build 3 location/area pages (Visalia, Porterville, Hanford).</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Weeks 9-10 — Content & Engagement</h4>
+        <p>Add FAQ sections with schema to service pages. Embed Google Map. Start blog with 2 initial posts. Continue review generation.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Weeks 11-12 — Measure & Optimize</h4>
+        <p>Run ranking checks on all 9 keywords. Compare local pack positions. Audit citation consistency. Adjust strategy based on results.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Success Metrics — Current vs 90-Day Target</h3>
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Current</th><th>30-Day Target</th><th>90-Day Target</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Reviews</td>
+          <td><strong>0</strong></td>
+          <td>5+</td>
+          <td><strong>15+</strong></td>
+        </tr>
+        <tr>
+          <td>Local Pack Appearances (of 9 KWs)</td>
+          <td><strong>0 / 9</strong></td>
+          <td>2-3 / 9</td>
+          <td><strong>5-7 / 9</strong></td>
+        </tr>
+        <tr>
+          <td>GBP Category</td>
+          <td>Construction company</td>
+          <td>Concrete contractor</td>
+          <td><strong>Concrete contractor + 3 secondary</strong></td>
+        </tr>
+        <tr>
+          <td>Total Website Pages</td>
+          <td><strong>6</strong></td>
+          <td>10+</td>
+          <td><strong>20+</strong></td>
+        </tr>
+        <tr>
+          <td>Schema Markup</td>
+          <td>None</td>
+          <td>LocalBusiness on all pages</td>
+          <td><strong>LocalBusiness + FAQ + Service</strong></td>
+        </tr>
+        <tr>
+          <td>Citation Listings</td>
+          <td><strong>1</strong> (GBP only)</td>
+          <td>5+</td>
+          <td><strong>10+</strong></td>
+        </tr>
+        <tr>
+          <td>Google Posts (monthly)</td>
+          <td><strong>0</strong></td>
+          <td>4</td>
+          <td><strong>4+ per month</strong></td>
+        </tr>
+        <tr>
+          <td>Organic Avg Position</td>
+          <td><strong>3-5</strong></td>
+          <td>2-4</td>
+          <td><strong>1-3</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== SECTION 8: QUICK REFERENCE ===== -->
+<section id="quickref">
+  <h2 class="section-title"><span class="num">8</span> Quick Reference</h2>
+
+  <div class="compare-row">
+    <div class="card" style="border-left:4px solid var(--accent-green);">
+      <h3 style="color:var(--accent-green);">What GVG Does Well</h3>
+      <ul style="margin-left:16px;">
+        <li><strong>Strong organic rankings</strong> — positions 2-5 for most Tulare concrete keywords</li>
+        <li><strong>20+ years of experience</strong> — since 2005, longer than most competitors</li>
+        <li><strong>Licensed and insured</strong> — CSLB #1140188 documented on site</li>
+        <li><strong>Good page performance</strong> — 88/100 Performance, 96/100 Best Practices</li>
+        <li><strong>Clean website design</strong> — professional appearance and branding</li>
+        <li><strong>HTTPS secured</strong> — site loads properly on HTTPS</li>
+        <li><strong>Breadcrumbs on subpages</strong> — proper navigation structure</li>
+        <li><strong>Good CLS score</strong> — zero layout shift (perfect)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid var(--accent);">
+      <h3 style="color:var(--accent);">What Needs to Change</h3>
+      <ul style="margin-left:16px;">
+        <li><strong>Fix GBP category</strong> — "Construction company" &rarr; "Concrete contractor"</li>
+        <li><strong>Fix phone mismatch</strong> — one number everywhere</li>
+        <li><strong>Add full address to website</strong> — currently only shows "Tulare, CA"</li>
+        <li><strong>Create Facebook Business Page</strong> — no page exists, only group posts</li>
+        <li><strong>Fix Nextdoor listing</strong> — wrong name and wrong city (Visalia)</li>
+        <li><strong>Get Google reviews</strong> — from 0 to 15+ in 90 days</li>
+        <li><strong>Add schema markup</strong> — LocalBusiness JSON-LD on every page</li>
+        <li><strong>Build individual service pages</strong> — 7 dedicated pages needed</li>
+        <li><strong>Create citations</strong> — Yelp, Yellow Pages, Apple Maps, MapQuest, Angi, etc.</li>
+        <li><strong>Fix technical errors</strong> — hreflang conflicts, broken files, missing H1s</li>
+        <li><strong>Add meta descriptions</strong> — missing on all pages</li>
+        <li><strong>Start Google Posts</strong> — weekly updates with project photos</li>
+        <li><strong>Build location pages</strong> — target Visalia, Porterville, Hanford</li>
+        <li><strong>Consider bilingual content</strong> — ~65% Hispanic county, untapped market</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Business Information Reference</h3>
+    <table>
+      <tr><td><strong>Business Name</strong></td><td>GVG Concrete</td></tr>
+      <tr><td><strong>Owner</strong></td><td>Guillermo Villeda</td></tr>
+      <tr><td><strong>Website</strong></td><td>gvgconcrete.com</td></tr>
+      <tr><td><strong>Address</strong></td><td>950 Alderwood St, Tulare, CA 93274</td></tr>
+      <tr><td><strong>Phone (Website)</strong></td><td>(559) 723-7481</td></tr>
+      <tr><td><strong>Phone (GBP)</strong></td><td>(559) 556-1484 — NEEDS TO BE UNIFIED</td></tr>
+      <tr><td><strong>Email</strong></td><td>villeda123g@gmail.com</td></tr>
+      <tr><td><strong>CSLB License</strong></td><td>1140188</td></tr>
+      <tr><td><strong>Founded</strong></td><td>2005</td></tr>
+      <tr><td><strong>Hours</strong></td><td>Mon-Sat 8am-5pm</td></tr>
+    </table>
+  </div>
+</section>
+
+</div><!-- container -->
+
+<div style="background:var(--primary); color:#fff; padding:24px 0; margin-top:48px; text-align:center; font-size:0.85rem;">
+  <p>Local SEO Audit Report — GVG Concrete — Generated May 15, 2026</p>
+  <p style="opacity:0.7; margin-top:4px;">This report contains data-driven findings and actionable recommendations.</p>
+</div>
+
+</body>
+</html>
