@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local SEO Audit Report - Santa Fe Artificial Grass</title>
+<style>
+  :root {
+    --navy: #1a2332;
+    --navy-light: #243447;
+    --navy-dark: #0f1923;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --red: #ef4444;
+    --red-bg: #fef2f2;
+    --red-border: #fecaca;
+    --amber: #f59e0b;
+    --amber-bg: #fffbeb;
+    --amber-border: #fde68a;
+    --green: #10b981;
+    --green-bg: #ecfdf5;
+    --green-border: #a7f3d0;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--gray-800);
+    background: var(--gray-50);
+    line-height: 1.6;
+  }
+
+  .report-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .report-header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .report-header .subtitle { font-size: 1.2rem; opacity: 0.85; margin-bottom: 0.3rem; }
+  .report-header .date { font-size: 0.95rem; opacity: 0.6; }
+
+  .toc {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .toc a {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    margin-right: 0.25rem;
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .toc a:hover { background: var(--gray-100); color: var(--navy); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+  .section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border: 1px solid var(--gray-200);
+  }
+  .section h2 {
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section h3 { font-size: 1.15rem; color: var(--navy-light); margin: 1.5rem 0 0.75rem; }
+  .section h4 { font-size: 1rem; color: var(--gray-700); margin: 1.25rem 0 0.5rem; }
+  .section p { margin-bottom: 0.75rem; color: var(--gray-700); }
+  .section ul, .section ol { margin: 0.5rem 0 1rem 1.5rem; color: var(--gray-700); }
+  .section li { margin-bottom: 0.4rem; }
+  .section strong { color: var(--gray-900); }
+
+  .exec-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .issue-card { border-radius: 10px; padding: 1.25rem 1.5rem; border-left: 5px solid; }
+  .issue-card.critical { background: var(--red-bg); border-color: var(--red); }
+  .issue-card.warning { background: var(--amber-bg); border-color: var(--amber); }
+  .issue-card.info { background: #eff6ff; border-color: var(--accent); }
+  .issue-card .issue-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.4rem; }
+  .issue-card .issue-title .badge {
+    display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem;
+    border-radius: 99px; color: white; font-weight: 600; margin-left: 0.5rem; vertical-align: middle;
+  }
+  .badge-critical { background: var(--red); }
+  .badge-warning { background: var(--amber); }
+  .badge-info { background: var(--accent); }
+  .badge-good { background: var(--green); }
+  .issue-card p { font-size: 0.92rem; color: var(--gray-600); margin: 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  thead th {
+    background: var(--navy); color: white; padding: 0.75rem 1rem;
+    text-align: left; font-weight: 600; font-size: 0.82rem;
+    text-transform: uppercase; letter-spacing: 0.03em;
+  }
+  thead th:first-child { border-radius: 8px 0 0 0; }
+  thead th:last-child { border-radius: 0 8px 0 0; }
+  tbody td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--gray-100); vertical-align: top; }
+  tbody tr:nth-child(even) { background: var(--gray-50); }
+  tbody tr:hover { background: #f0f4ff; }
+  .cell-red { color: var(--red); font-weight: 700; }
+  .cell-amber { color: var(--amber); font-weight: 700; }
+  .cell-green { color: var(--green); font-weight: 700; }
+  .cell-bold { font-weight: 700; color: var(--gray-900); }
+
+  .score-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
+  .score-card {
+    flex: 1; min-width: 140px; background: white;
+    border: 2px solid var(--gray-200); border-radius: 12px; padding: 1.25rem; text-align: center;
+  }
+  .score-card .score-value { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .score-card .score-label { font-size: 0.82rem; color: var(--gray-500); font-weight: 500; }
+  .score-red { color: var(--red); border-color: var(--red-border); }
+  .score-amber { color: var(--amber); border-color: var(--amber-border); }
+  .score-green { color: var(--green); border-color: var(--green-border); }
+
+  .screenshot-card {
+    border: 1px solid var(--gray-200); border-radius: 10px;
+    overflow: hidden; margin: 1.5rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .screenshot-card img { width: 100%; display: block; }
+  .screenshot-card .caption {
+    padding: 0.75rem 1rem; background: var(--gray-50);
+    border-top: 1px solid var(--gray-200); font-size: 0.85rem; color: var(--gray-500); font-style: italic;
+  }
+
+  .screenshot-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  @media (max-width: 768px) { .screenshot-compare { grid-template-columns: 1fr; } }
+
+  .takeaway {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 100%);
+    color: white; padding: 1.25rem 1.5rem; border-radius: 10px; margin: 1.5rem 0;
+  }
+  .takeaway strong { color: #93c5fd; }
+
+  .impact-box {
+    background: var(--red-bg); border: 1px solid var(--red-border);
+    border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1rem 0;
+  }
+
+  .rec-box {
+    background: var(--green-bg); border: 1px solid var(--green-border);
+    border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1rem 0;
+  }
+
+  .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+  .stat-item {
+    flex: 1; min-width: 200px; background: var(--gray-50);
+    border: 1px solid var(--gray-200); border-radius: 10px; padding: 1.25rem; text-align: center;
+  }
+  .stat-item .stat-value { font-size: 2rem; font-weight: 800; color: var(--navy); }
+  .stat-item .stat-label { font-size: 0.82rem; color: var(--gray-500); margin-top: 0.25rem; }
+
+  .timeline { margin: 1.5rem 0; }
+  .timeline-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+  .timeline-dot {
+    width: 40px; height: 40px; border-radius: 50%; background: var(--accent);
+    color: white; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+  }
+  .timeline-content {
+    flex: 1; background: var(--gray-50); border: 1px solid var(--gray-200);
+    border-radius: 10px; padding: 1rem 1.25rem;
+  }
+  .timeline-content h4 { margin: 0 0 0.5rem; color: var(--navy); }
+  .timeline-content ul { margin: 0; padding-left: 1.25rem; }
+  .timeline-content li { font-size: 0.9rem; color: var(--gray-600); margin-bottom: 0.25rem; }
+
+  .report-footer {
+    text-align: center; padding: 2rem; color: var(--gray-400);
+    font-size: 0.82rem; border-top: 1px solid var(--gray-200); margin-top: 2rem;
+  }
+
+  @media print {
+    .toc { display: none; }
+    .section { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+    .report-header { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <h1>Local SEO &amp; Google Maps Audit Report</h1>
+  <div class="subtitle">Santa Fe Artificial Grass &mdash; santafegrass.com</div>
+  <div class="date">Audit Date: May 18, 2026 &bull; Location: North Hills, CA</div>
+</div>
+
+<nav class="toc">
+  <a href="#exec">Executive Summary</a>
+  <a href="#s1">Google Maps</a>
+  <a href="#s2">GBP Audit</a>
+  <a href="#s3">Technical SEO</a>
+  <a href="#s3a">Page Speed</a>
+  <a href="#s3b">SEMrush Audit</a>
+  <a href="#s4">Citations</a>
+  <a href="#s5">Competitors</a>
+  <a href="#s6">Action Plan</a>
+  <a href="#s7">90-Day Roadmap</a>
+  <a href="#s8">Quick Reference</a>
+</nav>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<!-- EXECUTIVE SUMMARY -->
+<!-- ============================================================ -->
+<div class="section" id="exec">
+  <h2>Executive Summary</h2>
+  <p>Santa Fe Artificial Grass (santafegrass.com) is an artificial grass installation company serving North Hills and the greater Los Angeles area. Despite having a functional website and a claimed Google Business Profile, the business is <strong>essentially invisible in local search</strong> &mdash; appearing in zero local pack results and zero organic search results across all tested keywords.</p>
+
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-value" style="color:var(--red)">3</div><div class="stat-label">Google Reviews (only)</div></div>
+    <div class="stat-item"><div class="stat-value" style="color:var(--red)">0/9</div><div class="stat-label">Local Pack Appearances</div></div>
+    <div class="stat-item"><div class="stat-value" style="color:var(--red)">1</div><div class="stat-label">Pages Indexed by Google</div></div>
+  </div>
+
+  <h3>The 3 Biggest Issues Found</h3>
+
+  <div class="exec-grid">
+    <div class="issue-card critical">
+      <div class="issue-title">1. Zero Search Visibility <span class="badge badge-critical">CRITICAL</span></div>
+      <p>santafegrass.com does not appear in ANY Google search results &mdash; not in the local 3-pack, not in organic results &mdash; for any of the 9 high-value keywords tested. Google has indexed only 1 page (the homepage). The site is functionally invisible to potential customers searching for artificial grass installation in North Hills, San Fernando Valley, or Los Angeles.</p>
+    </div>
+
+    <div class="issue-card critical">
+      <div class="issue-title">2. GBP Phone Number Mismatch <span class="badge badge-critical">CRITICAL</span></div>
+      <p>The Google Business Profile lists phone <strong>(818) 747-5377</strong> but the website shows <strong>(818) 578-4790</strong>. This NAP inconsistency confuses Google and undermines trust signals. The website phone number returns zero results when searched on Google Maps.</p>
+    </div>
+
+    <div class="issue-card warning">
+      <div class="issue-title">3. Only 3 Google Reviews vs 45-306 for Competitors <span class="badge badge-warning">HIGH</span></div>
+      <p>Santa Fe has just 3 Google reviews. Direct competitors in the San Fernando Valley have 45-306 reviews. Review volume is one of the strongest local ranking factors &mdash; this gap alone makes competing in the local pack nearly impossible.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: GOOGLE MAPS -->
+<!-- ============================================================ -->
+<div class="section" id="s1">
+  <h2>Section 1: Google Maps / Local Pack Performance</h2>
+
+  <h3>1.1 Current Local Pack Rankings</h3>
+  <p>Santa Fe Artificial Grass was tested across 9 high-value keywords. The business did not appear in any local pack or organic results:</p>
+
+  <table>
+    <thead><tr><th>Keyword</th><th>Local Pack Position</th><th>Top 3 Local Pack Winners (Reviews)</th></tr></thead>
+    <tbody>
+      <tr><td>"artificial grass installation North Hills CA"</td><td class="cell-red">Not showing</td><td>Future Grass (77), Turftopia (45), EcoGrass (119)</td></tr>
+      <tr><td>"artificial turf installer Los Angeles"</td><td class="cell-red">Not showing</td><td>BR Artificial Grass (29), Install Artificial (101), TurfCity (31)</td></tr>
+      <tr><td>"synthetic grass North Hills"</td><td class="cell-red">Not showing</td><td>No local pack shown</td></tr>
+      <tr><td>"artificial grass San Fernando Valley"</td><td class="cell-red">Not showing</td><td>Artificial Turf Wholesalers (4), Simple Turf (162), EcoGrass (119)</td></tr>
+      <tr><td>"pet turf installation North Hills CA"</td><td class="cell-red">Not showing</td><td>Turftopia (45), Future Grass (77), EcoGrass (119)</td></tr>
+      <tr><td>"artificial lawn installation near me"</td><td class="cell-red">Not showing</td><td>BR Artificial Grass (29), US Family Turf (180), Install Artificial (101)</td></tr>
+      <tr><td>"turf installer Granada Hills"</td><td class="cell-red">Not showing</td><td>No local pack; Future Grass in knowledge graph</td></tr>
+      <tr><td>"artificial grass Northridge CA"</td><td class="cell-red">Not showing</td><td>Results truncated &mdash; Yelp/Thumbtack dominate</td></tr>
+      <tr><td>"fake grass installation Los Angeles"</td><td class="cell-red">Not showing</td><td>BR Artificial Grass (29), Install Artificial (101), US Family Turf (180)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="screenshot-card">
+    <img src="screenshots/serp-artificial-grass-north-hills.png" alt="Google Maps search for artificial grass installation North Hills CA showing competitors but not Santa Fe Grass">
+    <div class="caption">Google Maps search for "artificial grass installation North Hills CA" &mdash; Future Grass (#1, 77 reviews), Install Artificial (#2, 101 reviews), and Turf Bros (#3, 306 reviews) dominate. Santa Fe Artificial Grass is nowhere to be found.</div>
+  </div>
+
+  <div class="screenshot-card">
+    <img src="screenshots/serp-turf-installation-los-angeles.png" alt="Google Maps search for turf installation Los Angeles showing competitors">
+    <div class="caption">Google Maps search for "turf installation Los Angeles" &mdash; Again, Santa Fe Artificial Grass does not appear in any results.</div>
+  </div>
+
+  <div class="takeaway">
+    <strong>Key Takeaway:</strong> Santa Fe Artificial Grass appears in the local pack for ZERO out of 9 searches tested. The business is completely invisible in Google Maps. This means potential customers searching for artificial grass installation in North Hills and surrounding areas will never find this business through Google.
+  </div>
+
+  <h3>1.2 Organic Search Rankings</h3>
+  <p>Santa Fe Grass also does not appear in organic search results for any tested keywords. A <code>site:santafegrass.com</code> search reveals <strong>only 1 page indexed</strong> (the homepage). This confirms a severe indexation issue &mdash; the site has 28 crawlable pages per SEMrush but Google has indexed just one.</p>
+
+  <h3>1.3 Why Santa Fe Grass Is Invisible</h3>
+  <p>The combination of factors creating this invisibility:</p>
+  <ul>
+    <li><strong>Only 3 Google reviews</strong> &mdash; Competitors have 29-306 reviews</li>
+    <li><strong>Only 1 page indexed</strong> &mdash; Google can't rank pages it hasn't indexed</li>
+    <li><strong>No service pages or location pages</strong> &mdash; The site lacks dedicated pages targeting specific keywords</li>
+    <li><strong>GBP category is "Turf supplier"</strong> &mdash; Should be "Artificial grass installer" or "Landscaper"</li>
+    <li><strong>Service-area business with no visible address</strong> &mdash; Reduces local pack eligibility</li>
+    <li><strong>Phone number mismatch</strong> between GBP and website</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: GBP AUDIT -->
+<!-- ============================================================ -->
+<div class="section" id="s2">
+  <h2>Section 2: Google Business Profile Audit</h2>
+
+  <h3>2.1 GBP Listing Overview</h3>
+  <p>One GBP listing was found for "Santa Fe Artificial Grass." No duplicate listings were detected.</p>
+
+  <div class="screenshot-card">
+    <img src="screenshots/gbp-listing-primary.png" alt="Santa Fe Artificial Grass Google Business Profile listing showing 5.0 stars, 3 reviews">
+    <div class="caption">Santa Fe Artificial Grass GBP listing &mdash; 5.0 stars with only 3 reviews. Listed as "Turf supplier" category. No map pin visible (service-area business).</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Element</th><th>Current Status</th><th>Assessment</th></tr></thead>
+    <tbody>
+      <tr><td class="cell-bold">Business Name</td><td>Santa Fe Artificial Grass</td><td class="cell-green">OK</td></tr>
+      <tr><td class="cell-bold">Rating</td><td>5.0 stars</td><td class="cell-green">Perfect</td></tr>
+      <tr><td class="cell-bold">Review Count</td><td>3 reviews</td><td class="cell-red">Critical gap &mdash; competitors have 45-306</td></tr>
+      <tr><td class="cell-bold">Primary Category</td><td>Turf supplier</td><td class="cell-red">Wrong &mdash; should be "Artificial grass installer" or "Landscaper"</td></tr>
+      <tr><td class="cell-bold">Address</td><td>Hidden (service-area business)</td><td class="cell-amber">Limits local pack appearance</td></tr>
+      <tr><td class="cell-bold">Phone (GBP)</td><td>(818) 747-5377</td><td class="cell-red">MISMATCH &mdash; Website shows (818) 578-4790</td></tr>
+      <tr><td class="cell-bold">Website URL</td><td>santafegrass.com</td><td class="cell-green">OK</td></tr>
+      <tr><td class="cell-bold">Hours</td><td>Mon 8-6, Tue-Sat 8-6:30</td><td class="cell-green">OK</td></tr>
+      <tr><td class="cell-bold">Google Posts</td><td>Not visible</td><td class="cell-red">No recent posts found</td></tr>
+      <tr><td class="cell-bold">Review Responses</td><td>Unknown</td><td class="cell-amber">Should respond to all reviews</td></tr>
+      <tr><td class="cell-bold">Photos</td><td>Not visible</td><td class="cell-red">Should have 20+ project photos</td></tr>
+      <tr><td class="cell-bold">Business Description</td><td>Unknown</td><td class="cell-amber">Should be keyword-rich</td></tr>
+      <tr><td class="cell-bold">Services Section</td><td>Unknown</td><td class="cell-amber">Should list all services</td></tr>
+    </tbody>
+  </table>
+
+  <div class="impact-box">
+    <strong>Critical NAP Issue:</strong> The GBP phone number <strong>(818) 747-5377</strong> does not match the website phone <strong>(818) 578-4790</strong>. When the website phone is searched on Google Maps, zero results appear. This means Google cannot confidently connect the GBP listing to the website, severely harming local rankings.
+  </div>
+
+  <div class="rec-box">
+    <strong>Immediate Actions Required:</strong>
+    <ol style="margin-top:0.5rem;">
+      <li><strong>Fix the phone number</strong> &mdash; Make GBP and website phone numbers match</li>
+      <li><strong>Change primary category</strong> from "Turf supplier" to "Artificial grass installer" or "Landscaper"</li>
+      <li><strong>Add secondary categories:</strong> Lawn care service, Artificial turf supplier, Landscape designer</li>
+      <li><strong>Upload 20+ project photos</strong> with descriptive filenames</li>
+      <li><strong>Post Google Posts weekly</strong> &mdash; before/after projects, tips, offers</li>
+      <li><strong>Populate the services section</strong> with all services and descriptions</li>
+      <li><strong>Write a keyword-rich business description</strong></li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: TECHNICAL SEO -->
+<!-- ============================================================ -->
+<div class="section" id="s3">
+  <h2>Section 3: Website Technical SEO</h2>
+
+  <h3>3.1 Schema Markup Assessment</h3>
+  <p>Google Rich Results Test detected <strong>4 valid schema items</strong> on santafegrass.com:</p>
+
+  <table>
+    <thead><tr><th>Schema Type</th><th>Santa Fe Grass</th><th>EcoGrass (Competitor)</th></tr></thead>
+    <tbody>
+      <tr><td>LocalBusiness</td><td class="cell-green">Present (with non-critical issues)</td><td class="cell-green">Present</td></tr>
+      <tr><td>Organization</td><td class="cell-green">Present (with non-critical issues)</td><td class="cell-green">Present</td></tr>
+      <tr><td>Breadcrumbs</td><td class="cell-green">Present</td><td class="cell-red">Missing</td></tr>
+      <tr><td>Articles</td><td class="cell-green">Present</td><td class="cell-red">Missing</td></tr>
+      <tr><td>WebSite</td><td class="cell-red">Missing</td><td class="cell-green">Present</td></tr>
+      <tr><td>FAQPage</td><td class="cell-red">Missing</td><td class="cell-green">Present (6 questions)</td></tr>
+      <tr><td>Service</td><td class="cell-red">Missing</td><td class="cell-green">Present</td></tr>
+      <tr><td>AggregateRating</td><td class="cell-red">Missing</td><td class="cell-red">Missing</td></tr>
+      <tr><td>GeoCoordinates</td><td class="cell-red">Missing</td><td class="cell-green">Present</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Note:</strong> The LocalBusiness schema has <strong>22 invalid structured data items</strong> per SEMrush. These need to be fixed to ensure Google can properly read the schema.</p>
+
+  <h3>3.2 On-Page SEO (Homepage)</h3>
+  <table>
+    <thead><tr><th>Element</th><th>Current</th><th>Assessment</th></tr></thead>
+    <tbody>
+      <tr><td class="cell-bold">Title Tag</td><td>"Best Artificial Grass Installers in California | Free Quotes | Santa Fe Grass"</td><td class="cell-amber">Too broad &mdash; should target "North Hills" or "Los Angeles"</td></tr>
+      <tr><td class="cell-bold">Meta Description</td><td>"Artificial Grass Installation in Los Angeles..."</td><td class="cell-amber">Incomplete/truncated</td></tr>
+      <tr><td class="cell-bold">H1 Tag</td><td>Not detected</td><td class="cell-red">Missing &mdash; 5 pages lack H1 per SEMrush</td></tr>
+      <tr><td class="cell-bold">Content Depth</td><td>~800-1,200 words</td><td class="cell-amber">Low &mdash; competitors have 1,500-2,000+</td></tr>
+      <tr><td class="cell-bold">FAQ Section</td><td>Not present</td><td class="cell-red">Missing &mdash; EcoGrass has 6 FAQs</td></tr>
+      <tr><td class="cell-bold">Service Pages</td><td>None dedicated</td><td class="cell-red">Critical gap &mdash; need pages for each service</td></tr>
+      <tr><td class="cell-bold">Location Pages</td><td>None</td><td class="cell-red">Critical gap &mdash; competitors have 10+ location pages</td></tr>
+      <tr><td class="cell-bold">Blog</td><td>1 post ("Hello World")</td><td class="cell-red">No content strategy</td></tr>
+      <tr><td class="cell-bold">Pricing</td><td>Not shown</td><td class="cell-amber">Competitors show pricing &mdash; builds trust</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.3 Technical Checks</h3>
+  <table>
+    <thead><tr><th>Check</th><th>Result</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>HTTPS</td><td>Site loads on HTTPS</td><td class="cell-green">OK</td></tr>
+      <tr><td>robots.txt</td><td>Present, blocks WooCommerce logs &amp; admin</td><td class="cell-green">OK</td></tr>
+      <tr><td>Sitemap</td><td>Present at /sitemap.xml (6 sub-sitemaps)</td><td class="cell-green">OK</td></tr>
+      <tr><td>Pages in Sitemap</td><td>~28 pages across sub-sitemaps</td><td class="cell-amber">OK but low count</td></tr>
+      <tr><td>Pages Indexed</td><td>Only 1 page indexed (site: search)</td><td class="cell-red">Critical &mdash; 27 pages not indexed</td></tr>
+      <tr><td>Canonical Tags</td><td>Present via AIOSEO</td><td class="cell-green">OK</td></tr>
+      <tr><td>Internal Nofollow Links</td><td>23 internal links with nofollow</td><td class="cell-amber">Wasting link equity</td></tr>
+    </tbody>
+  </table>
+
+  <div class="impact-box">
+    <strong>Indexation Crisis:</strong> Only 1 out of 28 pages is indexed by Google. This means the site's content is essentially invisible to search engines. This could be caused by crawl errors, thin content, noindex tags, or Google simply not finding the pages valuable enough to index. This must be investigated urgently.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3A: PAGE PERFORMANCE -->
+<!-- ============================================================ -->
+<div class="section" id="s3a">
+  <h2>Section 3A: Page Performance &amp; Core Web Vitals</h2>
+  <p>Google PageSpeed Insights was run on May 18, 2026 for santafegrass.com.</p>
+
+  <div class="screenshot-card">
+    <img src="screenshots/pagespeed-cwv.png" alt="PageSpeed Insights showing No Data for CWV and Lighthouse scores">
+    <div class="caption">PageSpeed Insights for santafegrass.com &mdash; No real user CWV data available (insufficient traffic). Lighthouse lab scores shown below.</div>
+  </div>
+
+  <h3>Core Web Vitals Assessment: <span style="color:var(--amber)">NO DATA</span></h3>
+  <p>The Chrome UX Report has no real-user data for santafegrass.com, indicating the site receives very little traffic. This itself confirms the visibility problem.</p>
+
+  <h3>Lighthouse Lab Scores (Mobile)</h3>
+  <div class="score-row">
+    <div class="score-card score-amber"><div class="score-value">69</div><div class="score-label">Performance</div></div>
+    <div class="score-card score-green"><div class="score-value">97</div><div class="score-label">Accessibility</div></div>
+    <div class="score-card score-green"><div class="score-value">92</div><div class="score-label">Best Practices</div></div>
+    <div class="score-card score-green"><div class="score-value">100</div><div class="score-label">SEO</div></div>
+  </div>
+
+  <h3>Lab Metrics Detail</h3>
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th><th>Status</th><th>Good Threshold</th></tr></thead>
+    <tbody>
+      <tr><td class="cell-bold">First Contentful Paint (FCP)</td><td>3.6s</td><td class="cell-red">Poor</td><td>&lt; 1.8s</td></tr>
+      <tr><td class="cell-bold">Largest Contentful Paint (LCP)</td><td>4.8s</td><td class="cell-red">Poor</td><td>&lt; 2.5s</td></tr>
+      <tr><td>Total Blocking Time (TBT)</td><td>50ms</td><td class="cell-green">Good</td><td>&lt; 200ms</td></tr>
+      <tr><td>Cumulative Layout Shift (CLS)</td><td>Low</td><td class="cell-green">Good</td><td>&lt; 0.1</td></tr>
+      <tr><td class="cell-bold">Speed Index</td><td>6.9s</td><td class="cell-red">Poor</td><td>&lt; 3.4s</td></tr>
+    </tbody>
+  </table>
+
+  <div class="screenshot-card">
+    <img src="screenshots/pagespeed-lighthouse.png" alt="Full PageSpeed Insights Lighthouse report for santafegrass.com">
+    <div class="caption">Full Lighthouse report &mdash; Performance score 69/100 with FCP 3.6s and LCP 4.8s as main issues.</div>
+  </div>
+
+  <div class="impact-box">
+    <strong>Performance Impact:</strong> LCP of 4.8s is nearly 2x Google's "good" threshold (2.5s). FCP of 3.6s is also double the ideal. While TBT and CLS are good, the slow initial paint times suggest large images or slow server response. Compress hero images, use WebP format, and evaluate hosting.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3B: SEMRUSH AUDIT -->
+<!-- ============================================================ -->
+<div class="section" id="s3b">
+  <h2>Section 3B: SEMrush Technical Site Audit</h2>
+  <p>A SEMrush Site Audit was run on May 18, 2026, crawling santafegrass.com.</p>
+
+  <div class="screenshot-card">
+    <img src="screenshots/2026-05-18 12_50_04-santafegrass.com_ Issues, Site Audit - Brave.png" alt="SEMrush Site Audit showing 1 error, 6 warnings, 5 notices for santafegrass.com">
+    <div class="caption">SEMrush Site Audit &mdash; 28 pages crawled. 1 error (22 invalid structured data items), 6 warnings, 5 notices.</div>
+  </div>
+
+  <h3>Site Audit Overview</h3>
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-value" style="color:var(--gray-700)">28</div><div class="stat-label">Pages Crawled</div></div>
+    <div class="stat-item"><div class="stat-value" style="color:var(--red)">1</div><div class="stat-label">Error Categories</div></div>
+    <div class="stat-item"><div class="stat-value" style="color:var(--amber)">6</div><div class="stat-label">Warning Types</div></div>
+  </div>
+
+  <h3>Issues Found</h3>
+  <table>
+    <thead><tr><th>Severity</th><th>Issue</th><th>Affected</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge badge-critical" style="font-size:0.75rem">ERROR</span></td><td><strong>22 structured data items are invalid</strong></td><td class="cell-red">22 items</td></tr>
+      <tr><td><span class="badge badge-warning" style="font-size:0.75rem">WARNING</span></td><td><strong>23 outgoing internal links contain nofollow attribute</strong></td><td class="cell-amber">23 links</td></tr>
+      <tr><td><span class="badge badge-warning" style="font-size:0.75rem">WARNING</span></td><td><strong>17 pages have low text-HTML ratio</strong></td><td class="cell-amber">17 pages</td></tr>
+      <tr><td><span class="badge badge-warning" style="font-size:0.75rem">WARNING</span></td><td><strong>10 pages have a low word count</strong></td><td class="cell-amber">10 pages</td></tr>
+      <tr><td><span class="badge badge-warning" style="font-size:0.75rem">WARNING</span></td><td><strong>5 pages don't have an H1 heading</strong></td><td class="cell-amber">5 pages</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Issue Categories</h3>
+  <table>
+    <thead><tr><th>Category</th><th>Issues</th></tr></thead>
+    <tbody>
+      <tr><td>Crawlability</td><td>5 issues</td></tr>
+      <tr><td>Content</td><td>3 issues</td></tr>
+      <tr><td>Meta Tags</td><td>3 issues</td></tr>
+      <tr><td>AI Search</td><td>2 issues</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rec-box">
+    <strong>Recommended Fixes:</strong>
+    <ol style="margin-top:0.5rem;">
+      <li><strong>Fix invalid structured data (22 items)</strong> &mdash; Validate JSON-LD against schema.org and fix errors</li>
+      <li><strong>Remove nofollow from 23 internal links</strong> &mdash; Internal links should pass link equity freely</li>
+      <li><strong>Add content to 10 thin pages</strong> &mdash; Minimum 300 words per page, ideally 800+</li>
+      <li><strong>Improve text-HTML ratio on 17 pages</strong> &mdash; Add more text content relative to code</li>
+      <li><strong>Add H1 headings to 5 pages</strong> &mdash; Every page needs exactly one H1</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: CITATIONS -->
+<!-- ============================================================ -->
+<div class="section" id="s4">
+  <h2>Section 4: Citation Consistency Audit</h2>
+
+  <p><strong>Canonical NAP (from website):</strong> Santa Fe Grass / Santa Fe Artificial Grass &bull; (818) 578-4790 &bull; sfartificial@gmail.com &bull; santafegrass.com</p>
+
+  <table>
+    <thead><tr><th>Source</th><th>Name</th><th>Phone</th><th>Website</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td class="cell-bold">Google Business Profile</td><td class="cell-green">Santa Fe Artificial Grass</td><td class="cell-red">(818) 747-5377 MISMATCH</td><td class="cell-green">santafegrass.com</td><td class="cell-red">PHONE MISMATCH</td></tr>
+      <tr><td class="cell-bold">Website</td><td class="cell-green">Santa Fe Grass</td><td class="cell-green">(818) 578-4790</td><td class="cell-green">santafegrass.com</td><td class="cell-green">Reference</td></tr>
+      <tr><td class="cell-bold">Yelp</td><td class="cell-green">Santa Fe Artificial Grass</td><td>Unknown</td><td>Unknown</td><td class="cell-amber">Listing exists but details unverified</td></tr>
+      <tr><td class="cell-bold">Facebook</td><td class="cell-amber">Linked from site</td><td>Unknown</td><td>Unknown</td><td class="cell-amber">Page exists, details not extractable</td></tr>
+      <tr><td class="cell-bold">BBB</td><td colspan="3">No listing found</td><td class="cell-red">NOT LISTED</td></tr>
+      <tr><td class="cell-bold">Apple Maps</td><td colspan="3">Not checked (requires device)</td><td class="cell-amber">UNKNOWN</td></tr>
+      <tr><td class="cell-bold">Bing Places</td><td colspan="3">Not extractable</td><td class="cell-amber">UNKNOWN</td></tr>
+      <tr><td class="cell-bold">Yellow Pages</td><td colspan="3">Access denied (403)</td><td class="cell-amber">UNKNOWN</td></tr>
+      <tr><td class="cell-bold">Thumbtack</td><td colspan="3">Not listed</td><td class="cell-red">NOT LISTED</td></tr>
+      <tr><td class="cell-bold">HomeAdvisor/Angi</td><td colspan="3">Not checked</td><td class="cell-amber">UNKNOWN</td></tr>
+      <tr><td class="cell-bold">Houzz</td><td colspan="3">Not checked</td><td class="cell-amber">UNKNOWN</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Citation Score: <span style="color:var(--red)">Very Poor</span></h3>
+  <p>Santa Fe Artificial Grass has minimal citation presence. The business was found on only Google and Yelp. BBB and Thumbtack had no listing. The most critical issue is the <strong>phone number mismatch on Google Business Profile</strong>.</p>
+
+  <div class="rec-box">
+    <strong>Citation Building Plan:</strong>
+    <ol style="margin-top:0.5rem;">
+      <li><strong>Fix GBP phone number immediately</strong> &mdash; Match to website (818) 578-4790</li>
+      <li><strong>Claim and complete Yelp listing</strong> with consistent NAP + photos</li>
+      <li><strong>Complete Facebook business page</strong> with all details</li>
+      <li><strong>Submit to:</strong> BBB, Apple Maps, Bing Places, Yellow Pages, MapQuest, Angi, Thumbtack, HomeAdvisor, Houzz, Manta, Foursquare</li>
+      <li><strong>Ensure consistent NAP across ALL listings</strong> &mdash; same name, address, phone, website on every platform</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: COMPETITORS -->
+<!-- ============================================================ -->
+<div class="section" id="s5">
+  <h2>Section 5: Competitive Benchmarking</h2>
+
+  <h3>5.1 Local Pack Competitors (San Fernando Valley / North Hills Area)</h3>
+
+  <table>
+    <thead><tr><th>Competitor</th><th>Location</th><th>Google Reviews</th><th>Rating</th><th>Schema</th><th>Blog</th><th>Key Strengths</th></tr></thead>
+    <tbody>
+      <tr><td class="cell-bold">Santa Fe Artificial Grass</td><td>North Hills</td><td class="cell-red">3</td><td class="cell-green">5.0</td><td class="cell-amber">Partial (4 types, 22 errors)</td><td class="cell-red">None</td><td>Perfect rating, schema present</td></tr>
+      <tr><td class="cell-bold">Future Grass</td><td>Granada Hills</td><td class="cell-green">77</td><td>4.9</td><td class="cell-red">None (Wix site)</td><td class="cell-red">None</td><td>Local pack #1, booking enabled, 20+ yrs</td></tr>
+      <tr><td class="cell-bold">EcoGrass</td><td>Reseda</td><td class="cell-green">119</td><td>4.9</td><td class="cell-green">3 types (LocalBusiness, Org, WebSite)</td><td class="cell-green">Active</td><td>Blog, FAQ, CSLB license, multi-city</td></tr>
+      <tr><td class="cell-bold">Turftopia</td><td>Northridge</td><td class="cell-amber">45</td><td class="cell-green">5.0</td><td>Unknown</td><td>Unknown</td><td>Perfect rating, nearby location</td></tr>
+      <tr><td class="cell-bold">Install Artificial</td><td>Los Angeles (West)</td><td class="cell-green">101</td><td>4.9</td><td class="cell-green">Present</td><td class="cell-green">Location pages</td><td>Open 24hrs, online estimates, location pages</td></tr>
+      <tr><td class="cell-bold">Turf Bros</td><td>LA County</td><td class="cell-green">306</td><td>4.8</td><td>Unknown</td><td class="cell-green">Service area pages</td><td>Highest review count, family-owned</td></tr>
+      <tr><td class="cell-bold">US Family Turf</td><td>Los Angeles</td><td class="cell-green">180</td><td class="cell-green">5.0</td><td>Unknown</td><td>Unknown</td><td>High reviews with perfect rating</td></tr>
+      <tr><td class="cell-bold">Simple Turf / Irrigation Express</td><td>San Fernando</td><td class="cell-green">162</td><td>4.8</td><td class="cell-green">Present</td><td class="cell-green">Content-rich</td><td>Local warehouse, 5+ year history</td></tr>
+    </tbody>
+  </table>
+
+  <div class="screenshot-compare">
+    <div class="screenshot-card">
+      <img src="screenshots/competitor-future-grass.png" alt="Future Grass Google Maps listing">
+      <div class="caption"><strong>Future Grass</strong> &mdash; #1 local competitor. 77 reviews, 4.9 stars, Granada Hills. Has booking enabled via HouseCall Pro.</div>
+    </div>
+    <div class="screenshot-card">
+      <img src="screenshots/competitor-ecograss.png" alt="EcoGrass Google Maps listing">
+      <div class="caption"><strong>EcoGrass</strong> &mdash; 119 reviews, 4.9 stars, Reseda. 15+ years in business. Active blog, FAQ section, CSLB licensed.</div>
+    </div>
+  </div>
+
+  <h3>5.2 What Competitors Do That Santa Fe Doesn't</h3>
+  <table>
+    <thead><tr><th>Feature</th><th>Santa Fe</th><th>Future Grass</th><th>EcoGrass</th><th>Install Artificial</th></tr></thead>
+    <tbody>
+      <tr><td>Dedicated Service Pages</td><td class="cell-red">No</td><td class="cell-amber">Limited</td><td class="cell-green">Yes (5+)</td><td class="cell-green">Yes (10+)</td></tr>
+      <tr><td>Location/Area Pages</td><td class="cell-red">No</td><td class="cell-red">No</td><td class="cell-green">Yes (multi-city)</td><td class="cell-green">Yes (20+)</td></tr>
+      <tr><td>Blog / Content Strategy</td><td class="cell-red">No</td><td class="cell-red">No</td><td class="cell-green">Active blog</td><td class="cell-amber">Some content</td></tr>
+      <tr><td>FAQ Section</td><td class="cell-red">No</td><td class="cell-red">No</td><td class="cell-green">6 FAQs</td><td class="cell-green">Yes</td></tr>
+      <tr><td>Online Booking</td><td class="cell-red">No</td><td class="cell-green">HouseCall Pro</td><td class="cell-red">No</td><td class="cell-green">Online estimates</td></tr>
+      <tr><td>Pricing Transparency</td><td class="cell-red">No</td><td class="cell-red">No</td><td class="cell-amber">Product prices only</td><td class="cell-green">Per sq.ft. pricing</td></tr>
+      <tr><td>CSLB License Displayed</td><td class="cell-red">No</td><td class="cell-red">No</td><td class="cell-green">CSLB #999886</td><td class="cell-red">No</td></tr>
+      <tr><td>Review Volume (Google)</td><td class="cell-red">3</td><td class="cell-amber">77</td><td class="cell-green">119</td><td class="cell-green">101</td></tr>
+    </tbody>
+  </table>
+
+  <div class="takeaway">
+    <strong>Competitive Gap:</strong> Santa Fe Artificial Grass is at the very beginning of its local SEO journey. The closest competitor (Future Grass) has 25x more reviews. EcoGrass has the most complete website with blog, FAQ, schema, and contractor license. Install Artificial has the best location page strategy. Santa Fe needs to adopt the best practices from all three.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: ACTION PLAN -->
+<!-- ============================================================ -->
+<div class="section" id="s6">
+  <h2>Section 6: Prioritized Action Plan</h2>
+
+  <h3>Critical Priority <span class="badge badge-critical">DO THIS WEEK</span></h3>
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Impact</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>FIX GBP PHONE NUMBER</strong> &mdash; Change GBP phone to match website (818) 578-4790 OR update website to match GBP</td><td class="cell-red">CRITICAL</td><td>Low</td></tr>
+      <tr><td>2</td><td><strong>Change GBP primary category</strong> from "Turf supplier" to "Artificial grass installer" or "Landscaper"</td><td class="cell-red">CRITICAL</td><td>Low</td></tr>
+      <tr><td>3</td><td><strong>Add secondary GBP categories:</strong> Lawn care service, Landscape designer, Turf supplier</td><td class="cell-red">HIGH</td><td>Low</td></tr>
+      <tr><td>4</td><td><strong>Upload 20+ project photos to GBP</strong> with keyword-rich descriptions</td><td class="cell-red">HIGH</td><td>Medium</td></tr>
+      <tr><td>5</td><td><strong>Write GBP business description</strong> with service keywords and service areas</td><td class="cell-red">HIGH</td><td>Low</td></tr>
+    </tbody>
+  </table>
+
+  <h3>High Priority <span class="badge badge-warning">WITHIN 30 DAYS</span></h3>
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Impact</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td>6</td><td><strong>Investigate indexation issue</strong> &mdash; Why are only 1 of 28 pages indexed? Check Google Search Console for errors, noindex tags, crawl issues</td><td class="cell-red">CRITICAL</td><td>Medium</td></tr>
+      <tr><td>7</td><td><strong>Fix 22 invalid structured data items</strong> &mdash; Validate and correct all JSON-LD errors</td><td class="cell-red">HIGH</td><td>Medium</td></tr>
+      <tr><td>8</td><td><strong>Create 5-8 dedicated service pages:</strong> Residential Installation, Commercial Installation, Pet Turf, Putting Greens, Landscape Design, Turf Maintenance</td><td class="cell-red">HIGH</td><td>High</td></tr>
+      <tr><td>9</td><td><strong>Create 5-8 location pages:</strong> North Hills, Granada Hills, Northridge, Reseda, Van Nuys, Chatsworth, Woodland Hills, Encino</td><td class="cell-red">HIGH</td><td>High</td></tr>
+      <tr><td>10</td><td><strong>Add H1 headings to all 5 pages missing them</strong></td><td class="cell-amber">MED</td><td>Low</td></tr>
+      <tr><td>11</td><td><strong>Remove nofollow from 23 internal links</strong></td><td class="cell-amber">MED</td><td>Low</td></tr>
+      <tr><td>12</td><td><strong>Start review generation campaign</strong> &mdash; Ask every happy customer for a Google review. Target 5+ reviews/week</td><td class="cell-red">CRITICAL</td><td>Ongoing</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Medium Priority <span class="badge badge-info">30-60 DAYS</span></h3>
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Impact</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td>13</td><td><strong>Build citations</strong> across 15+ directories (Yelp, BBB, Bing Places, Apple Maps, Thumbtack, HomeAdvisor, Houzz, etc.)</td><td class="cell-red">HIGH</td><td>Medium</td></tr>
+      <tr><td>14</td><td><strong>Launch blog</strong> targeting PAA queries (cost of artificial grass, how long does turf last, pet turf vs real grass, etc.)</td><td class="cell-amber">MED-HIGH</td><td>Ongoing</td></tr>
+      <tr><td>15</td><td><strong>Add FAQ sections</strong> to homepage and service pages with FAQPage schema</td><td class="cell-amber">MED</td><td>Medium</td></tr>
+      <tr><td>16</td><td><strong>Improve page speed</strong> &mdash; Compress images to WebP, optimize hero image, evaluate hosting</td><td class="cell-amber">MED</td><td>Medium</td></tr>
+      <tr><td>17</td><td><strong>Add pricing transparency</strong> &mdash; Per sq.ft. pricing ranges on service pages</td><td class="cell-amber">MED</td><td>Low</td></tr>
+      <tr><td>18</td><td><strong>Display contractor license</strong> (CSLB) if applicable &mdash; builds trust like EcoGrass</td><td class="cell-amber">MED</td><td>Low</td></tr>
+      <tr><td>19</td><td><strong>Add online booking/estimate request</strong> functionality</td><td class="cell-amber">MED</td><td>Medium</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Ongoing <span class="badge badge-good">MONTHLY</span></h3>
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Frequency</th></tr></thead>
+    <tbody>
+      <tr><td>20</td><td>Google Posts (before/after projects, tips, offers)</td><td>2-3x/week</td></tr>
+      <tr><td>21</td><td>Review generation (ask every customer)</td><td>After every job</td></tr>
+      <tr><td>22</td><td>Respond to ALL reviews within 24 hours</td><td>Daily</td></tr>
+      <tr><td>23</td><td>Blog content (2-4 posts/month)</td><td>Monthly</td></tr>
+      <tr><td>24</td><td>Upload new project photos to GBP and website</td><td>Weekly</td></tr>
+      <tr><td>25</td><td>Monitor local pack rankings for top 10 keywords</td><td>Weekly</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: 90-DAY ROADMAP -->
+<!-- ============================================================ -->
+<div class="section" id="s7">
+  <h2>Section 7: 90-Day Roadmap</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot">1-2</div>
+      <div class="timeline-content">
+        <h4>Weeks 1-2: GBP &amp; Foundation Fixes</h4>
+        <ul>
+          <li>Fix GBP phone number mismatch</li>
+          <li>Change GBP category to "Artificial grass installer"</li>
+          <li>Add secondary categories, business description, services</li>
+          <li>Upload 20+ project photos to GBP</li>
+          <li>Start posting to Google Posts 2-3x/week</li>
+          <li>Begin review generation campaign</li>
+          <li>Register for Google Search Console and investigate indexation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">3-4</div>
+      <div class="timeline-content">
+        <h4>Weeks 3-4: Website Content &amp; Technical</h4>
+        <ul>
+          <li>Fix 22 invalid structured data items</li>
+          <li>Create 5 dedicated service pages</li>
+          <li>Create 5 location pages (North Hills, Granada Hills, Northridge, etc.)</li>
+          <li>Add H1 headings to 5 pages missing them</li>
+          <li>Remove nofollow from 23 internal links</li>
+          <li>Add content to 10 thin pages</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">5-8</div>
+      <div class="timeline-content">
+        <h4>Weeks 5-8: Citations &amp; Content</h4>
+        <ul>
+          <li>Build citations across 15+ directories</li>
+          <li>Launch blog with first 4-6 posts</li>
+          <li>Add FAQ sections with FAQPage schema</li>
+          <li>Optimize page speed (WebP images, hosting)</li>
+          <li>Add pricing ranges to service pages</li>
+          <li>Continue review generation (target: 30+ total reviews)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">9-12</div>
+      <div class="timeline-content">
+        <h4>Weeks 9-12: Growth &amp; Optimization</h4>
+        <ul>
+          <li>Create remaining location pages (5+ more cities)</li>
+          <li>Add online booking/estimate functionality</li>
+          <li>Display contractor license and trust badges</li>
+          <li>Expand blog with 4+ more posts</li>
+          <li>Measure progress: rankings, traffic, reviews, leads</li>
+          <li>Target: 50+ Google reviews</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>Success Metrics</h3>
+  <table>
+    <thead><tr><th>Metric</th><th>Current (May 2026)</th><th>90-Day Target</th></tr></thead>
+    <tbody>
+      <tr><td>Google Reviews</td><td class="cell-red">3</td><td class="cell-green">50+</td></tr>
+      <tr><td>Local Pack appearances (9 keywords)</td><td class="cell-red">0/9</td><td class="cell-amber">3-4/9</td></tr>
+      <tr><td>Pages indexed by Google</td><td class="cell-red">1</td><td class="cell-green">25+</td></tr>
+      <tr><td>Service pages</td><td class="cell-red">0</td><td class="cell-green">5-8</td></tr>
+      <tr><td>Location pages</td><td class="cell-red">0</td><td class="cell-green">8-10</td></tr>
+      <tr><td>Citation listings</td><td class="cell-red">2 (Google, Yelp)</td><td class="cell-green">15+</td></tr>
+      <tr><td>Blog posts</td><td class="cell-red">0 (just "Hello World")</td><td class="cell-green">8-10</td></tr>
+      <tr><td>GBP Posts per month</td><td class="cell-red">0</td><td class="cell-green">8-12</td></tr>
+      <tr><td>Invalid schema items</td><td class="cell-red">22</td><td class="cell-green">0</td></tr>
+      <tr><td>Lighthouse Performance</td><td class="cell-amber">69/100</td><td class="cell-green">80+/100</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: QUICK REFERENCE -->
+<!-- ============================================================ -->
+<div class="section" id="s8">
+  <h2>Section 8: Quick Reference</h2>
+
+  <h3>What Santa Fe Artificial Grass Does Well</h3>
+  <ul>
+    <li>Perfect 5.0 Google rating</li>
+    <li>Has LocalBusiness and Organization schema markup (4 schema types detected)</li>
+    <li>HTTPS enabled</li>
+    <li>Sitemap present and properly structured</li>
+    <li>Lighthouse SEO score: 100/100</li>
+    <li>Lighthouse Accessibility score: 97/100</li>
+    <li>Good TBT (50ms) and CLS metrics</li>
+    <li>Professional-looking website with clear service messaging</li>
+    <li>robots.txt properly configured</li>
+  </ul>
+
+  <h3>What Needs to Change</h3>
+  <ul>
+    <li><strong>FIX GBP PHONE MISMATCH</strong> &mdash; (818) 747-5377 on GBP vs (818) 578-4790 on website</li>
+    <li><strong>Change GBP category</strong> from "Turf supplier" to "Artificial grass installer"</li>
+    <li><strong>Solve indexation crisis</strong> &mdash; Only 1 of 28 pages indexed</li>
+    <li><strong>Build reviews aggressively</strong> &mdash; 3 reviews vs competitors' 45-306</li>
+    <li><strong>Create service and location pages</strong> &mdash; Currently zero of each</li>
+    <li><strong>Fix 22 invalid structured data items</strong></li>
+    <li><strong>Build citations</strong> across 15+ directories</li>
+    <li><strong>Start content marketing</strong> &mdash; Blog, FAQ sections, Google Posts</li>
+    <li><strong>Improve page speed</strong> &mdash; LCP 4.8s (target: &lt;2.5s), FCP 3.6s (target: &lt;1.8s)</li>
+    <li><strong>Add H1 headings</strong> to 5 pages missing them</li>
+    <li><strong>Remove nofollow</strong> from 23 internal links</li>
+  </ul>
+</div>
+
+</div><!-- /container -->
+
+<div class="report-footer">
+  Report generated using DataForSEO SERP API, SEMrush Site Audit, Google PageSpeed Insights, Google Rich Results Test, Google Maps live inspection, and website analysis.<br>
+  All ranking data reflects Los Angeles, CA market as of May 18, 2026.
+</div>
+
+</body>
+</html>
