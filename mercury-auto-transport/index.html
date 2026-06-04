@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Content Audit — Mercury Auto Transport</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface2: #334155;
+    --border: #475569;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent2: #818cf8;
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --orange: #fb923c;
+    --red: #f87171;
+    --pink: #f472b6;
+    --cyan: #22d3ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 2rem 2.5rem; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e1b4b 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 0;
+  }
+  .header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.25rem;
+  }
+  .header .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+  .meta-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .meta-item strong { color: var(--text); }
+
+  /* Section */
+  section { margin-top: 3rem; }
+  section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--surface2);
+  }
+  section h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent2);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  p, .note { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+  p strong { color: var(--text); }
+  .note {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 0.75rem 1rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.9rem;
+  }
+  .note.warn {
+    border-left-color: var(--yellow);
+  }
+
+  /* KPI Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--surface2);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .kpi .value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .kpi .value.red { color: var(--red); }
+  .kpi .value.green { color: var(--green); }
+  .kpi .value.yellow { color: var(--yellow); }
+  .kpi .label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Tables */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1rem 0;
+    border-radius: 8px;
+    border: 1px solid var(--surface2);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  thead th {
+    background: var(--surface2);
+    color: var(--text);
+    font-weight: 600;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody td {
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid rgba(71,85,105,0.4);
+    color: var(--text-muted);
+  }
+  tbody tr:hover { background: rgba(56,189,248,0.04); }
+  tbody tr:nth-child(even) { background: rgba(30,41,59,0.5); }
+  tbody tr:nth-child(even):hover { background: rgba(56,189,248,0.06); }
+  td.kw { color: var(--text); font-weight: 500; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.score {
+    font-weight: 700;
+    text-align: right;
+  }
+  td.score.high { color: var(--green); }
+  td.score.med { color: var(--yellow); }
+  td.score.low { color: var(--orange); }
+  td.pos { text-align: center; }
+  td.pos.top10 { color: var(--green); font-weight: 600; }
+  td.pos.top20 { color: var(--cyan); }
+  td.pos.top50 { color: var(--text-muted); }
+  td.pos.none { color: var(--surface2); }
+  td.action-create { color: var(--green); font-weight: 600; }
+  td.action-optimize { color: var(--yellow); font-weight: 600; }
+  td.action-consolidate { color: var(--orange); font-weight: 600; }
+  td.action-fix { color: var(--red); font-weight: 600; }
+  .kd-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .kd-easy { background: rgba(74,222,128,0.15); color: var(--green); }
+  .kd-med { background: rgba(251,191,36,0.15); color: var(--yellow); }
+  .kd-hard { background: rgba(248,113,113,0.15); color: var(--red); }
+
+  /* Priority badge */
+  .priority-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(129,140,248,0.15));
+    border: 1px solid rgba(56,189,248,0.3);
+    border-radius: 6px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .priority-badge .num {
+    background: var(--accent);
+    color: var(--bg);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  /* Section stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin: 0.75rem 0 1.25rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border-radius: 8px;
+    border: 1px solid var(--surface2);
+  }
+  .stat {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .stat strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+  .stat .highlight { color: var(--green); font-weight: 700; }
+
+  /* Attainability formula box */
+  .formula-box {
+    background: var(--surface);
+    border: 1px solid var(--surface2);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  .formula-box code {
+    background: var(--surface2);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: var(--cyan);
+  }
+
+  /* Ref link */
+  .ref-link {
+    font-size: 0.85rem;
+    color: var(--accent2);
+    font-style: italic;
+    margin: 0.75rem 0;
+  }
+
+  /* Action plan timeline */
+  .timeline-phase {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--surface2);
+  }
+  .timeline-phase.phase1 { border-left-color: var(--green); }
+  .timeline-phase.phase2 { border-left-color: var(--yellow); }
+  .timeline-phase.phase3 { border-left-color: var(--accent2); }
+  .timeline-phase h3 {
+    margin-top: 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .kpi { border: 1px solid #ddd; }
+    .kpi .value { color: #0369a1; }
+    thead th { background: #f1f5f9; }
+    tbody td { border-top-color: #e2e8f0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="container">
+    <h1>SEO Content Audit</h1>
+    <div class="subtitle">mercuryautotransport.com</div>
+    <div class="meta-row">
+      <div class="meta-item"><strong>Audit Date:</strong> June 4, 2026</div>
+      <div class="meta-item"><strong>Data Source:</strong> SEMrush (US, June 3, 2026)</div>
+      <div class="meta-item"><strong>Competitors:</strong> SGT (AS 35), Navi (AS 35), J&amp;S (AS 29), Freedom (AS 13)</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- EXECUTIVE SUMMARY -->
+<section>
+  <h2>Executive Summary</h2>
+  <p>Mercury Auto Transport (AS 29) generates ~4,205 monthly organic visits but <strong>93.3% is branded traffic</strong>. Only ~105 visits come from non-branded search. After filtering the keyword gap for attainability (KD &le; 60, competitor in top 50, navigational keywords removed), there are <strong>2,065 actionable keyword opportunities</strong> representing 891,470 monthly search volume.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="value red">4,205</div><div class="label">Monthly Traffic</div></div>
+    <div class="kpi"><div class="value red">6.7%</div><div class="label">Non-Branded</div></div>
+    <div class="kpi"><div class="value red">253</div><div class="label">Zero-Traffic Pages</div></div>
+    <div class="kpi"><div class="value red">93%</div><div class="label">Homepage Dependency</div></div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="value green">2,065</div><div class="label">Gap Keywords</div></div>
+    <div class="kpi"><div class="value green">891,470</div><div class="label">Addressable Volume</div></div>
+    <div class="kpi"><div class="value green">~13,500</div><div class="label">Est. Traffic Gain</div></div>
+    <div class="kpi"><div class="value green">194</div><div class="label">Quick Wins (KD&le;20)</div></div>
+  </div>
+
+  <h3>Authority Context</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Domain</th><th>Authority</th><th>Backlinks</th><th>Ref. Domains</th><th>Implication</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">mercuryautotransport.com</td><td class="num"><strong>29</strong></td><td class="num">3.8K</td><td class="num">645</td><td>Subject</td></tr>
+        <tr><td class="kw">sgtautotransport.com</td><td class="num">35</td><td class="num">20.3K</td><td class="num">1.5K</td><td>Stronger &mdash; harder to replicate</td></tr>
+        <tr><td class="kw">naviautotransport.com</td><td class="num">35</td><td class="num">2K</td><td class="num">712</td><td>Stronger &mdash; harder to replicate</td></tr>
+        <tr><td class="kw">jandstransport.com</td><td class="num">29</td><td class="num">2.2K</td><td class="num">547</td><td style="color:var(--green)">Equal &mdash; if they rank, Mercury can too</td></tr>
+        <tr><td class="kw">freedomautotransport.com</td><td class="num">13</td><td class="num">2.9K</td><td class="num">368</td><td style="color:var(--green)">Weaker &mdash; Mercury should outrank them</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Attainability Score</h3>
+  <div class="formula-box">
+    All keywords scored: <code>Volume / (KD + 1)</code> &times; 1.5 if J&amp;S/Freedom rank top 20 &times; 1.3 if any competitor is top 10 &times; 0.7 if only SGT/Navi rank in positions 30&ndash;50. <strong>Higher score = easier win with more volume.</strong>
+  </div>
+</section>
+
+<!-- OPPORTUNITY OVERVIEW -->
+<section>
+  <h2>Opportunity Overview by Page Type</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Priority</th><th>Page Type</th><th>Keywords</th><th>Total Volume</th><th>Avg KD</th><th>Avg Attainability</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="kw">Route Pages</td><td class="num">208</td><td class="num">70,460</td><td class="num"><span class="kd-badge kd-easy">11.7</span></td><td class="score high">72.9</td><td>Create hub + 30 route pages</td></tr>
+        <tr><td class="num">2</td><td class="kw">State/Location Pages</td><td class="num">210</td><td class="num">53,720</td><td class="num"><span class="kd-badge kd-easy">24.1</span></td><td class="score med">22.8</td><td>Optimize existing 41 state pages</td></tr>
+        <tr><td class="num">3</td><td class="kw">Vehicle Type Pages</td><td class="num">75</td><td class="num">23,650</td><td class="num"><span class="kd-badge kd-easy">25.1</span></td><td class="score med">15.4</td><td>Optimize motorcycle, create 4 new</td></tr>
+        <tr><td class="num">4</td><td class="kw">How-To / Informational</td><td class="num">123</td><td class="num">38,260</td><td class="num"><span class="kd-badge kd-easy">23.2</span></td><td class="score med">16.5</td><td>Create DOT guide, shipping guides</td></tr>
+        <tr><td class="num">5</td><td class="kw">Cost Calculator / Pricing</td><td class="num">346</td><td class="num">178,730</td><td class="num"><span class="kd-badge kd-med">37.4</span></td><td class="score med">16.6</td><td>Build interactive calculator</td></tr>
+        <tr><td class="num">6</td><td class="kw">Service Type Pages</td><td class="num">188</td><td class="num">70,890</td><td class="num"><span class="kd-badge kd-med">31.1</span></td><td class="score low">14.1</td><td>Consolidate enclosed, create military</td></tr>
+        <tr><td class="num">7</td><td class="kw">Company / Comparison</td><td class="num">195</td><td class="num">96,050</td><td class="num"><span class="kd-badge kd-med">35.2</span></td><td class="score low">14.6</td><td>Create &ldquo;best companies&rdquo; page</td></tr>
+        <tr><td class="num">8</td><td class="kw">General Auto Transport</td><td class="num">720</td><td class="num">359,710</td><td class="num"><span class="kd-badge kd-med">31.7</span></td><td class="score med">18.6</td><td>Captured by above pages over time</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">Priority is ordered by <strong>attainability, not raw volume</strong>. Route pages (avg KD 11.7, attainability 72.9) are the fastest wins despite lower total volume than General Auto Transport keywords.</div>
+</section>
+
+<!-- 1. ROUTE PAGES -->
+<section>
+  <div class="priority-badge"><span class="num">1</span> HIGHEST PRIORITY</div>
+  <h2>1. Route Pages</h2>
+  <div class="stats-bar">
+    <div class="stat"><strong>208</strong> keywords</div>
+    <div class="stat"><strong>70,460</strong> total volume</div>
+    <div class="stat">Avg KD: <span class="highlight">11.7</span></div>
+    <div class="stat">Avg Attainability: <span class="highlight">72.9</span></div>
+  </div>
+  <p>Route pages are the single easiest opportunity. Average KD of 11.7 means Mercury can rank for most of these quickly. SGT has 132 route pages generating 2,544 visits; Mercury has 11 generating 3.</p>
+
+  <h3>Action: Create <code>/ship-car-to-another-state/</code> Hub + 30 Route Pages</h3>
+  <p><strong>Hub page targets:</strong> ship car to another state (3,600), ship car across country (3,600), cross country car shipping (4,400), cost to ship car across country (1,600)</p>
+
+  <h3>Top 30 Routes by Total Volume</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Route</th><th>Keywords</th><th>Total Volume</th><th>Top Attainability</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">California &harr; Hawaii</td><td class="num">21</td><td class="num">3,160</td><td class="score med">55.2</td></tr>
+        <tr><td class="kw">California &harr; North Carolina</td><td class="num">8</td><td class="num">3,110</td><td class="score high">175.5</td></tr>
+        <tr><td class="kw">California &harr; Michigan</td><td class="num">6</td><td class="num">2,060</td><td class="score high">287.6</td></tr>
+        <tr><td class="kw">California &harr; Florida</td><td class="num">4</td><td class="num">1,660</td><td class="score med">68.4</td></tr>
+        <tr><td class="kw">Florida &harr; Texas</td><td class="num">1</td><td class="num">1,600</td><td class="score med">59.3</td></tr>
+        <tr><td class="kw">Florida &harr; Virginia</td><td class="num">3</td><td class="num">1,590</td><td class="score high">126.8</td></tr>
+        <tr><td class="kw">New York &harr; Pennsylvania</td><td class="num">4</td><td class="num">1,520</td><td class="score high">280.8</td></tr>
+        <tr><td class="kw">Florida &harr; Ohio</td><td class="num">2</td><td class="num">1,480</td><td class="score med">50.0</td></tr>
+        <tr><td class="kw">Michigan &harr; New York</td><td class="num">3</td><td class="num">1,440</td><td class="score high">187.2</td></tr>
+        <tr><td class="kw">Hawaii &harr; San Diego</td><td class="num">3</td><td class="num">1,390</td><td class="score med">95.9</td></tr>
+        <tr><td class="kw">Michigan &harr; Texas</td><td class="num">3</td><td class="num">1,350</td><td class="score high">143.8</td></tr>
+        <tr><td class="kw">California &harr; Texas</td><td class="num">5</td><td class="num">1,320</td><td class="score med">60.0</td></tr>
+        <tr><td class="kw">California &harr; Oregon</td><td class="num">3</td><td class="num">1,130</td><td class="score med">93.6</td></tr>
+        <tr><td class="kw">Ohio &harr; Virginia</td><td class="num">3</td><td class="num">1,100</td><td class="score high">312.0</td></tr>
+        <tr><td class="kw">Florida &harr; North Carolina</td><td class="num">3</td><td class="num">1,100</td><td class="score high">190.1</td></tr>
+        <tr><td class="kw">Florida &harr; Maryland</td><td class="num">3</td><td class="num">1,080</td><td class="score high">133.7</td></tr>
+        <tr><td class="kw">Iowa &harr; New York</td><td class="num">2</td><td class="num">1,070</td><td class="score high">312.0</td></tr>
+        <tr><td class="kw">Arizona &harr; California</td><td class="num">1</td><td class="num">1,000</td><td class="score med">83.3</td></tr>
+        <tr><td class="kw">California &harr; Georgia</td><td class="num">3</td><td class="num">970</td><td class="score med">89.1</td></tr>
+        <tr><td class="kw">New York &harr; Utah</td><td class="num">2</td><td class="num">960</td><td class="score high">156.0</td></tr>
+        <tr><td class="kw">New York &harr; Tennessee</td><td class="num">2</td><td class="num">960</td><td class="score high">133.7</td></tr>
+        <tr><td class="kw">California &harr; New Jersey</td><td class="num">4</td><td class="num">850</td><td class="score med">20.0</td></tr>
+        <tr><td class="kw">California &harr; Tennessee</td><td class="num">2</td><td class="num">780</td><td class="score high">126.8</td></tr>
+        <tr><td class="kw">New Jersey &harr; Pennsylvania</td><td class="num">2</td><td class="num">760</td><td class="score high">127.8</td></tr>
+        <tr><td class="kw">Missouri &harr; New York</td><td class="num">1</td><td class="num">720</td><td class="score high">234.0</td></tr>
+        <tr><td class="kw">Delaware &harr; New York</td><td class="num">1</td><td class="num">720</td><td class="score high">234.0</td></tr>
+        <tr><td class="kw">Houston &harr; Iowa</td><td class="num">1</td><td class="num">720</td><td class="score med">61.0</td></tr>
+        <tr><td class="kw">California &harr; Colorado</td><td class="num">1</td><td class="num">720</td><td class="score med">42.4</td></tr>
+        <tr><td class="kw">North Carolina &harr; Texas</td><td class="num">1</td><td class="num">720</td><td class="score med">28.0</td></tr>
+        <tr><td class="kw">Tennessee &harr; Texas</td><td class="num">1</td><td class="num">720</td><td class="score med">28.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Top 40 Route Keywords by Attainability</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Keyword</th><th>Vol</th><th>KD</th><th>Freedom</th><th>SGT</th><th>Navi</th><th>J&amp;S</th><th>Score</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">florida to new mexico car shipping</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">0</span></td><td class="pos top10">#5</td><td class="pos top50">#27</td><td class="pos none">&ndash;</td><td class="pos top20">#19</td><td class="score high">936</td></tr>
+        <tr><td class="kw">north carolina to ohio auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">1</span></td><td class="pos top10">#4</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">468</td></tr>
+        <tr><td class="kw">virginia to illinois auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">1</span></td><td class="pos top10">#9</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">468</td></tr>
+        <tr><td class="kw">iowa to new york car shipping</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">2</span></td><td class="pos top20">#20</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos top20">#17</td><td class="score high">312</td></tr>
+        <tr><td class="kw">michigan to virginia auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">2</span></td><td class="pos top10">#5</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">312</td></tr>
+        <tr><td class="kw">pennsylvania to illinois auto shipping</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">2</span></td><td class="pos top10">#8</td><td class="pos top10">#3</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">312</td></tr>
+        <tr><td class="kw">virginia to ohio auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">2</span></td><td class="pos top10">#5</td><td class="pos top50">#24</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">312</td></tr>
+        <tr><td class="kw">california to michigan auto transport</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">3</span></td><td class="pos none">&ndash;</td><td class="pos top10">#8</td><td class="pos none">&ndash;</td><td class="pos top10">#2</td><td class="score high">288</td></tr>
+        <tr><td class="kw">new jersey to georgia auto transport</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">3</span></td><td class="pos top10">#5</td><td class="pos top10">#9</td><td class="pos none">&ndash;</td><td class="pos top10">#2</td><td class="score high">288</td></tr>
+        <tr><td class="kw">new york to pennsylvania car shipping</td><td class="num">720</td><td class="num"><span class="kd-badge kd-easy">4</span></td><td class="pos top10">#5</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">281</td></tr>
+        <tr><td class="kw">missouri to new york car shipping</td><td class="num">720</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top10">#7</td><td class="pos top10">#6</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">234</td></tr>
+        <tr><td class="kw">new york to delaware car shipping</td><td class="num">720</td><td class="num"><span class="kd-badge kd-easy">3</span></td><td class="pos none">&ndash;</td><td class="pos top10">#2</td><td class="pos top50">#22</td><td class="pos none">&ndash;</td><td class="score high">234</td></tr>
+        <tr><td class="kw">alabama to texas auto transport</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top10">#5</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">192</td></tr>
+        <tr><td class="kw">florida to north dakota car shipping</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top10">#10</td><td class="pos top10">#4</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">192</td></tr>
+        <tr><td class="kw">georgia to ohio auto transport</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top10">#5</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos top10">#3</td><td class="score high">192</td></tr>
+        <tr><td class="kw">florida to north carolina car shipping</td><td class="num">390</td><td class="num"><span class="kd-badge kd-easy">3</span></td><td class="pos top50">#22</td><td class="pos top20">#18</td><td class="pos none">&ndash;</td><td class="pos top10">#4</td><td class="score high">190</td></tr>
+        <tr><td class="kw">georgia to pennsylvania auto transport</td><td class="num">390</td><td class="num"><span class="kd-badge kd-easy">3</span></td><td class="pos top10">#6</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos top10">#5</td><td class="score high">190</td></tr>
+        <tr><td class="kw">alabama to colorado auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">4</span></td><td class="pos top10">#7</td><td class="pos top10">#8</td><td class="pos none">&ndash;</td><td class="pos top20">#12</td><td class="score high">187</td></tr>
+        <tr><td class="kw">connecticut to maryland auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">4</span></td><td class="pos top10">#5</td><td class="pos top20">#18</td><td class="pos none">&ndash;</td><td class="pos top20">#16</td><td class="score high">187</td></tr>
+        <tr><td class="kw">michigan to new york vehicle transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">4</span></td><td class="pos top10">#5</td><td class="pos top20">#14</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">187</td></tr>
+        <tr><td class="kw">california to north carolina auto transport</td><td class="num">720</td><td class="num"><span class="kd-badge kd-easy">7</span></td><td class="pos top50">#23</td><td class="pos top10">#7</td><td class="pos top50">#27</td><td class="pos top10">#6</td><td class="score high">176</td></tr>
+        <tr><td class="kw">north carolina to california auto transport</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">6</span></td><td class="pos top20">#12</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos top10">#8</td><td class="score high">164</td></tr>
+        <tr><td class="kw">new york to iowa car shipping</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">6</span></td><td class="pos none">&ndash;</td><td class="pos top10">#4</td><td class="pos none">&ndash;</td><td class="pos top20">#20</td><td class="score high">164</td></tr>
+        <tr><td class="kw">california to north carolina car shipping</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top50">#36</td><td class="pos top10">#8</td><td class="pos none">&ndash;</td><td class="pos top10">#3</td><td class="score high">156</td></tr>
+        <tr><td class="kw">florida to pennsylvania auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top10">#5</td><td class="pos top50">#33</td><td class="pos none">&ndash;</td><td class="pos top10">#3</td><td class="score high">156</td></tr>
+        <tr><td class="kw">michigan to new york auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top10">#3</td><td class="pos top20">#19</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">156</td></tr>
+        <tr><td class="kw">ship car from utah to california</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top10">#9</td><td class="pos top10">#6</td><td class="pos none">&ndash;</td><td class="pos top10">#8</td><td class="score high">156</td></tr>
+        <tr><td class="kw">utah to new york auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top10">#3</td><td class="pos top20">#12</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">156</td></tr>
+        <tr><td class="kw">transport a car from nj to tx</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">5</span></td><td class="pos top20">#20</td><td class="pos top10">#3</td><td class="pos top20">#16</td><td class="pos top10">#5</td><td class="score high">156</td></tr>
+        <tr><td class="kw">illinois to michigan car shipping</td><td class="num">390</td><td class="num"><span class="kd-badge kd-easy">4</span></td><td class="pos top10">#7</td><td class="pos top10">#2</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">152</td></tr>
+        <tr><td class="kw">indiana to florida car shipping</td><td class="num">390</td><td class="num"><span class="kd-badge kd-easy">4</span></td><td class="pos top20">#12</td><td class="pos top20">#11</td><td class="pos none">&ndash;</td><td class="pos top10">#6</td><td class="score high">152</td></tr>
+        <tr><td class="kw">montana to florida car shipping</td><td class="num">390</td><td class="num"><span class="kd-badge kd-easy">4</span></td><td class="pos none">&ndash;</td><td class="pos top10">#3</td><td class="pos none">&ndash;</td><td class="pos top10">#8</td><td class="score high">152</td></tr>
+        <tr><td class="kw">texas to pennsylvania vehicle transport</td><td class="num">390</td><td class="num"><span class="kd-badge kd-easy">4</span></td><td class="pos top20">#13</td><td class="pos top20">#11</td><td class="pos none">&ndash;</td><td class="pos top10">#7</td><td class="score high">152</td></tr>
+        <tr><td class="kw">new york to alabama car shipping</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">7</span></td><td class="pos top10">#7</td><td class="pos top10">#5</td><td class="pos none">&ndash;</td><td class="pos none">&ndash;</td><td class="score high">144</td></tr>
+        <tr><td class="kw">shipping car from texas to michigan</td><td class="num">590</td><td class="num"><span class="kd-badge kd-easy">7</span></td><td class="pos top10">#8</td><td class="pos top10">#3</td><td class="pos none">&ndash;</td><td class="pos top10">#4</td><td class="score high">144</td></tr>
+        <tr><td class="kw">car transport maryland to florida</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">6</span></td><td class="pos top20">#13</td><td class="pos top10">#3</td><td class="pos top10">#4</td><td class="pos none">&ndash;</td><td class="score high">134</td></tr>
+        <tr><td class="kw">maryland to texas auto transport</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">6</span></td><td class="pos top10">#5</td><td class="pos top10">#3</td><td class="pos top50">#21</td><td class="pos top50">#40</td><td class="score high">134</td></tr>
+        <tr><td class="kw">new york to tennessee car shipping</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">6</span></td><td class="pos top10">#6</td><td class="pos top10">#2</td><td class="pos top50">#48</td><td class="pos top10">#7</td><td class="score high">134</td></tr>
+        <tr><td class="kw">new york to utah car shipping</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">6</span></td><td class="pos top10">#2</td><td class="pos top10">#4</td><td class="pos top50">#49</td><td class="pos none">&ndash;</td><td class="score high">134</td></tr>
+        <tr><td class="kw">shipping car from louisiana to california</td><td class="num">480</td><td class="num"><span class="kd-badge kd-easy">6</span></td><td class="pos top10">#10</td><td class="pos top10">#4</td><td class="pos top50">#28</td><td class="pos none">&ndash;</td><td class="score high">134</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="ref-link">Full list of all 208 route keywords in analysis/05-opportunities-by-page-type.md</p>
+
+  <h3>Mercury's Existing Route Pages to Fix</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Existing URL</th><th>Keywords</th><th>Traffic</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">/route/car-shipping-from-california-to-florida/</td><td class="num">47</td><td class="num">0</td><td class="action-optimize">Complete content overhaul</td></tr>
+        <tr><td class="kw">/route/car-shipping-from-california-to-new-york/</td><td class="num">44</td><td class="num">0</td><td class="action-optimize">Complete content overhaul</td></tr>
+        <tr><td class="kw">/route/car-shipping-from-new-york-to-florida/</td><td class="num">44</td><td class="num">0</td><td class="action-optimize">Complete content overhaul</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 2. STATE PAGES -->
+<section>
+  <div class="priority-badge"><span class="num">2</span> HIGH PRIORITY</div>
+  <h2>2. State/Location Pages</h2>
+  <div class="stats-bar">
+    <div class="stat"><strong>210</strong> keywords</div>
+    <div class="stat"><strong>53,720</strong> total volume</div>
+    <div class="stat">Avg KD: <strong>24.1</strong></div>
+    <div class="stat">Avg Attainability: <strong>22.8</strong></div>
+  </div>
+  <p>Mercury has 41 state pages generating 9 total visits. SGT has 14 generating 359. The problem is content quality, not quantity.</p>
+
+  <h3>Action: Rewrite Top 10 State Pages + Create Hawaii Dedicated Page</h3>
+
+  <h4>States by Total Opportunity Volume</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>State</th><th>Keywords</th><th>Total Volume</th><th>Top Attainability</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">Hawaii</td><td class="num">22</td><td class="num">7,780</td><td class="score med">55.2</td></tr>
+        <tr><td class="kw">California</td><td class="num">15</td><td class="num">5,310</td><td class="score med">83.3</td></tr>
+        <tr><td class="kw">Alaska</td><td class="num">7</td><td class="num">2,430</td><td class="score med">42.5</td></tr>
+        <tr><td class="kw">Florida</td><td class="num">12</td><td class="num">2,170</td><td class="score low">14.1</td></tr>
+        <tr><td class="kw">Texas</td><td class="num">5</td><td class="num">1,140</td><td class="score low">9.1</td></tr>
+        <tr><td class="kw">New York</td><td class="num">3</td><td class="num">520</td><td class="score low">8.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Existing State Pages to Fix</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Existing URL</th><th>Keywords</th><th>Traffic</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">/auto-transport-services-to-hawaii/</td><td class="num">82</td><td class="num">0</td><td class="action-create">Create dedicated /hawaii-car-shipping/</td></tr>
+        <tr><td class="kw">/auto-transport-services-to-michigan/</td><td class="num">61</td><td class="num">0</td><td class="action-optimize">Comprehensive rewrite</td></tr>
+        <tr><td class="kw">/auto-transport-services-to-texas/</td><td class="num">58</td><td class="num">0</td><td class="action-optimize">Comprehensive rewrite</td></tr>
+        <tr><td class="kw">/auto-transport-services-to-new-york/</td><td class="num">47</td><td class="num">0</td><td class="action-optimize">Comprehensive rewrite</td></tr>
+        <tr><td class="kw">/auto-transport-services-anchorage/</td><td class="num">66</td><td class="num">0</td><td class="action-consolidate">Consolidate into Alaska hub</td></tr>
+        <tr><td class="kw">/states/california/</td><td class="num">varies</td><td class="num">2</td><td class="action-optimize">Add pricing, routes, city sections</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="ref-link">Full list of all 210 state/location keywords in analysis/05-opportunities-by-page-type.md</p>
+</section>
+
+<!-- 3. VEHICLE TYPE -->
+<section>
+  <div class="priority-badge"><span class="num">3</span> PRIORITY</div>
+  <h2>3. Vehicle Type Pages</h2>
+  <div class="stats-bar">
+    <div class="stat"><strong>75</strong> keywords</div>
+    <div class="stat"><strong>23,650</strong> total volume</div>
+    <div class="stat">Avg KD: <strong>25.1</strong></div>
+    <div class="stat">Avg Attainability: <strong>15.4</strong></div>
+  </div>
+
+  <h3>Action: Optimize Motorcycle Page + Create 4 New Vehicle Pages</h3>
+
+  <h4>Vehicle Types by Opportunity</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Vehicle Type</th><th>Keywords</th><th>Total Volume</th><th>Avg KD</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">Motorcycle</td><td class="num">28</td><td class="num">12,790</td><td class="num"><span class="kd-badge kd-easy">28.9</span></td></tr>
+        <tr><td class="kw">Truck</td><td class="num">14</td><td class="num">4,930</td><td class="num"><span class="kd-badge kd-easy">22.9</span></td></tr>
+        <tr><td class="kw">Golf Cart</td><td class="num">5</td><td class="num">720</td><td class="num"><span class="kd-badge kd-easy">3.4</span></td></tr>
+        <tr><td class="kw">ATV</td><td class="num">3</td><td class="num">680</td><td class="num"><span class="kd-badge kd-easy">20.0</span></td></tr>
+        <tr><td class="kw">Classic/Exotic Car</td><td class="num">8</td><td class="num">2,220</td><td class="num"><span class="kd-badge kd-easy">26.4</span></td></tr>
+        <tr><td class="kw">Other (RV, van, boat)</td><td class="num">17</td><td class="num">2,310</td><td class="num"><span class="kd-badge kd-easy">24.7</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Recommended New/Optimized Pages</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Page</th><th>Action</th><th>Target Volume</th><th>Avg KD</th><th>Key Keywords</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">/motorcycle-transport-services/</td><td class="action-optimize">OPTIMIZE</td><td class="num">12,790</td><td class="num">29</td><td>motorcycle shipping rates, motorcycle shipping quote</td></tr>
+        <tr><td class="kw">/golf-cart-shipping/</td><td class="action-create">CREATE</td><td class="num">720</td><td class="num">3</td><td>golf cart shipping (KD 1), golf cart transport</td></tr>
+        <tr><td class="kw">/truck-shipping/</td><td class="action-create">CREATE</td><td class="num">4,930</td><td class="num">23</td><td>truck shipping, truck transport services</td></tr>
+        <tr><td class="kw">/atv-transport-services/</td><td class="action-optimize">OPTIMIZE</td><td class="num">680</td><td class="num">20</td><td>atv shipping, atv transport</td></tr>
+        <tr><td class="kw">/exotic-car-shipping/</td><td class="action-create">CREATE</td><td class="num">2,220</td><td class="num">26</td><td>exotic car transport, classic car shipping</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="ref-link">Full list of all 75 vehicle type keywords in analysis/05-opportunities-by-page-type.md</p>
+</section>
+
+<!-- 4. HOW-TO -->
+<section>
+  <div class="priority-badge"><span class="num">4</span> PRIORITY</div>
+  <h2>4. How-To / Informational Pages</h2>
+  <div class="stats-bar">
+    <div class="stat"><strong>123</strong> keywords</div>
+    <div class="stat"><strong>38,260</strong> total volume</div>
+    <div class="stat">Avg KD: <strong>23.2</strong></div>
+    <div class="stat">Avg Attainability: <strong>16.5</strong></div>
+  </div>
+
+  <h3>Action: Create DOT Guide, Shipping Process Guides</h3>
+
+  <h4>Recommended Pages</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Page</th><th>Action</th><th>Key Keywords</th><th>Volume</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">/what-is-a-dot-number/</td><td class="action-create">CREATE</td><td>dot number, mc number, what is a dot number</td><td class="num">27,560</td></tr>
+        <tr><td class="kw">/how-to-ship-a-car-to-another-state/</td><td class="action-create">CREATE</td><td>how to ship a car to another state (1,300), how to ship car out of state (720)</td><td class="num">5,000+</td></tr>
+        <tr><td class="kw">/best-states-to-buy-a-car/</td><td class="action-optimize">OPTIMIZE (exists)</td><td>cheapest state to buy a car (1,900), best state to buy a car (1,000)</td><td class="num">2,900</td></tr>
+        <tr><td class="kw">/how-auto-transport-works/</td><td class="action-consolidate">CONSOLIDATE 3&rarr;1</td><td>how does car shipping work, auto transport process</td><td class="num">2,000+</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="ref-link">Full list of all 123 how-to keywords in analysis/05-opportunities-by-page-type.md</p>
+</section>
+
+<!-- 5. COST CALCULATOR -->
+<section>
+  <div class="priority-badge"><span class="num">5</span> PRIORITY</div>
+  <h2>5. Cost Calculator / Pricing Pages</h2>
+  <div class="stats-bar">
+    <div class="stat"><strong>346</strong> keywords</div>
+    <div class="stat"><strong>178,730</strong> total volume</div>
+    <div class="stat">Avg KD: <strong>37.4</strong></div>
+    <div class="stat">Avg Attainability: <strong>16.6</strong></div>
+  </div>
+  <p>Highest-volume category but higher average KD (37.4). Mercury has <strong>NO</strong> cost calculator page &mdash; every competitor does. SGT&rsquo;s calculator alone drives 580 visits.</p>
+
+  <h3>Action: Build Interactive Cost Calculator Page</h3>
+  <div class="note">J&amp;S (AS 29, same as Mercury) ranks in top 10 for &ldquo;car shipping cost calculator&rdquo; (#2), &ldquo;vehicle shipping estimate&rdquo; (#2), &ldquo;car transport estimate&rdquo; (#2). <strong>This proves Mercury can rank for calculator keywords with a well-built page.</strong></div>
+  <p class="ref-link">Full list of all 346 pricing keywords in analysis/05-opportunities-by-page-type.md</p>
+</section>
+
+<!-- 6. SERVICE TYPE -->
+<section>
+  <div class="priority-badge"><span class="num">6</span> PRIORITY</div>
+  <h2>6. Service Type Pages</h2>
+  <div class="stats-bar">
+    <div class="stat"><strong>188</strong> keywords</div>
+    <div class="stat"><strong>70,890</strong> total volume</div>
+    <div class="stat">Avg KD: <strong>31.1</strong></div>
+    <div class="stat">Avg Attainability: <strong>14.1</strong></div>
+  </div>
+
+  <h3>Action: Consolidate Enclosed Pages, Create Military Page</h3>
+
+  <h4>Service Types by Opportunity</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Service</th><th>Keywords</th><th>Volume</th><th>Avg KD</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">Enclosed transport</td><td class="num">42</td><td class="num">18,280</td><td class="num"><span class="kd-badge kd-med">42.1</span></td></tr>
+        <tr><td class="kw">Cross-country</td><td class="num">22</td><td class="num">12,830</td><td class="num"><span class="kd-badge kd-med">34.7</span></td></tr>
+        <tr><td class="kw">Door-to-door</td><td class="num">15</td><td class="num">5,130</td><td class="num"><span class="kd-badge kd-med">38.3</span></td></tr>
+        <tr><td class="kw">Military/PCS</td><td class="num">14</td><td class="num">4,960</td><td class="num"><span class="kd-badge kd-easy">25.4</span></td></tr>
+        <tr><td class="kw">International</td><td class="num">18</td><td class="num">4,710</td><td class="num"><span class="kd-badge kd-med">35.1</span></td></tr>
+        <tr><td class="kw">Open transport</td><td class="num">12</td><td class="num">4,280</td><td class="num"><span class="kd-badge kd-med">34.2</span></td></tr>
+        <tr><td class="kw">Other services</td><td class="num">65</td><td class="num">20,700</td><td class="num"><span class="kd-badge kd-easy">24.8</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Page Actions</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Page</th><th>Action</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">/enclosed-auto-transport/</td><td class="action-consolidate">CONSOLIDATE 3&rarr;1</td><td>Mercury has 3 competing enclosed pages</td></tr>
+        <tr><td class="kw">/military-car-shipping/</td><td class="action-optimize">OPTIMIZE</td><td>Expand with PCS-specific, branch-specific info</td></tr>
+        <tr><td class="kw">/door-to-door-auto-transport/</td><td class="action-optimize">OPTIMIZE</td><td>Add pricing, city-pair examples</td></tr>
+        <tr><td class="kw">/international-car-shipping/</td><td class="action-consolidate">CONSOLIDATE 7&rarr;1</td><td>Mercury has 7 competing international pages</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="ref-link">Full list of all 188 service keywords in analysis/05-opportunities-by-page-type.md</p>
+</section>
+
+<!-- 7. COMPANY/COMPARISON -->
+<section>
+  <div class="priority-badge"><span class="num">7</span> PRIORITY</div>
+  <h2>7. Company / Comparison Pages</h2>
+  <div class="stats-bar">
+    <div class="stat"><strong>195</strong> keywords</div>
+    <div class="stat"><strong>96,050</strong> total volume</div>
+    <div class="stat">Avg KD: <strong>35.2</strong></div>
+    <div class="stat">Avg Attainability: <strong>14.6</strong></div>
+  </div>
+
+  <h3>Action: Create &ldquo;Best Car Shipping Companies&rdquo; Comparison Page</h3>
+  <p class="ref-link">Full list of all 195 company/comparison keywords in analysis/05-opportunities-by-page-type.md</p>
+</section>
+
+<!-- 8. GENERAL -->
+<section>
+  <div class="priority-badge"><span class="num">8</span> LONG-TERM</div>
+  <h2>8. General Auto Transport Keywords</h2>
+  <div class="stats-bar">
+    <div class="stat"><strong>720</strong> keywords</div>
+    <div class="stat"><strong>359,710</strong> total volume</div>
+    <div class="stat">Avg KD: <strong>31.7</strong></div>
+    <div class="stat">Avg Attainability: <strong>18.6</strong></div>
+  </div>
+  <p>Generic terms like &ldquo;car shipping&rdquo;, &ldquo;auto transport&rdquo;, &ldquo;vehicle transport services&rdquo;. They don&rsquo;t map to a single page type &mdash; they&rsquo;ll be captured by the homepage, service pages, and hub pages as overall site authority improves.</p>
+  <p class="ref-link">Full list of all 720 general keywords in analysis/05-opportunities-by-page-type.md</p>
+</section>
+
+<!-- CONTENT CONSOLIDATION -->
+<section>
+  <h2>Critical Fixes: Content Consolidation</h2>
+  <div class="note warn">Before creating new pages, Mercury must fix cannibalization issues that are diluting authority.</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Problem</th><th>Competing Pages</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">Quote/Get a Quote</td><td>7 pages competing</td><td class="action-fix">Merge into 1 primary + 1 thank-you page</td></tr>
+        <tr><td class="kw">International Shipping</td><td>7 pages competing</td><td class="action-fix">Merge into 1 comprehensive guide</td></tr>
+        <tr><td class="kw">How Transport Works</td><td>3 pages competing</td><td class="action-fix">Merge into 1 pillar page</td></tr>
+        <tr><td class="kw">Enclosed Transport</td><td>3 pages competing</td><td class="action-fix">Merge into 1 authoritative page</td></tr>
+        <tr><td class="kw">RV Shipping</td><td>3 pages competing</td><td class="action-fix">Merge into 1 page</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ACTION PLAN -->
+<section>
+  <h2>30/60/90-Day Action Plan</h2>
+
+  <div class="timeline-phase phase1">
+    <h3>Days 1&ndash;30: Quick Wins</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Action</th><th>Page Type</th><th>Target Volume</th><th>KD Range</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Create /golf-cart-shipping/</td><td>Vehicle</td><td class="num">720</td><td><span class="kd-badge kd-easy">1&ndash;6</span></td></tr>
+          <tr><td class="num">2</td><td>Consolidate 3 &ldquo;how transport works&rdquo; pages</td><td class="action-fix">Fix</td><td class="num">&ndash;</td><td>&ndash;</td></tr>
+          <tr><td class="num">3</td><td>Consolidate 7 quote pages</td><td class="action-fix">Fix</td><td class="num">&ndash;</td><td>&ndash;</td></tr>
+          <tr><td class="num">4</td><td>Optimize /motorcycle-transport-services/</td><td>Vehicle</td><td class="num">12,790</td><td><span class="kd-badge kd-easy">25&ndash;35</span></td></tr>
+          <tr><td class="num">5</td><td>Optimize /states/california/</td><td>State</td><td class="num">5,310</td><td><span class="kd-badge kd-easy">14&ndash;30</span></td></tr>
+          <tr><td class="num">6</td><td>Create /what-is-a-dot-number/</td><td>Informational</td><td class="num">27,560</td><td><span class="kd-badge kd-easy">18&ndash;25</span></td></tr>
+          <tr><td class="num">7</td><td>Optimize /best-states-to-buy-a-car/</td><td>Informational</td><td class="num">2,900</td><td><span class="kd-badge kd-easy">18&ndash;20</span></td></tr>
+          <tr><td class="num">8</td><td>Fix top 3 existing route pages (CA-FL, CA-NY, NY-FL)</td><td>Route</td><td class="num">high</td><td><span class="kd-badge kd-easy">5&ndash;15</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="timeline-phase phase2">
+    <h3>Days 30&ndash;60: Core Content Build</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Action</th><th>Page Type</th><th>Target Volume</th><th>KD Range</th></tr></thead>
+        <tbody>
+          <tr><td class="num">9</td><td>Create /ship-car-to-another-state/ hub page</td><td>Route</td><td class="num">116,160</td><td><span class="kd-badge kd-easy">29&ndash;37</span></td></tr>
+          <tr><td class="num">10</td><td>Create first 15 route pages</td><td>Route</td><td class="num">25,000+</td><td><span class="kd-badge kd-easy">3&ndash;12</span></td></tr>
+          <tr><td class="num">11</td><td>Build /car-shipping-cost-calculator/</td><td>Pricing</td><td class="num">178,730</td><td><span class="kd-badge kd-med">37&ndash;49</span></td></tr>
+          <tr><td class="num">12</td><td>Create /hawaii-car-shipping/</td><td>State</td><td class="num">7,780</td><td><span class="kd-badge kd-easy">18&ndash;40</span></td></tr>
+          <tr><td class="num">13</td><td>Consolidate 7 international shipping pages</td><td class="action-fix">Fix</td><td class="num">4,710</td><td><span class="kd-badge kd-med">35</span></td></tr>
+          <tr><td class="num">14</td><td>Consolidate 3 enclosed transport pages</td><td class="action-fix">Fix</td><td class="num">18,280</td><td><span class="kd-badge kd-med">42</span></td></tr>
+          <tr><td class="num">15</td><td>Rewrite top 5 state pages (TX, NY, FL, MI, AK)</td><td>State</td><td class="num">10,000+</td><td><span class="kd-badge kd-easy">20&ndash;30</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="timeline-phase phase3">
+    <h3>Days 60&ndash;90: Authority Building</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Action</th><th>Page Type</th><th>Target Volume</th><th>KD Range</th></tr></thead>
+        <tbody>
+          <tr><td class="num">16</td><td>Create /best-car-shipping-companies/</td><td>Company</td><td class="num">96,050</td><td><span class="kd-badge kd-med">35&ndash;52</span></td></tr>
+          <tr><td class="num">17</td><td>Optimize /military-car-shipping/</td><td>Service</td><td class="num">4,960</td><td><span class="kd-badge kd-easy">25</span></td></tr>
+          <tr><td class="num">18</td><td>Create /truck-shipping/ &amp; /exotic-car-shipping/</td><td>Vehicle</td><td class="num">7,150</td><td><span class="kd-badge kd-easy">20&ndash;27</span></td></tr>
+          <tr><td class="num">19</td><td>Create 15 more route pages</td><td>Route</td><td class="num">15,000+</td><td><span class="kd-badge kd-easy">5&ndash;15</span></td></tr>
+          <tr><td class="num">20</td><td>Prune/redirect 124 underperforming city pages</td><td class="action-fix">Fix</td><td class="num">&ndash;</td><td>&ndash;</td></tr>
+          <tr><td class="num">21</td><td>Create /how-to-ship-a-car-to-another-state/</td><td>Informational</td><td class="num">5,000+</td><td><span class="kd-badge kd-easy">22&ndash;32</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- APPENDIX -->
+<section>
+  <h2>Appendix: Analysis Files</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>File</th><th>Contents</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">analysis/01-mercury-current-state.md</td><td>Full organic performance breakdown</td></tr>
+        <tr><td class="kw">analysis/02-competitor-landscape.md</td><td>Competitor comparison with topic analysis</td></tr>
+        <tr><td class="kw">analysis/03-keyword-gap-opportunities.md</td><td>Authority-adjusted keyword gap (attainability tiers)</td></tr>
+        <tr><td class="kw">analysis/04-content-gap-analysis.md</td><td>Content structure analysis, page-level recommendations</td></tr>
+        <tr><td class="kw">analysis/05-opportunities-by-page-type.md</td><td><strong>ALL 2,065 keywords</strong> categorized by page type, sorted by attainability</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div><!-- .container -->
+
+<div class="footer">
+  <div class="container">
+    SEO Content Audit &mdash; Mercury Auto Transport &mdash; June 2026 &mdash; Data: SEMrush US
+  </div>
+</div>
+
+</body>
+</html>
