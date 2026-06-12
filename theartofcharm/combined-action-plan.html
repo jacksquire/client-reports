@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Action Plan — theartofcharm.com</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f2f5;color:#1a1a2e;line-height:1.5;padding:24px}
+.container{max-width:1200px;margin:0 auto}
+h1{font-size:1.75rem;color:#1a1a2e;margin-bottom:4px}
+h1 span{color:#6c757d;font-weight:400;font-size:1rem}
+h2{font-size:1.3rem;color:#1a1a2e;margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid #e0e0e0}
+h3{font-size:1.05rem;margin:16px 0 8px}
+.card{background:#fff;border-radius:10px;padding:24px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{border-radius:8px;padding:14px 16px;text-align:center;color:#fff}
+.stat .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;opacity:.9}
+.stat .value{font-size:1.35rem;font-weight:700;margin-top:2px}
+.s-blue{background:linear-gradient(135deg,#3a7bd5,#2b6cb0)}.s-green{background:linear-gradient(135deg,#38a169,#2f855a)}
+.s-purple{background:linear-gradient(135deg,#805ad5,#6b46c1)}.s-orange{background:linear-gradient(135deg,#dd6b20,#c05621)}
+.s-red{background:linear-gradient(135deg,#e53e3e,#c53030)}.s-teal{background:linear-gradient(135deg,#319795,#2c7a7b)}
+.s-indigo{background:linear-gradient(135deg,#5a67d8,#4c51bf)}.s-pink{background:linear-gradient(135deg,#d53f8c,#b83280)}
+.diagnosis{font-size:.92rem;color:#4a5568;margin:12px 0 16px;line-height:1.6}
+table{width:100%;border-collapse:collapse;font-size:.82rem;margin:8px 0 16px}
+th{background:#f7fafc;font-weight:600;text-align:left;padding:8px 10px;border-bottom:2px solid #e2e8f0;font-size:.75rem;text-transform:uppercase;color:#4a5568;letter-spacing:.3px}
+td{padding:7px 10px;border-bottom:1px solid #edf2f7}
+tr:hover td{background:#f7fafc}
+td.url{max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:'Courier New',monospace;font-size:.78rem;color:#2b6cb0}
+.badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:.72rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.5px;margin-right:6px}
+.b-delete{background:#e53e3e}.b-redirect{background:#5a67d8}.b-update{background:#dd6b20}
+.b-optimize{background:#3182ce}.b-create{background:#38a169}.b-consolidate{background:#d69e2e}
+.b-fix{background:#e53e3e}
+.sub-section{margin:20px 0;padding:16px;background:#f7fafc;border-radius:8px;border-left:4px solid #e2e8f0}
+.sub-section.red{border-color:#e53e3e}.sub-section.indigo{border-color:#5a67d8}
+.sub-section.orange{border-color:#dd6b20}.sub-section.blue{border-color:#3182ce}
+.sub-section.green{border-color:#38a169}.sub-section.gold{border-color:#d69e2e}
+.summary{font-size:.85rem;color:#4a5568;margin:4px 0 10px}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
+.phase{background:#fff;border-radius:10px;padding:20px;border-left:5px solid;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.phase.p1{border-color:#e53e3e}.phase.p2{border-color:#dd6b20}.phase.p3{border-color:#3182ce}
+.phase h3{margin:0 0 6px;font-size:1rem}
+.phase .days{font-size:.72rem;text-transform:uppercase;font-weight:700;letter-spacing:.5px;margin-bottom:8px}
+.phase.p1 .days{color:#e53e3e}.phase.p2 .days{color:#dd6b20}.phase.p3 .days{color:#3182ce}
+.phase ul{font-size:.82rem;padding-left:18px;color:#4a5568;margin-bottom:12px}
+.phase li{margin-bottom:4px}
+.kpi{border-radius:6px;padding:10px;text-align:center;color:#fff;font-weight:700;font-size:.85rem}
+.phase.p1 .kpi{background:#e53e3e}.phase.p2 .kpi{background:#dd6b20}.phase.p3 .kpi{background:#3182ce}
+.footer{text-align:center;font-size:.75rem;color:#a0aec0;margin-top:24px;padding:12px}
+.right{text-align:right}.center{text-align:center}
+.num{font-variant-numeric:tabular-nums}
+.cluster-box{background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:12px;margin:8px 0}
+.cluster-box h4{font-size:.88rem;margin-bottom:6px}
+.cluster-box ul{font-size:.8rem;padding-left:18px;color:#4a5568}
+.cluster-box li{margin-bottom:2px;font-family:'Courier New',monospace;font-size:.78rem}
+.arrow{color:#38a169;font-weight:700}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="card">
+<h1>SEO Action Plan <span>— theartofcharm.com</span></h1>
+</div>
+
+<!-- SECTION 1: SITUATION SNAPSHOT -->
+<h2>1. Situation Snapshot</h2>
+<div class="card">
+<div class="stats-row">
+<div class="stat s-blue"><div class="label">Authority Score</div><div class="value">39</div></div>
+<div class="stat s-green"><div class="label">SEMrush Traffic</div><div class="value">9.5K/mo</div></div>
+<div class="stat s-purple"><div class="label">GSC Clicks (6mo)</div><div class="value">245K</div></div>
+<div class="stat s-teal"><div class="label">GA Sessions (6mo)</div><div class="value">367K</div></div>
+</div>
+<div class="stats-row">
+<div class="stat s-orange"><div class="label">Traffic Value</div><div class="value">$886/mo</div></div>
+<div class="stat s-indigo"><div class="label">Avg Position</div><div class="value">23.0</div></div>
+<div class="stat s-pink"><div class="label">Gap Keywords</div><div class="value">20,283</div></div>
+<div class="stat s-green"><div class="label">Quick Wins</div><div class="value">1,170</div></div>
+</div>
+<div class="stats-row">
+<div class="stat s-red"><div class="label">Pages to Delete</div><div class="value">227</div></div>
+<div class="stat s-indigo"><div class="label">Pages to Redirect</div><div class="value">557</div></div>
+<div class="stat s-orange"><div class="label">Pages to Update</div><div class="value">1,396</div></div>
+<div class="stat s-blue"><div class="label">Sitemap URLs</div><div class="value">1,755</div></div>
+</div>
+
+<p class="diagnosis"><strong>Diagnosis:</strong> theartofcharm.com holds the highest authority score (39) among all competitors yet generates the lowest organic traffic — a clear content strategy gap, not an authority problem. 557 dead 404 pages (mostly programmatic /dating-coaching/city/ and /social-skills-coaching/city/ pages) are bleeding link equity and wasting crawl budget. 81.5% of ranking pages generate zero traffic, and 55% of sitemap URLs have zero organic visibility.</p>
+
+<table>
+<thead><tr><th>Competitor</th><th class="right">Auth Score</th><th class="right">Traffic</th><th class="right">Keywords</th><th class="right">Traffic Cost</th></tr></thead>
+<tbody>
+<tr><td>theartofcharm.com</td><td class="right num"><strong>39</strong></td><td class="right num">9,506</td><td class="right num">8,547</td><td class="right num">$886</td></tr>
+<tr><td>girlschase.com</td><td class="right num">38</td><td class="right num">19,800</td><td class="right num">13,100</td><td class="right num">$3,778</td></tr>
+<tr><td>emlovz.com</td><td class="right num">37</td><td class="right num">14,200</td><td class="right num">13,200</td><td class="right num">$3,421</td></tr>
+<tr><td>datingbyblaine.com</td><td class="right num">37</td><td class="right num">13,700</td><td class="right num">4,600</td><td class="right num">$5,312</td></tr>
+<tr><td>craftofcharisma.com</td><td class="right num">29</td><td class="right num">7,900</td><td class="right num">1,800</td><td class="right num">$2,935</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 2: CONTENT CLEANUP -->
+<h2>2. Content Cleanup Actions</h2>
+<div class="card">
+
+<!-- DELETE -->
+<div class="sub-section red">
+<h3><span class="badge b-delete">DELETE</span> 227 Pages — Zero-Value Content</h3>
+<p class="summary">Pages with 0 clicks, near-zero impressions, and no sessions over 6 months. Mostly fragment URLs (#anchors), orphaned podcast episodes, and dead uncategorized pages. Removing these focuses crawl budget on valuable content.</p>
+<table>
+<thead><tr><th>#</th><th>URL</th><th class="right">Clicks</th><th class="right">Impr.</th><th class="right">Sessions</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="url">/podcast-episodes/matt-moore-the-gentlemans-kitchen-episode-471/</td><td class="right">0</td><td class="right">0</td><td class="right">10</td></tr>
+<tr><td>2</td><td class="url">/art-of-dating/texting-game-play-win/#h-remind-her-why-...</td><td class="right">0</td><td class="right">10</td><td class="right">0</td></tr>
+<tr><td>3</td><td class="url">/art-of-dating/texting-game-play-win/#h-move-toward-a-date</td><td class="right">0</td><td class="right">10</td><td class="right">0</td></tr>
+<tr><td>4</td><td class="url">/art-of-dating/texting-game-play-win/#h-save-rapport-for-in-person</td><td class="right">0</td><td class="right">10</td><td class="right">0</td></tr>
+<tr><td>5</td><td class="url">/podcast-episodes/your-network-is-weak-heres-how-to-fix-it/</td><td class="right">0</td><td class="right">0</td><td class="right">9</td></tr>
+<tr><td>6</td><td class="url">/art-of-dating/flirting-tips-guys/#h-making-flirting-second-nature</td><td class="right">0</td><td class="right">9</td><td class="right">0</td></tr>
+<tr><td>7</td><td class="url">/art-of-personal-development/restructuring-your-social-circle/#...</td><td class="right">0</td><td class="right">9</td><td class="right">0</td></tr>
+<tr><td>8</td><td class="url">/uncategorized/paul-eastwick-modern-dating-science/</td><td class="right">0</td><td class="right">9</td><td class="right">0</td></tr>
+<tr><td>9</td><td class="url">/art-of-personal-development/building-a-connection/</td><td class="right">0</td><td class="right">9</td><td class="right">0</td></tr>
+<tr><td>10</td><td class="url">/confidence/building-strong-inner-confidence/</td><td class="right">0</td><td class="right">8</td><td class="right">0</td></tr>
+<tr><td>11</td><td class="url">/art-of-dating/how-to-flirt-with-women/</td><td class="right">0</td><td class="right">8</td><td class="right">0</td></tr>
+<tr><td>12</td><td class="url">/art-of-dating/how-to-text-a-girl/</td><td class="right">0</td><td class="right">8</td><td class="right">0</td></tr>
+<tr><td>13</td><td class="url">/art-of-dating/refresher-course/</td><td class="right">0</td><td class="right">0</td><td class="right">7</td></tr>
+<tr><td>14</td><td class="url">/uncategorized/persuasion-influence-scott-adams-605/</td><td class="right">0</td><td class="right">7</td><td class="right">0</td></tr>
+<tr><td>15</td><td class="url">/uncategorized/toolbox-3-attraction-triggers/</td><td class="right">0</td><td class="right">7</td><td class="right">0</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- REDIRECT -->
+<div class="sub-section indigo">
+<h3><span class="badge b-redirect">REDIRECT</span> 557 Pages — Dead 404s Bleeding Link Equity</h3>
+<p class="summary">All return HTTP 404. The majority are programmatic location pages (/dating-coaching/city/, /social-skills-coaching/city/) and skill-for-profession pages (/storytelling-for-founders/, /active-listening-for-teachers/, etc.) that were likely mass-generated and abandoned. Redirect all to homepage or nearest relevant hub page.</p>
+<table>
+<thead><tr><th>#</th><th>URL</th><th class="right">Impr.</th><th>Pattern</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="url">/dating-coaching/del-mar-ca/</td><td class="right">10</td><td>City coaching</td></tr>
+<tr><td>2</td><td class="url">/social-skills-coaching/glencoe-il/</td><td class="right">10</td><td>City coaching</td></tr>
+<tr><td>3</td><td class="url">/active-listening-for-teachers/</td><td class="right">10</td><td>Skill for profession</td></tr>
+<tr><td>4</td><td class="url">/active-listening-for-newly-single/</td><td class="right">10</td><td>Skill for audience</td></tr>
+<tr><td>5</td><td class="url">/social-skills-coaching/garden-city-ny/</td><td class="right">10</td><td>City coaching</td></tr>
+<tr><td>6</td><td class="url">/dating-coaching/fishers-in/</td><td class="right">10</td><td>City coaching</td></tr>
+<tr><td>7</td><td class="url">/storytelling-for-college-students/</td><td class="right">10</td><td>Skill for audience</td></tr>
+<tr><td>8</td><td class="url">/social-skills-coaching/fox-point-wi/</td><td class="right">10</td><td>City coaching</td></tr>
+<tr><td>9</td><td class="url">/storytelling-for-product-managers/</td><td class="right">10</td><td>Skill for profession</td></tr>
+<tr><td>10</td><td class="url">/networking-for-finance-professionals/</td><td class="right">10</td><td>Skill for profession</td></tr>
+<tr><td>11</td><td class="url">/active-listening-for-over-40-professionals/</td><td class="right">10</td><td>Skill for audience</td></tr>
+<tr><td>12</td><td class="url">/storytelling-for-founders/</td><td class="right">10</td><td>Skill for profession</td></tr>
+<tr><td>13</td><td class="url">/conversation-skills-for-consultants/</td><td class="right">10</td><td>Skill for profession</td></tr>
+<tr><td>14</td><td class="url">/dating-coaching/granite-bay-ca/</td><td class="right">10</td><td>City coaching</td></tr>
+<tr><td>15</td><td class="url">/small-talk-for-teachers/</td><td class="right">10</td><td>Skill for profession</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- UPDATE -->
+<div class="sub-section orange">
+<h3><span class="badge b-update">UPDATE</span> 1,396 Pages — High Impressions, Low CTR</h3>
+<p class="summary">Pages with search visibility but near-zero clicks. Priority action: rewrite titles/meta descriptions, refresh content, add internal links. Sorted by impressions (highest visibility, most wasted potential).</p>
+<table>
+<thead><tr><th>#</th><th>URL</th><th class="right">Impr.</th><th class="right">Clicks</th><th class="right">CTR</th><th class="right">Avg Pos</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="url">/uncategorized/how-to-be-more-charismatic/</td><td class="right">3,406</td><td class="right">0</td><td class="right">0.0%</td><td class="right">9.8</td></tr>
+<tr><td>2</td><td class="url">/uncategorized/first-impressions/</td><td class="right">2,972</td><td class="right">1</td><td class="right">0.0%</td><td class="right">9.6</td></tr>
+<tr><td>3</td><td class="url">/podcast-episodes/elliott-hulse-episode-256/</td><td class="right">2,952</td><td class="right">1</td><td class="right">0.0%</td><td class="right">4.1</td></tr>
+<tr><td>4</td><td class="url">/client-testimonials/</td><td class="right">2,890</td><td class="right">4</td><td class="right">0.1%</td><td class="right">4.2</td></tr>
+<tr><td>5</td><td class="url">/podcast-episodes/bert-jacobs-life-good-episode-502/</td><td class="right">2,444</td><td class="right">0</td><td class="right">0.0%</td><td class="right">18.3</td></tr>
+<tr><td>6</td><td class="url">/podcast-episodes/jairek-robbins-episode-379/</td><td class="right">2,401</td><td class="right">2</td><td class="right">0.1%</td><td class="right">11.0</td></tr>
+<tr><td>7</td><td class="url">/podcast-episodes/steve-sims-episode-682/</td><td class="right">2,191</td><td class="right">2</td><td class="right">0.1%</td><td class="right">4.4</td></tr>
+<tr><td>8</td><td class="url">/podcast-episodes/kevin-harrington-episode-677/</td><td class="right">2,173</td><td class="right">3</td><td class="right">0.1%</td><td class="right">13.2</td></tr>
+<tr><td>9</td><td class="url">/podcast-episodes/hines-ward-episode-520/</td><td class="right">1,574</td><td class="right">2</td><td class="right">0.1%</td><td class="right">13.6</td></tr>
+<tr><td>10</td><td class="url">/art-of-personal-development/want-more-confidence-5-...</td><td class="right">1,564</td><td class="right">4</td><td class="right">0.3%</td><td class="right">26.6</td></tr>
+<tr><td>11</td><td class="url">/art-of-personal-development/confidence-coach-2/</td><td class="right">1,470</td><td class="right">0</td><td class="right">0.0%</td><td class="right">33.6</td></tr>
+<tr><td>12</td><td class="url">/art-of-personal-development/shane-parrish/</td><td class="right">1,459</td><td class="right">2</td><td class="right">0.1%</td><td class="right">8.7</td></tr>
+<tr><td>13</td><td class="url">/podcast-episodes/noah-kagan-episode-658/</td><td class="right">1,431</td><td class="right">0</td><td class="right">0.0%</td><td class="right">22.0</td></tr>
+<tr><td>14</td><td class="url">/group</td><td class="right">1,354</td><td class="right">0</td><td class="right">0.0%</td><td class="right">2.8</td></tr>
+<tr><td>15</td><td class="url">/art-of-personal-development/charisma/</td><td class="right">1,305</td><td class="right">2</td><td class="right">0.1%</td><td class="right">5.9</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- CONSOLIDATE -->
+<div class="sub-section gold">
+<h3><span class="badge b-consolidate">CONSOLIDATE</span> Cannibalization Clusters</h3>
+<p class="summary">995 cannibalization instances detected. The three highest-impact clusters to merge immediately:</p>
+
+<div class="cluster-box">
+<h4>"Signs She Likes You" Cluster — 5+ pages <span class="arrow">&rarr;</span> 1 definitive guide</h4>
+<p style="font-size:.8rem;color:#718096;margin-bottom:6px">Combined keyword volume: 30,000+ | Target winner: /art-of-dating/how-to-tell-if-a-girl-is-falling-in-love-with-you/</p>
+<ul>
+<li>/art-of-dating/how-to-tell-if-a-girl-is-falling-in-love-with-you/ <strong>(KEEP — absorb all)</strong></li>
+<li>/art-of-dating/signs-girl-likes/ &rarr; 301 redirect</li>
+<li>/art-of-dating/know-if-she-likes-you/ &rarr; 301 redirect</li>
+<li>/art-of-dating/know-girl-loves/ &rarr; 301 redirect</li>
+<li>/art-of-dating/like-surefire-signs/ &rarr; 301 redirect</li>
+<li>/art-of-dating/top-signs-female-attraction/ &rarr; 301 redirect</li>
+</ul>
+</div>
+
+<div class="cluster-box">
+<h4>"Banter / Flirting" Cluster — 4 pages <span class="arrow">&rarr;</span> 1 ultimate guide</h4>
+<p style="font-size:.8rem;color:#718096;margin-bottom:6px">Combined keyword volume: 10,700+ | Combined traffic loss: -796 | Target winner: /art-of-dating/keeping-it-light-can-banter-be-flirting/</p>
+<ul>
+<li>/art-of-dating/keeping-it-light-can-banter-be-flirting/ <strong>(KEEP — absorb all)</strong></li>
+<li>/art-of-dating/playful-banter-examples-be-the-funny-guy-who-gets-the-girl/ &rarr; 301 redirect</li>
+<li>/art-of-dating/a-mindset-that-can-turn-any-playful-banter-into-flirting-with-examples/ &rarr; 301 redirect</li>
+<li>/art-of-dating/banter-examples-from-a-to-z/ &rarr; 301 redirect</li>
+</ul>
+</div>
+
+<div class="cluster-box">
+<h4>"Tell a Girl You Like Her" — 2 pages <span class="arrow">&rarr;</span> 1</h4>
+<p style="font-size:.8rem;color:#718096;margin-bottom:6px">Keyword volume: 2,400 | Target winner: /art-of-dating/tell-girl-like-without-freaking/</p>
+<ul>
+<li>/art-of-dating/tell-girl-like-without-freaking/ <strong>(KEEP)</strong></li>
+<li>/art-of-dating/best-way-tell-girl-like/ &rarr; 301 redirect</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<!-- SECTION 3: GROWTH ACTIONS -->
+<h2>3. Growth Actions</h2>
+<div class="card">
+
+<!-- OPTIMIZE -->
+<div class="sub-section blue">
+<h3><span class="badge b-optimize">OPTIMIZE</span> Top 10 Existing Pages — Est. +21,357 Monthly Visits</h3>
+<table>
+<thead><tr><th>#</th><th>URL</th><th class="right">Traffic</th><th class="right">Est. Gain</th><th>Top 3 Target Keywords (Vol | Pos)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="url">/art-of-dating/how-to-tell-if-a-girl-is-falling-in-love-with-you/</td><td class="right">368</td><td class="right">+8,629</td><td>how to tell if a girl likes you (9.9K|12), how to know if a girl likes you (5.4K|12), how do you tell if she likes you (3.6K|8)</td></tr>
+<tr><td>2</td><td class="url">/art-of-dating/top-10-questions-to-ask-a-girl-you-like/</td><td class="right">58</td><td class="right">+3,231</td><td>good questions to ask a girl (9.9K|16), questions to ask a girl to get to know her (4.4K|17), interesting questions to ask a girl (2.4K|16)</td></tr>
+<tr><td>3</td><td class="url">/art-of-dating/attract-girl/</td><td class="right">57</td><td class="right">+2,145</td><td>how to get a girl to like you (6.6K|13), how to get a lady to like you (1.9K|16), how to get girl (1K|5)</td></tr>
+<tr><td>4</td><td class="url">/art-of-dating/single-ladies/</td><td class="right">9</td><td class="right">+1,303</td><td>where to meet women (2.4K|16), where to find females (1.3K|17), where to meet single women (1K|16)</td></tr>
+<tr><td>5</td><td class="url">/art-of-dating/eye-contact-attraction/</td><td class="right">142</td><td class="right">+1,188</td><td>looks at somebody curiously (1.9K|8), intense eye contact between man and woman (390|11), eye contact love (320|18)</td></tr>
+<tr><td>6</td><td class="url">/art-of-dating/first-date-ideas/</td><td class="right">821</td><td class="right">+1,168</td><td>good 1st date (1K|5), ideal first date (1K|7), what to do on 1st date (1K|11)</td></tr>
+<tr><td>7</td><td class="url">/art-of-dating/signs-girl-attracted/</td><td class="right">56</td><td class="right">+936</td><td>signs a woman is sexually attracted to you (1K|8), blushing indicates arousal (1K|19), signs of attraction (590|11)</td></tr>
+<tr><td>8</td><td class="url">/podcast-episodes/brett-mckay-art-manliness-episode-600/</td><td class="right">4</td><td class="right">+933</td><td>the art of manliness (3.6K|14), artofmanliness (3.6K|17), art of manliness podcast (590|19)</td></tr>
+<tr><td>9</td><td class="url">/art-of-dating/keeping-it-light-can-banter-be-flirting/</td><td class="right">65</td><td class="right">+913</td><td>bantering (5.4K|8), what is banter (2.4K|18), banter what does it mean (1.6K|19)</td></tr>
+<tr><td>10</td><td class="url">/art-of-dating/say-girl-get-back/</td><td class="right">17</td><td class="right">+912</td><td>how to get over a lady (880|15), how to get her back (480|18), will she come back (390|9)</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- CREATE -->
+<div class="sub-section green">
+<h3><span class="badge b-create">CREATE</span> Top 10 New Pages — Untapped Topic Clusters</h3>
+<table>
+<thead><tr><th>#</th><th>Topic</th><th class="right">Gap KWs</th><th class="right">Volume</th><th class="right">Avg KD</th><th>Competitor Inspiration</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Cuckold Definition Guide</td><td class="right">251</td><td class="right">527,920</td><td class="right">38</td><td class="url">datingbyblaine.com/guides/cuckold-definition-...</td></tr>
+<tr><td>2</td><td>Free Dating Sites & Apps Review</td><td class="right">1,863</td><td class="right">434,060</td><td class="right">36</td><td class="url">emlovz.com/free-dating-sites-free-dating-apps/</td></tr>
+<tr><td>3</td><td>Hinge Dating App Guide</td><td class="right">591</td><td class="right">370,820</td><td class="right">28</td><td class="url">datingbyblaine.com/guides/hinge-dating-app-review</td></tr>
+<tr><td>4</td><td>Best Dating Apps Review (2026)</td><td class="right">792</td><td class="right">363,880</td><td class="right">33</td><td class="url">datingbyblaine.com/guides/online-dating-...</td></tr>
+<tr><td>5</td><td>FWB Meaning & Guide</td><td class="right">611</td><td class="right">314,220</td><td class="right">30</td><td class="url">girlschase.com/article/4-stages-every-friends-...</td></tr>
+<tr><td>6</td><td>Sex & Intimacy Guide</td><td class="right">909</td><td class="right">297,200</td><td class="right">35</td><td class="url">girlschase.com/content/9-ways-make-missionary-...</td></tr>
+<tr><td>7</td><td>Date Ideas (Mega Guide + City)</td><td class="right">849</td><td class="right">271,490</td><td class="right">20</td><td class="url">emlovz.com/top-50-san-francisco-date-ideas/</td></tr>
+<tr><td>8</td><td>OkCupid Review</td><td class="right">124</td><td class="right">270,310</td><td class="right">56</td><td class="url">emlovz.com/okcupid-review/</td></tr>
+<tr><td>9</td><td>Tinder Guide (Bios, Openers, Tips)</td><td class="right">770</td><td class="right">235,740</td><td class="right">27</td><td class="url">emlovz.com/25-best-tinder-bios-for-guys/</td></tr>
+<tr><td>10</td><td>How to Get a Girlfriend</td><td class="right">801</td><td class="right">207,230</td><td class="right">24</td><td class="url">craftofcharisma.com/how-to-get-a-girlfriend-10-...</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- QUICK WINS -->
+<div class="sub-section blue">
+<h3><span class="badge b-optimize">QUICK WINS</span> Top 15 Keywords — Positions 4-20, Est. +6,728 Visits</h3>
+<table>
+<thead><tr><th>#</th><th>Keyword</th><th class="right">Pos</th><th class="right">Volume</th><th class="right">Est. Gain</th><th>Target URL</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>good questions to ask a girl</td><td class="right">16</td><td class="right">9,900</td><td class="right">+961</td><td class="url">/art-of-dating/top-10-questions-to-ask-a-girl-you-like/</td></tr>
+<tr><td>2</td><td>how to tell if a girl likes you</td><td class="right">12</td><td class="right">9,900</td><td class="right">+941</td><td class="url">/art-of-dating/how-to-tell-if-a-girl-is-falling-in-love-with-you/</td></tr>
+<tr><td>3</td><td>how to get a girl to like you</td><td class="right">13</td><td class="right">6,600</td><td class="right">+627</td><td class="url">/art-of-dating/attract-girl/</td></tr>
+<tr><td>4</td><td>what is charisma</td><td class="right">15</td><td class="right">5,400</td><td class="right">+524</td><td class="url">/art-of-personal-development/what-is-charisma/</td></tr>
+<tr><td>5</td><td>how to know if a girl likes you</td><td class="right">12</td><td class="right">5,400</td><td class="right">+524</td><td class="url">/art-of-dating/how-to-tell-if-a-girl-is-falling-in-love-with-you/</td></tr>
+<tr><td>6</td><td>bantering</td><td class="right">8</td><td class="right">5,400</td><td class="right">+503</td><td class="url">/art-of-dating/keeping-it-light-can-banter-be-flirting/</td></tr>
+<tr><td>7</td><td>questions to ask a girl to get to know her</td><td class="right">17</td><td class="right">4,400</td><td class="right">+434</td><td class="url">/art-of-dating/top-10-questions-to-ask-a-girl-you-like/</td></tr>
+<tr><td>8</td><td>neediness</td><td class="right">15</td><td class="right">4,400</td><td class="right">+427</td><td class="url">/art-of-personal-development/confidence/5-signs-needy-affecting-life/</td></tr>
+<tr><td>9</td><td>cheating girlfriend</td><td class="right">13</td><td class="right">3,600</td><td class="right">+355</td><td class="url">/art-of-dating/handle-cheating-girlfriend/</td></tr>
+<tr><td>10</td><td>how do you tell if she likes you</td><td class="right">8</td><td class="right">3,600</td><td class="right">+335</td><td class="url">/art-of-dating/how-to-tell-if-a-girl-is-falling-in-love-with-you/</td></tr>
+<tr><td>11</td><td>how to find out if a woman likes you</td><td class="right">18</td><td class="right">2,900</td><td class="right">+288</td><td class="url">/art-of-dating/signs-girl-likes/</td></tr>
+<tr><td>12</td><td>where to meet women</td><td class="right">16</td><td class="right">2,400</td><td class="right">+237</td><td class="url">/art-of-dating/single-ladies/</td></tr>
+<tr><td>13</td><td>how to tell a girl you like her</td><td class="right">14</td><td class="right">2,400</td><td class="right">+237</td><td class="url">/art-of-dating/tell-girl-like-without-freaking/</td></tr>
+<tr><td>14</td><td>what is banter</td><td class="right">18</td><td class="right">2,400</td><td class="right">+237</td><td class="url">/art-of-dating/keeping-it-light-can-banter-be-flirting/</td></tr>
+<tr><td>15</td><td>interesting questions to ask a girl</td><td class="right">16</td><td class="right">2,400</td><td class="right">+237</td><td class="url">/art-of-dating/top-10-questions-to-ask-a-girl-you-like/</td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+<!-- SECTION 4: ROADMAP -->
+<h2>4. 30/60/90-Day Prioritized Roadmap</h2>
+<div class="card" style="background:transparent;box-shadow:none;padding:0">
+<div class="timeline">
+
+<div class="phase p1">
+<div class="days">Days 1-30 — Fix</div>
+<h3>Clean & Consolidate</h3>
+<ul>
+<li>Implement 301 redirects for all 557 dead 404 pages</li>
+<li>Delete/noindex 227 zero-value pages</li>
+<li>Consolidate banter cluster (4 pages &rarr; 1)</li>
+<li>Consolidate signs-she-likes cluster (5+ pages &rarr; 1)</li>
+<li>Optimize top 3 pages (signs she likes you, questions to ask, attract girl) — est. +14K gain</li>
+<li>Expand sitemap coverage to full 1,755 URLs</li>
+<li>Fix title/meta on top 15 UPDATE pages by impressions</li>
+</ul>
+<div class="kpi">KPI Target: +5,000 monthly visits</div>
+</div>
+
+<div class="phase p2">
+<div class="days">Days 31-60 — Build</div>
+<h3>Create & Expand</h3>
+<ul>
+<li>Create: Date ideas mega guide (271K vol, KD 20)</li>
+<li>Create: FWB meaning guide (314K vol, KD 30)</li>
+<li>Create: How to get a girlfriend (207K vol, KD 24)</li>
+<li>Create: Tinder guide — bios, openers, tips (236K vol, KD 27)</li>
+<li>Create: Hinge dating app guide (371K vol, KD 28)</li>
+<li>Update top 50 GSC "UPDATE" pages (titles, meta, content refresh)</li>
+<li>Begin thin content pruning (565 pages with &le;3 keywords)</li>
+</ul>
+<div class="kpi">KPI Target: +15,000 cumulative monthly visits</div>
+</div>
+
+<div class="phase p3">
+<div class="days">Days 61-90 — Scale</div>
+<h3>Cluster & Monetize</h3>
+<ul>
+<li>Create dating app content cluster (Bumble, OkCupid, free dating sites reviews)</li>
+<li>Create texting guides cluster (how to text a girl, sexting, conversation starters)</li>
+<li>Create city date ideas series (SF, NYC, LA, Chicago)</li>
+<li>Add commercial intent content: coaching service pages, dating app comparison tables</li>
+<li>Continue updating remaining GSC "UPDATE" pages</li>
+<li>Build internal linking architecture across all new content</li>
+<li>Noindex 464 thin podcast episode pages without show notes</li>
+</ul>
+<div class="kpi">KPI Target: +30,000 cumulative | Traffic value $3,000+/mo</div>
+</div>
+
+</div>
+</div>
+
+<!-- SECTION 5: DATA SOURCES -->
+<h2>5. Data Sources</h2>
+<div class="footer">
+Combined from SEMrush US Desktop (June 10, 2026) + Google Search Console/GA4 (Dec 2025 &ndash; June 2026) | Report by Growth Archon
+</div>
+
+</div>
+</body>
+</html>
