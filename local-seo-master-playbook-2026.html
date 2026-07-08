@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local SEO Master Playbook 2026: On-Site and Off-Site</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0c0e14;
+    --surface: #13151e;
+    --surface-2: #1a1d2a;
+    --surface-3: #222538;
+    --border: #2a2d3e;
+    --border-light: #353850;
+    --text: #e2e5ef;
+    --text-secondary: #9499ac;
+    --text-muted: #6b7089;
+    --accent-red: #ef4444;
+    --accent-red-dim: #fca5a5;
+    --accent-amber: #f59e0b;
+    --accent-amber-dim: #fcd34d;
+    --accent-blue: #3b82f6;
+    --accent-blue-dim: #93c5fd;
+    --accent-purple: #8b5cf6;
+    --accent-purple-dim: #c4b5fd;
+    --accent-green: #10b981;
+    --accent-green-dim: #6ee7b7;
+    --accent-pink: #ec4899;
+    --accent-pink-dim: #f9a8d4;
+    --accent-cyan: #06b6d4;
+    --accent-cyan-dim: #67e8f9;
+    --accent-gray: #6b7280;
+    --accent-gray-dim: #9ca3af;
+    --accent-orange: #f97316;
+    --accent-orange-dim: #fdba74;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(96,165,250,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 20% 100%, rgba(167,139,250,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 100%, rgba(244,114,182,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 40%, #f472b6 80%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .hero .meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  /* ── Layout ── */
+  .layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 0;
+  }
+
+  /* ── Sidebar / TOC ── */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    padding: 2rem 1.25rem;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+  .toc-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .toc-section {
+    margin-bottom: 1.25rem;
+  }
+
+  .toc-section-title {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    transition: all 0.15s;
+  }
+
+  .toc-section-title:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .toc-sub {
+    list-style: none;
+    margin-top: 0.3rem;
+    padding-left: 0.6rem;
+    border-left: 2px solid var(--border);
+    margin-left: 0.6rem;
+  }
+
+  .toc-sub a {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.15s;
+  }
+
+  .toc-sub a:hover {
+    color: var(--text-secondary);
+    background: var(--surface-2);
+  }
+
+  /* ── Main content ── */
+  .content {
+    flex: 1;
+    min-width: 0;
+    padding: 3rem 3rem 6rem;
+  }
+
+  /* ── Sections ── */
+  .part {
+    margin-bottom: 4rem;
+    scroll-margin-top: 2rem;
+  }
+
+  .part-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .part-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .part h2 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .part-intro {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-style: italic;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--border);
+  }
+
+  /* Part color themes */
+  .part-1 .part-number { background: #ef44441a; color: var(--accent-red-dim); }
+  .part-1 h2 { color: var(--accent-red-dim); }
+  .part-1 h3 { color: var(--accent-red-dim); }
+  .part-1 h3::before { background: var(--accent-red); }
+
+  .part-2 .part-number { background: #f59e0b1a; color: var(--accent-amber-dim); }
+  .part-2 h2 { color: var(--accent-amber-dim); }
+  .part-2 h3 { color: var(--accent-amber-dim); }
+  .part-2 h3::before { background: var(--accent-amber); }
+
+  .part-3 .part-number { background: #10b9811a; color: var(--accent-green-dim); }
+  .part-3 h2 { color: var(--accent-green-dim); }
+  .part-3 h3 { color: var(--accent-green-dim); }
+  .part-3 h3::before { background: var(--accent-green); }
+
+  .part-4 .part-number { background: #3b82f61a; color: var(--accent-blue-dim); }
+  .part-4 h2 { color: var(--accent-blue-dim); }
+  .part-4 h3 { color: var(--accent-blue-dim); }
+  .part-4 h3::before { background: var(--accent-blue); }
+
+  .part-5 .part-number { background: #8b5cf61a; color: var(--accent-purple-dim); }
+  .part-5 h2 { color: var(--accent-purple-dim); }
+  .part-5 h3 { color: var(--accent-purple-dim); }
+  .part-5 h3::before { background: var(--accent-purple); }
+
+  .part-6 .part-number { background: #06b6d41a; color: var(--accent-cyan-dim); }
+  .part-6 h2 { color: var(--accent-cyan-dim); }
+  .part-6 h3 { color: var(--accent-cyan-dim); }
+  .part-6 h3::before { background: var(--accent-cyan); }
+
+  .part-7 .part-number { background: #f973161a; color: var(--accent-orange-dim); }
+  .part-7 h2 { color: var(--accent-orange-dim); }
+  .part-7 h3 { color: var(--accent-orange-dim); }
+  .part-7 h3::before { background: var(--accent-orange); }
+
+  .part-8 .part-number { background: #ec48991a; color: var(--accent-pink-dim); }
+  .part-8 h2 { color: var(--accent-pink-dim); }
+  .part-8 h3 { color: var(--accent-pink-dim); }
+  .part-8 h3::before { background: var(--accent-pink); }
+
+  .part-9 .part-number { background: #6b72801a; color: var(--accent-gray-dim); }
+  .part-9 h2 { color: var(--accent-gray-dim); }
+  .part-9 h3 { color: var(--accent-gray-dim); }
+  .part-9 h3::before { background: var(--accent-gray); }
+
+  /* ── Subsections ── */
+  .subsection {
+    margin-bottom: 2rem;
+    scroll-margin-top: 2rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    width: 4px;
+    height: 1.1em;
+    border-radius: 99px;
+  }
+
+  /* ── Content elements ── */
+  p {
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .bullet-list {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .bullet-list > li {
+    position: relative;
+    padding: 0.65rem 1rem 0.65rem 1.5rem;
+    margin-bottom: 0.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    transition: border-color 0.2s;
+  }
+
+  .bullet-list > li:hover {
+    border-color: var(--border-light);
+  }
+
+  .bullet-list > li::before {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    top: 1rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-muted);
+  }
+
+  .bullet-list > li > ul {
+    list-style: none;
+    margin-top: 0.5rem;
+    padding-left: 0;
+  }
+
+  .bullet-list > li > ul > li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.87rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .bullet-list > li > ul > li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  strong {
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ── Numbered list (for Part 1) ── */
+  .numbered-list {
+    list-style: none;
+    counter-reset: env-counter;
+    margin-bottom: 1.5rem;
+  }
+
+  .numbered-list > li {
+    counter-increment: env-counter;
+    position: relative;
+    padding: 1rem 1.25rem 1rem 3.5rem;
+    margin-bottom: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .numbered-list > li::before {
+    content: counter(env-counter);
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    width: 28px;
+    height: 28px;
+    background: var(--surface-3);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-red-dim);
+  }
+
+  /* ── Callout / highlight boxes ── */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+  }
+
+  .callout-red { border-left-color: var(--accent-red); }
+  .callout-amber { border-left-color: var(--accent-amber); }
+  .callout-blue { border-left-color: var(--accent-blue); }
+  .callout-green { border-left-color: var(--accent-green); }
+  .callout-purple { border-left-color: var(--accent-purple); }
+
+  /* ── Debunked list ── */
+  .debunked-list {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .debunked-list li {
+    position: relative;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid #2a1a1a;
+    border-radius: 6px;
+  }
+
+  .debunked-list li::before {
+    content: '\2717';
+    position: absolute;
+    left: 0.9rem;
+    top: 0.55rem;
+    color: var(--accent-red);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  /* ── KPI stack ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+  }
+
+  .kpi-card .kpi-title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--accent-pink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
+  }
+
+  .kpi-card .kpi-desc {
+    font-size: 0.87rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* ── Strategic posture box ── */
+  .posture-box {
+    background: linear-gradient(135deg, rgba(96,165,250,0.06), rgba(167,139,250,0.06));
+    border: 1px solid rgba(96,165,250,0.2);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--accent-blue-dim);
+    line-height: 1.6;
+  }
+
+  /* ── Scroll to top ── */
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 42px;
+    height: 42px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1.1rem;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .back-to-top:hover {
+    background: var(--surface-3);
+    color: var(--text);
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .content { padding: 2rem 1.25rem 4rem; }
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .kpi-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .content { padding: 1.5rem 1rem 3rem; }
+    .hero { padding: 2.5rem 1rem 2rem; }
+    h3 { font-size: 1.05rem; }
+    .bullet-list > li { font-size: 0.87rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero" id="top">
+  <h1>Local SEO Master Playbook 2026</h1>
+  <p class="subtitle">The complete execution guide for small businesses. Merged from practitioner testing, expert survey consensus, and Google's official documentation, current through mid-2026.</p>
+  <p class="meta">On-Site &amp; Off-Site &bull; Current through Mid-2026</p>
+</div>
+
+<div class="layout">
+
+  <!-- ── Sidebar / TOC ── -->
+  <nav class="sidebar">
+    <div class="toc-title">Table of Contents</div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part1">Part 1: The 2026 Environment</a>
+    </div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part2">Part 2: Google Business Profile</a>
+      <ul class="toc-sub">
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#location">Physical Location</a></li>
+        <li><a href="#hours">Hours</a></li>
+        <li><a href="#completeness">Completeness</a></li>
+        <li><a href="#photos">Photos</a></li>
+        <li><a href="#landing-page">Landing Page Link</a></li>
+        <li><a href="#qa-replacement">The Q&A Replacement Play</a></li>
+        <li><a href="#verification">Verification &amp; Risk</a></li>
+        <li><a href="#sab">Service Area Businesses</a></li>
+        <li><a href="#biz-name">Business Name</a></li>
+        <li><a href="#gbp-skip">What to Skip on GBP</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part3">Part 3: Reviews</a>
+      <ul class="toc-sub">
+        <li><a href="#velocity">The Velocity System</a></li>
+        <li><a href="#rating-floor">Rating Floor</a></li>
+        <li><a href="#responses">Responses</a></li>
+        <li><a href="#compliance">Compliance</a></li>
+        <li><a href="#platform-diversification">Platform Diversification</a></li>
+        <li><a href="#integrity">Integrity</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part4">Part 4: On-Site SEO</a>
+      <ul class="toc-sub">
+        <li><a href="#min-arch">Minimum Viable Architecture</a></li>
+        <li><a href="#service-pages">Service Pages</a></li>
+        <li><a href="#city-pages">City &amp; Service-Area Pages</a></li>
+        <li><a href="#nav">Navigation &amp; Internal Links</a></li>
+        <li><a href="#titles">Title Tags &amp; Metadata</a></li>
+        <li><a href="#schema">Structured Data</a></li>
+        <li><a href="#kw-research">Keyword Research</a></li>
+        <li><a href="#content-strategy">Content Strategy</a></li>
+        <li><a href="#technical">Technical: Mobile, Speed</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part5">Part 5: Off-Site Beyond Reviews</a>
+      <ul class="toc-sub">
+        <li><a href="#citations">Citations</a></li>
+        <li><a href="#pr">Local PR &amp; Press</a></li>
+        <li><a href="#local-links">Local Links</a></li>
+        <li><a href="#brand-social">Brand &amp; Social</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part6">Part 6: AI Visibility</a>
+    </div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part7">Part 7: The Paid Reality Check</a>
+    </div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part8">Part 8: Measurement</a>
+      <ul class="toc-sub">
+        <li><a href="#kpi-stack">The KPI Stack</a></li>
+        <li><a href="#reporting">Reporting Discipline</a></li>
+      </ul>
+    </div>
+
+    <div class="toc-section">
+      <a class="toc-section-title" href="#part9">Part 9: Debunked</a>
+    </div>
+  </nav>
+
+  <!-- ── Main Content ── -->
+  <main class="content">
+
+    <div class="callout callout-blue" style="margin-bottom: 3rem;">
+      Run it as a two-engine system. Engine one: maximize visibility and conversion in Google Business Profile, Maps, and the local pack. Engine two: build a website and off-site authority footprint strong enough to win local organic clicks, AI citations, and branded trust. Everything below feeds one of those two engines. If a tactic feeds neither, it doesn't belong in your week.
+    </div>
+
+    <!-- ═══════ PART 1 ═══════ -->
+    <section class="part part-1" id="part1">
+      <div class="part-header">
+        <span class="part-number">1</span>
+        <h2>The 2026 Environment</h2>
+      </div>
+      <p class="part-intro">Read once, then act. Five structural shifts define the year. Every recommendation in this guide traces back to one of them.</p>
+
+      <ol class="numbered-list">
+        <li><strong>Local discovery has fragmented.</strong> Customers now find businesses through Maps, the local pack, AI Overviews, AI Mode, ChatGPT-style assistants, Apple Maps, review platforms, YouTube, Reddit, and local directories. All of these surfaces pull from the same underlying pool: your profile, your website, your reviews, and your mentions across the web. Consistency across that pool is the meta-factor.</li>
+        <li><strong>Organic real estate is shrinking and monetizing.</strong> Ad placements are absorbing map pack positions, Local Services Ads have expanded aggressively, and the call button has been stripped from organic mobile map listings. The calls that used to come free from the pack increasingly come from paid placements.</li>
+        <li><strong>AI-formatted results show fewer businesses.</strong> AI-driven local results surface a fraction of the businesses traditional 3-packs do. When the shortlist shrinks, the businesses with the strongest profiles, reviews, and web presence are the ones that survive the cut.</li>
+        <li><strong>GBP itself is changing under your feet.</strong> The public Q&A feature is gone, replaced by AI-generated answers that Google assembles from your profile, reviews, and website. Gemini-assisted profile tools are rolling out. Treat profile features as rented; treat your website FAQs, service pages, and review system as owned, durable assets.</li>
+        <li><strong>Measurement is catching up.</strong> Search Console now has dedicated generative AI performance reports (impressions in AI Overviews and AI Mode). Rollout is gradual and click data is absent, so adopt it when your properties get access, and track AI referral traffic in analytics in the meantime.</li>
+      </ol>
+
+      <div class="posture-box">
+        Strategic posture for the year: qualified visibility across multiple surfaces, measured in leads, not a single-rank obsession on one surface Google is actively monetizing.
+      </div>
+    </section>
+
+    <!-- ═══════ PART 2 ═══════ -->
+    <section class="part part-2" id="part2">
+      <div class="part-header">
+        <span class="part-number">2</span>
+        <h2>Google Business Profile</h2>
+      </div>
+      <p class="part-intro">The highest-leverage asset you control. Treat it as a product, not a listing.</p>
+
+      <div class="subsection" id="categories">
+        <h3>Categories</h3>
+        <ul class="bullet-list">
+          <li>The primary category is the single most powerful field on the profile. Set it to the most specific match for your core money service, the category that completes the sentence "this business is a..."</li>
+          <li>Treat the primary category as load-bearing. A single primary category change has dropped businesses from #1 to page-three territory overnight. Never change it casually, always document the before state, and be ready to revert fast if rankings crater.</li>
+          <li>Use all 10 category slots where genuinely applicable. Google's official guidance says use the fewest categories possible; controlled practitioner testing directly contradicts this, and the current expert stance is to fill relevant slots. A dentist legitimately spans far more than "Dentist," and each relevant category opens ranking eligibility for its keyword family. The one rule: every category must be a service you actually deliver. Unrelated categories invite filtering and suspensions.</li>
+          <li>With over 4,100 categories and constant additions, the exact-match category you need may be nested somewhere unexpected. Use a category research tool to map your money keywords to the categories Google actually associates with them before settling.</li>
+          <li>Audit categories quarterly. Google adds, renames, and removes categories constantly, and seasonal businesses should rotate primaries with the season. Check what top competitors use, and test changes one at a time so you can attribute movement. Category changes take effect within roughly 48 hours, which makes them the fastest-feedback lever on the entire profile.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="services">
+        <h3>Services (an actual ranking field, not decoration)</h3>
+        <ul class="bullet-list">
+          <li>Pre-defined services are a tested ranking factor. Add every pre-defined service Google offers for your categories that you genuinely provide. This is one of the most overlooked ranking fields on the profile.</li>
+          <li>Custom services carry a smaller but real ranking benefit. Add them for offerings the pre-defined list misses, written in the words customers search.</li>
+          <li>Services also generate "provides" justifications on your listing in search results, which lift click-through. Word custom services carefully: they display publicly, and sloppy phrasing ends up as embarrassing labels on your listing.</li>
+          <li>Audit the services list monthly. Google auto-adds services based on your categories and sometimes gets it wrong, publicly attributing services you don't offer. Remove the junk.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="location">
+        <h3>Physical location</h3>
+        <ul class="bullet-list">
+          <li>Businesses located within the red boundary when you search for city name in Google Maps get significant ranking boost for keywords containing the city name.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="hours">
+        <h3>Hours</h3>
+        <ul class="bullet-list">
+          <li>Listed hours affect visibility. Being closed at the time someone searches suppresses rankings, and the decay begins before closing time.</li>
+          <li>Extend hours to the full window someone can actually answer the phone. If someone picks up until 8pm, list until 8pm.</li>
+          <li>The advanced version: legitimate 24/7 availability through a call answering service is a tested ranking lever. If competitors close at 5pm and your answering service genuinely covers nights, listing 24/7 is both honest and an advantage.</li>
+          <li>Never list hours nobody covers. Missed calls destroy conversion and generate the negative reviews that undo everything else. The line is answerability, not the number on the profile.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="completeness">
+        <h3>Completeness</h3>
+        <ul class="bullet-list">
+          <li>Fill every field: services, attributes, description, opening date, phone, website, booking links, special hours. Complete profiles beat partial ones, and with AI results showing fewer businesses, completeness decides who makes the shortlist.</li>
+          <li>Write the description for customers, not the algorithm. It is not a ranking field. Explain why you're the obvious choice.</li>
+          <li>Completeness now has a second job: with Q&A gone, Google's AI generates answers about your business from your profile data, reviews, and website. Gaps in the profile become gaps or errors in the AI's answers about you. An incomplete profile means the machine improvises your story.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="photos">
+        <h3>Photos</h3>
+        <ul class="bullet-list">
+          <li>Real photos of work, team, premises, and equipment. Recurring cadence: new photos monthly minimum, biweekly ideally.</li>
+          <li>Freshness drives engagement, and engagement feeds visibility. A profile that looks alive outperforms one that looks abandoned.</li>
+          <li>Skip geotagging. Location metadata is stripped on upload and does nothing.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="landing-page">
+        <h3>Landing page link</h3>
+        <ul class="bullet-list">
+          <li>Link the profile to a dedicated, city-specific landing page, not the generic homepage. The page must mirror the profile: same name, address, phone, hours, services, city.</li>
+          <li>Multi-location: each profile links to its own location page. Never point multiple profiles at one URL.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="qa-replacement">
+        <h3>The Q&A replacement play</h3>
+        <ul class="bullet-list">
+          <li>The public Q&A section is discontinued. The seed-your-own-questions tactic is dead. Do not spend a minute trying to resurrect it.</li>
+          <li>Its replacement is content you own: build a real FAQ page on your website answering the questions customers actually ask, marked up with FAQ schema, written in plain conversational language. Google's AI pulls from it when answering questions about your business, and so do the standalone assistants.</li>
+          <li>Harvest the questions from reality: phone call logs, review text, sales conversations, and your team's "we get asked this constantly" list. Real customer language beats keyword-tool language for AI-mediated answers.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="verification">
+        <h3>Verification and risk management</h3>
+        <ul class="bullet-list">
+          <li>Video verification is effectively the only verification path for new profiles and reinstatements. Prepare the kit before you need it: exterior signage, interior workspace, vehicle branding, business licenses, utility bills.</li>
+          <li>Make profile edits sparingly and one at a time. Bulk edits and name changes are the most common suspension triggers. A suspended profile means zero calls until reinstatement, which can take weeks.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="sab">
+        <h3>Service area businesses</h3>
+        <ul class="bullet-list">
+          <li>If you work from home and hide your address per Google's guidelines, understand you are accepting a ranking handicap. Businesses showing a real staffed address outperform hidden-address competitors.</li>
+          <li>If you can justify a legitimate staffed office in your core market, it is a ranking decision as much as an operational one. Do not fake an address; virtual offices and mailboxes get profiles removed, and video verification makes fakes nearly impossible to sustain.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="biz-name">
+        <h3>Business name</h3>
+        <ul class="bullet-list">
+          <li>Keywords in the actual registered business name remain a genuinely powerful ranking factor. Stuffing keywords into the profile name without legal backing violates guidelines and risks suspension.</li>
+          <li>If forming a new business or willing to file a DBA, a name including service and city is legal and effective. A formation decision made once, not a profile hack.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="gbp-skip">
+        <h3>What to skip on GBP</h3>
+        <ul class="bullet-list">
+          <li>Posts do not move rankings. Keep a light cadence for click-through and profile freshness if time allows, but never prioritize posts over categories, reviews, or photos.</li>
+          <li>The profile description is not a ranking field. Keyword-stuffing it accomplishes nothing.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════ PART 3 ═══════ -->
+    <section class="part part-3" id="part3">
+      <div class="part-header">
+        <span class="part-number">3</span>
+        <h2>Reviews</h2>
+      </div>
+      <p class="part-intro">The strongest off-site signal you fully control, the trust layer every customer checks, and the evidence layer AI assistants weigh when deciding whether to recommend you. Run reviews as an operating system, not a campaign.</p>
+
+      <div class="subsection" id="velocity">
+        <h3>The velocity system</h3>
+        <ul class="bullet-list">
+          <li>Ask every customer, every time, the same day the job finishes. Recency beats archive size: a steady stream of fresh reviews outperforms a large pile of old ones, and customers discount aging reviews fast.</li>
+          <li>One tap: direct review link by SMS immediately after service. Every added step cuts response rate. Email as backup.</li>
+          <li>Assign ownership. One named person is accountable for the ask happening on every job. Unowned systems die within a month.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="rating-floor">
+        <h3>Rating floor</h3>
+        <ul class="bullet-list">
+          <li>Treat 4.5 stars as the minimum viable rating. A large share of customers filter below it before reading a single review.</li>
+          <li>Below the floor? Fix the operational cause first. Review generation on top of a broken service experience just documents the problem faster.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="responses">
+        <h3>Responses</h3>
+        <ul class="bullet-list">
+          <li>Every review answered within 24 to 48 hours. Slow or absent responses read as an inattentive business.</li>
+          <li>Specific responses referencing the actual job. Copy-paste replies are a red flag to readers, and unedited AI-drafted replies fall in the same bucket.</li>
+          <li>Negative reviews get the fastest, calmest, most specific responses. Future customers judge the reply more than the complaint.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="compliance">
+        <h3>Compliance (this is where businesses get burned)</h3>
+        <ul class="bullet-list">
+          <li>No incentives, discounts, or payment for reviews.</li>
+          <li>No review gating: you may not selectively solicit only happy customers or pre-screen sentiment before sending the review link. Ask everyone.</li>
+          <li>No suppressing or discouraging negative feedback, and no asking for specific content or keywords.</li>
+          <li>Sharing a review link or QR code on receipts, thank-you emails, and in-store displays is explicitly allowed. Use all of it.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="platform-diversification">
+        <h3>Platform diversification</h3>
+        <ul class="bullet-list">
+          <li>Google is the center but no longer the whole game. Build review presence on Apple Maps, Yelp, and the directory that dominates your vertical.</li>
+          <li>AI assistants pull reputation from across the open web, not from Google's review data. A Google-only review profile is invisible to a growing slice of discovery.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="integrity">
+        <h3>Integrity</h3>
+        <ul class="bullet-list">
+          <li>Never buy or fake reviews. Detection is improving, consumers are hostile to fakes, and legitimate profiles are already getting caught in enforcement sweeps. Downside is existential, upside is marginal.</li>
+          <li>Monitor for fake negative reviews weekly and report with documentation.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════ PART 4 ═══════ -->
+    <section class="part part-4" id="part4">
+      <div class="part-header">
+        <span class="part-number">4</span>
+        <h2>On-Site SEO</h2>
+      </div>
+      <p class="part-intro">Your website matters more for AI-driven discovery than for the map pack, and for service-area businesses it is the main growth engine beyond the radius Maps allows. Build it compact, explicit, locally legible, and technically boring in the best sense.</p>
+
+      <div class="subsection" id="min-arch">
+        <h3>Minimum viable architecture</h3>
+        <p>Before anything fancy, three pages done properly:</p>
+        <ul class="bullet-list">
+          <li><strong>Homepage:</strong> what you do, where you do it, complete contact information, hours, core services, one strong call to action, customer-focused copy. Not a brand poem.</li>
+          <li><strong>Contact page:</strong> name, address, and phone matching your legal documents and profile exactly, hours, embedded map, directions, premise photos, parking and accessibility details, and a clearly described service area if relevant.</li>
+          <li><strong>Reviews page:</strong> real testimonials with names and specifics, updated as new reviews land.</li>
+        </ul>
+        <p>Then expand: service pages, then location or service-area pages.</p>
+      </div>
+
+      <div class="subsection" id="service-pages">
+        <h3>Service pages</h3>
+        <ul class="bullet-list">
+          <li>One dedicated page per core service. The single most validated on-site move for both local organic rankings and AI visibility. A generic "Services" page bundling everything leaves the highest-weighted on-site factor on the table.</li>
+          <li>Each page: the service plus city in the title, what's included, process, pricing signals, proof (photos, reviews, credentials), and a conversion path one tap away.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="city-pages">
+        <h3>City and service-area pages: earn them or skip them</h3>
+        <p>Thin templated pages with swapped place names fail and can drag the whole site down. The evidence is consistent: rankings correlate with meaningful, substantive words on the landing page, not filler. Every city page must prove you actually work there:</p>
+        <ul class="bullet-list">
+          <li>Completed jobs in that city with photos</li>
+          <li>Local specifics: permit requirements, climate or regulatory constraints, neighborhood references only someone working there would know</li>
+          <li>Reviews from customers in that city</li>
+          <li>Area-specific FAQs</li>
+        </ul>
+        <p>Structure for service-area businesses: prioritize the most important towns first, link the profile to the hub city page, interlink the service-area pages, and make them all crawlable through navigation, hub pages, and the sitemap. Only build pages for areas where you actually book work.</p>
+      </div>
+
+      <div class="subsection" id="nav">
+        <h3>Navigation and internal links</h3>
+        <ul class="bullet-list">
+          <li>Main navigation exposes the pages that matter: services, contact, locations or service areas. Cluttered navigation confuses users and Google alike; simplifying it measurably improves traffic and conversions.</li>
+          <li>Treat internal links as votes. Every informational page links to the service page it supports. Orphan pages are wasted pages.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="titles">
+        <h3>Title tags and metadata</h3>
+        <ul class="bullet-list">
+          <li>Lead with service and city. This still directly moves rankings.</li>
+          <li>Ignore the 60-character rule. Write the title the page needs; truncated display doesn't stop the full tag from passing signals.</li>
+          <li>Keep pages visibly current. Reference the current year where honest (pricing, seasonal services, guides). Stale dates suppress clicks.</li>
+          <li>Meta descriptions as ad copy: problem, promise, action.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="schema">
+        <h3>Structured data (with the correction most guides miss)</h3>
+        <ul class="bullet-list">
+          <li>LocalBusiness schema sitewide: name, address, phone, hours, geo coordinates, service areas. Organization schema on the homepage for entity disambiguation. Service schema on service pages. FAQ schema on genuine FAQ content.</li>
+          <li>Everything in the schema matches the profile and the visible page exactly. Inconsistency between site, profile, and directories erodes trust with Google and AI systems simultaneously.</li>
+          <li>Do NOT add review or star-rating markup to your own business pages expecting rich results. Self-serving review markup on your own LocalBusiness or Organization pages is ineligible for star display. Skip it.</li>
+          <li>Frame schema correctly: it is a clarity and eligibility layer that helps machines parse you accurately, not a ranking shortcut.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="kw-research">
+        <h3>Keyword and question research</h3>
+        <ul class="bullet-list">
+          <li>Conventional foundation: core services, extended with modifiers, crossed with locations, organized by intent.</li>
+          <li>The 2026 layer: collect the real questions customers ask (calls, reviews, sales conversations) and build content around them in natural language. These conversational queries are what AI Overviews, AI Mode, and assistants answer, and your FAQ and service content is what gets cited.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="content-strategy">
+        <h3>Content strategy: the hard pivot</h3>
+        <p>The old playbook of reverse-engineering the top three rankers and writing a longer version is dead. Generic informational content earns nothing: answers get absorbed into AI summaries and the clicks never arrive.</p>
+        <ul class="bullet-list">
+          <li><strong>Write what competitors cannot or will not write.</strong> Real pricing, real project breakdowns, real timelines, mistakes you've seen customers make, opinionated comparisons. Content only your business could produce.</li>
+          <li><strong>Human-written and experience-based beats AI-templated.</strong> If any competitor with the same prompt could have generated your page, it will perform like everyone else's version: badly.</li>
+          <li><strong>Reframe blog content as support infrastructure.</strong> Its job is topical authority around money pages, internal links to them, and existing as citable source material for AI engines. If a piece can't be drawn back to a service page, don't write it.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="technical">
+        <h3>Technical: mobile, speed, experience</h3>
+        <ul class="bullet-list">
+          <li>Google indexes and ranks the mobile version. Keep mobile and desktop content equivalent.</li>
+          <li>Fast enough beats perfect. Core Web Vitals matter as part of page experience, but chasing perfect scores past "fast and frictionless" is wasted budget. The bar: key pages load quickly on a phone, and calls, forms, bookings, and maps work without friction.</li>
+          <li>One tap maximum from any page to a phone number or form. Sticky call button on mobile.</li>
+          <li>Consistent name, address, phone in the footer of every page, matching the profile exactly.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════ PART 5 ═══════ -->
+    <section class="part part-5" id="part5">
+      <div class="part-header">
+        <span class="part-number">5</span>
+        <h2>Off-Site Beyond Reviews</h2>
+      </div>
+
+      <div class="subsection" id="citations">
+        <h3>Citations: consistency plus editorial presence</h3>
+        <p>The directory-blitz era stays dead, but citations have a second life as AI evidence. Two layers:</p>
+        <p><strong>Layer 1: Structured consistency.</strong> Name, address, and phone identical across the meaningful directories: major aggregators, big horizontal platforms, and the directories specific to your vertical and country. Fix contradictions before adding anything. Fifty clean listings beat three hundred messy ones. AI systems and Google both downgrade entities whose data contradicts itself.</p>
+        <p><strong>Layer 2: Editorial presence.</strong> Where the real off-site value moved:</p>
+        <ul class="bullet-list">
+          <li>Curated "best of" lists: local press roundups, industry award lists, platform collections. Among the strongest visibility signals that exist now.</li>
+          <li>Prominence on the key industry domains for your vertical: whatever the authoritative platform in your space is, be present, complete, and reviewed there.</li>
+          <li>Unstructured mentions: your business named in news coverage, blogs, association pages, community hubs, and local guides. AI systems weigh these heavily when deciding whom to recommend.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="pr">
+        <h3>Local PR and press outreach</h3>
+        <p>Treat this as a first-class channel, not an afterthought. It is the one off-site investment that pays into three algorithms at once: authority links for traditional rankings, unstructured mentions for AI visibility, and brand prominence for humans. Run it as a program:</p>
+        <ul class="bullet-list">
+          <li><strong>Build a story inventory.</strong> Original data from your work, unusual jobs, seasonal demand patterns, community involvement, hiring milestones, industry commentary. Refresh quarterly. Businesses don't lack stories; they lack the habit of noticing them.</li>
+          <li><strong>Pitch journalists directly.</strong> Local news, trade publications, and community sites. A tailored two-paragraph pitch to five relevant reporters beats any mass distribution.</li>
+          <li><strong>Run press releases as a direct SEO tactic, not just an announcement channel.</strong> This is a genuine 2025-2026 reversal: controlled testing that found press releases useless years ago now shows strategic releases moving three surfaces at once. The observed pattern: local pack rankings lift first, organic rankings follow weeks later in a compounding curve, and in the strongest case an AI Overview for the business's main service keyword began quoting language directly from the release. One test saw an 83% traffic jump to the target page within a month. Distribution through a reputable press release service is part of the play, not a sin.</li>
+          <li><strong>Follow the tested rules or don't bother.</strong> The mechanics that made these tests work:
+            <ul>
+              <li>Content is real news: office moves, awards, expansions, notable hires, original statistics, community initiatives. Manufactured non-news gets you nothing.</li>
+              <li>One plain HTML link to the page that complements the release. No keyword-rich anchor text: after the 2026 core updates, keyword anchors in releases are explicitly the thing to avoid. Brand name or raw URL only.</li>
+              <li>Link to the relevant service or landing page, not always the homepage. The traffic and pack gains land on the linked page.</li>
+              <li>Write quotable, factual sentences. The release language itself is what AI Overviews may lift verbatim, so every key sentence should be one you'd want quoted next to your name.</li>
+              <li>Frequency follows news. A release per real event, not a release per month on schedule.</li>
+            </ul>
+          </li>
+          <li><strong>Bonus use: entity consistency ahead of changes.</strong> A release announcing an office move seeds the new name, address, and phone across the web before you edit the profile, which reduces reverification friction and supports NAP consistency during the riskiest profile change there is.</li>
+          <li><strong>Still write for humans too.</strong> A release that a journalist turns into real coverage produces the unstructured citations AI engines reward on top of the direct effects above. Publish every release on your own newsroom page as owned, crawlable, citable material.</li>
+          <li><strong>Offer expert commentary.</strong> Sign up as a source for journalist-request services, respond fast, and become the local expert reporters call. Each quote is an unstructured citation with your name and business attached.</li>
+          <li><strong>Convert coverage into assets.</strong> Every mention goes on your site's press page, feeds your "as featured in" trust signals, and gets checked for a link (politely request one where missing; many outlets will add it).</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="local-links">
+        <h3>Local links: concentrate, don't accumulate</h3>
+        <ul class="bullet-list">
+          <li>One genuinely strong, relevant link outperforms dozens of weak ones. Weigh links, don't count them.</li>
+          <li>The best local links double as citations: event and team sponsorships with real business details and a link, chamber and trade association memberships, neighborhood organizations, supplier and partner pages.</li>
+          <li>Add a partners and suppliers section to your own site and ask for the reciprocal. Legitimate business relationships are the cheapest credible links available.</li>
+          <li>Avoid link networks, mass guest-post schemes, and anything sold by the hundred. Dead weight at best, liability at worst.</li>
+        </ul>
+      </div>
+
+      <div class="subsection" id="brand-social">
+        <h3>Brand and social: the long game</h3>
+        <ul class="bullet-list">
+          <li>Move expertise content to YouTube and Reddit, where informational demand went as traditional results dried up. Video builds branded search demand, and branded demand feeds organic rankings.</li>
+          <li>Show up in the local platforms where customers actually talk: community Facebook groups, Nextdoor, local subreddits. Participation, not promotion.</li>
+          <li>End goal: people searching your business by name. Branded demand is the one moat no algorithm change or AI summary can take away.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════ PART 6 ═══════ -->
+    <section class="part part-6" id="part6">
+      <div class="part-header">
+        <span class="part-number">6</span>
+        <h2>AI Visibility</h2>
+      </div>
+      <p class="part-intro">The third search surface alongside the pack and organic. It runs on the assets above but weights them differently: your website and open-web mentions matter more, your Google profile matters less.</p>
+
+      <ul class="bullet-list">
+        <li><strong>Feed the machines what they read.</strong> AI assistants pull from business websites, open-web mentions, and non-Google directories and review platforms. Your service pages, FAQ content, editorial mentions, press coverage, and Yelp-tier presence are your AI strategy. Your Google reviews alone are not.</li>
+        <li><strong>Win the fact-check.</strong> AI users verify recommendations against real reviews before acting. The AI mention only converts if the review profile they check afterward is strong and fresh. Both layers must hold.</li>
+        <li><strong>Structure for extraction.</strong> Clear headings, direct answers to real questions, consistent business data, clean schema. AI engines cite what they can parse.</li>
+        <li><strong>No gimmicks.</strong> There is no special AI file, no secret markup, no shortcut. The official guidance and the practitioner consensus agree: foundational SEO plus unique, non-commodity content is the path into generative results. Fake mentions and manufactured signals get filtered.</li>
+        <li><strong>Instrument it.</strong> Track AI referral traffic in analytics now. Adopt Search Console's generative AI performance reports when your properties get access (rollout is gradual; impressions only, no clicks yet). Check your presence in the major assistants for your core commercial queries quarterly and baseline it before you need it.</li>
+      </ul>
+    </section>
+
+    <!-- ═══════ PART 7 ═══════ -->
+    <section class="part part-7" id="part7">
+      <div class="part-header">
+        <span class="part-number">7</span>
+        <h2>The Paid Reality Check</h2>
+      </div>
+      <p class="part-intro">This is an organic playbook, but pretending paid doesn't exist in 2026 is malpractice. Ad placements have absorbed the positions and features that organic listings lost, including the call buttons, and the businesses running ads are capturing calls that used to come free from the pack.</p>
+
+      <ul class="bullet-list">
+        <li>Test Local Services Ads if they exist for your vertical. They sit above everything and charge per lead.</li>
+        <li>Budget a controlled test of local ads alongside the organic work. Measure cost per lead against organic cost per lead, not against zero.</li>
+        <li>Organic remains the foundation because it compounds, feeds paid quality, and powers AI visibility. Run both engines together, not sequentially.</li>
+      </ul>
+    </section>
+
+    <!-- ═══════ PART 8 ═══════ -->
+    <section class="part part-8" id="part8">
+      <div class="part-header">
+        <span class="part-number">8</span>
+        <h2>Measurement</h2>
+      </div>
+      <p class="part-intro">The KPI stack has to match the fragmented environment. Single-rank obsession is the most common measurement mistake: proximity customizes local results so heavily that "we're #1" is often true only at the exact point measured from and false two miles away.</p>
+
+      <div class="subsection" id="kpi-stack">
+        <h3>The KPI stack</h3>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Leads First</div>
+            <div class="kpi-desc">Calls, form fills, bookings, direction requests, by source. This is the number the business owner feels.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Profile Actions</div>
+            <div class="kpi-desc">Calls, website clicks, direction requests, and booking actions from the profile, trended over time. Expect impressions to be noisier than actions; falling impressions with stable actions is the current pattern, not a crisis.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Map Share of Voice</div>
+            <div class="kpi-desc">Grid-based rank tracking across the real service area, not one rank for one keyword from one point. Judge progress by coverage expanding across the geography.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Local Organic</div>
+            <div class="kpi-desc">Sessions and conversions by page, branded versus non-branded, service page and city page performance.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Review Health</div>
+            <div class="kpi-desc">Velocity, recency, average rating, response rate and response time.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Citation Accuracy</div>
+            <div class="kpi-desc">Consistency across the directory set, audited quarterly.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">AI Visibility</div>
+            <div class="kpi-desc">Referral traffic from assistants in analytics, generative AI impressions in Search Console where available, and a quarterly manual check of what the major assistants say about you and whether you appear for your core queries.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="reporting">
+        <h3>Reporting discipline</h3>
+        <ul class="bullet-list">
+          <li>Monthly reporting with annotations: what changed, what was shipped, what moved. Unannotated dashboards teach nothing.</li>
+          <li>Quarterly: prune or refresh underperforming content, re-audit categories and citations, re-baseline AI presence, and kill anything that produced nothing for two straight quarters.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════ PART 9 ═══════ -->
+    <section class="part part-9" id="part9">
+      <div class="part-header">
+        <span class="part-number">9</span>
+        <h2>Debunked. Stop Doing These.</h2>
+      </div>
+      <p class="part-intro">Every hour here is an hour not spent on reviews, service pages, or PR. All of these are either proven ineffective or actively dangerous:</p>
+
+      <ul class="debunked-list">
+        <li>Geotagging photos for rankings</li>
+        <li>GBP posts as a ranking tactic</li>
+        <li>Seeding your own Q&A on the profile (the feature is gone; the tactic is dead)</li>
+        <li>Coaching keywords into customer reviews</li>
+        <li>Review gating and selective solicitation</li>
+        <li>Keyword-stuffing the profile name without legal backing</li>
+        <li>Keyword-stuffing the profile description</li>
+        <li>Thin templated city pages at scale</li>
+        <li>Mass directory submissions</li>
+        <li>Keyword-rich anchor text in press releases (the release tactic works now; keyword anchors inside it are what gets you hit post-core-update)</li>
+        <li>Self-serving review schema on your own pages expecting stars</li>
+        <li>Bought reviews or bought link packages</li>
+        <li>AI-templated content published at volume</li>
+        <li>Fake 24/7 hours or fake addresses</li>
+        <li>Chasing perfect Core Web Vitals scores past "fast and frictionless"</li>
+        <li>Chasing "AI optimization" gimmicks: special files, manufactured mentions, secret markup</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  Local SEO Master Playbook 2026 &bull; On-Site &amp; Off-Site &bull; Current through Mid-2026
+</footer>
+
+<a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</a>
+
+<script>
+  // Back to top button visibility
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 600);
+  });
+
+  // Active TOC highlighting
+  const sections = document.querySelectorAll('.part, .subsection');
+  const tocLinks = document.querySelectorAll('.toc-section-title, .toc-sub a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocLinks.forEach(link => {
+          link.style.color = '';
+          link.style.background = '';
+          if (link.getAttribute('href') === '#' + id) {
+            link.style.color = '#e2e5ef';
+            link.style.background = 'rgba(96,165,250,0.1)';
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => { if (s.id) observer.observe(s); });
+</script>
+</body>
+</html>
