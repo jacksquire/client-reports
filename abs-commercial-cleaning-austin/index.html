@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local SEO Audit Report — ABS Commercial Cleaning | July 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f172a;
+    --navy-light: #1e293b;
+    --navy-mid: #334155;
+    --accent: #3b82f6;
+    --accent-dark: #2563eb;
+    --pass: #10b981;
+    --pass-bg: #ecfdf5;
+    --pass-border: #a7f3d0;
+    --warn: #f59e0b;
+    --warn-bg: #fffbeb;
+    --warn-border: #fde68a;
+    --fail: #ef4444;
+    --fail-bg: #fef2f2;
+    --fail-border: #fecaca;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --border: #e2e8f0;
+    --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header ── */
+  .report-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--accent-dark) 100%);
+    color: var(--white);
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .header-text h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+  .header-text .subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-bottom: 0.5rem;
+  }
+  .header-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+  }
+  .header-meta span { white-space: nowrap; }
+
+  /* ── Score Gauge ── */
+  .score-gauge {
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .gauge-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 6px solid rgba(255,255,255,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgba(239,68,68,0.15);
+  }
+  .gauge-circle::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 6px solid transparent;
+    border-top-color: var(--fail);
+    border-right-color: var(--fail);
+    transform: rotate(-10deg);
+  }
+  .gauge-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .gauge-total {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    font-weight: 500;
+  }
+  .gauge-label {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── Summary Bar ── */
+  .summary-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: -1.5rem 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  .summary-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .summary-card .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+  }
+  .summary-card .value {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+  .summary-card .value.pass-color { color: var(--pass); }
+  .summary-card .value.warn-color { color: var(--warn); }
+  .summary-card .value.fail-color { color: var(--fail); }
+
+  /* ── Critical Alert ── */
+  .critical-alert {
+    background: linear-gradient(135deg, #7f1d1d, #991b1b);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    box-shadow: 0 4px 14px rgba(239,68,68,0.25);
+  }
+  .critical-alert .alert-icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .critical-alert h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .critical-alert p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin: 2.5rem 0;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-header h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .section-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: var(--navy);
+    color: var(--white);
+  }
+  .section-score {
+    margin-left: auto;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light);
+  }
+
+  /* ── Audit Card ── */
+  .audit-card {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .audit-card:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+  }
+  .card-number {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+    min-width: 2rem;
+    text-align: center;
+  }
+  .card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    flex: 1;
+  }
+  .status-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .status-pass {
+    background: var(--pass-bg);
+    color: #065f46;
+    border: 1px solid var(--pass-border);
+  }
+  .status-warn {
+    background: var(--warn-bg);
+    color: #92400e;
+    border: 1px solid var(--warn-border);
+  }
+  .status-fail {
+    background: var(--fail-bg);
+    color: #991b1b;
+    border: 1px solid var(--fail-border);
+  }
+
+  .card-body {
+    padding: 0 1.5rem 1.5rem;
+    padding-left: calc(1.5rem + 2rem + 1rem);
+  }
+  .evidence, .recommendation {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .evidence {
+    margin-bottom: 0.75rem;
+  }
+  .evidence strong, .recommendation strong {
+    font-weight: 600;
+  }
+  .evidence-label, .rec-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.25rem;
+  }
+  .evidence-label { color: var(--text-light); }
+  .rec-label { color: var(--accent-dark); }
+
+  .recommendation {
+    background: #eff6ff;
+    border-left: 3px solid var(--accent);
+    padding: 0.85rem 1rem;
+    border-radius: 0 8px 8px 0;
+    color: #1e3a5f;
+  }
+
+  /* ── Screenshots ── */
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .screenshot-card {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+  .screenshot-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid var(--border);
+  }
+  .screenshot-card .caption {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-align: center;
+  }
+
+  /* ── Action Plan ── */
+  .action-plan {
+    margin: 2.5rem 0;
+  }
+  .action-group {
+    margin-bottom: 1.5rem;
+  }
+  .action-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .action-group-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .priority-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .priority-dot.urgent { background: var(--fail); }
+  .priority-dot.soon { background: var(--warn); }
+  .priority-dot.maintain { background: var(--pass); }
+
+  .action-list {
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .action-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1.15rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    box-shadow: var(--card-shadow);
+  }
+  .action-item .action-num {
+    font-weight: 700;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    min-width: 2rem;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .action-item .action-text {
+    flex: 1;
+  }
+  .action-item .action-text strong {
+    font-weight: 700;
+  }
+
+  /* ── Footer ── */
+  .report-footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body { background: #fff; font-size: 11pt; }
+    .report-header { padding: 1.5rem; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .container { padding: 0; }
+    .audit-card, .summary-card, .screenshot-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    .critical-alert { -webkit-print-color-adjust: exact; print-color-adjust: exact; break-inside: avoid; }
+    .section { break-before: auto; }
+    .screenshot-grid { grid-template-columns: 1fr 1fr; }
+    .screenshot-card img { max-height: 250px; object-fit: contain; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .report-header { padding: 2rem 1.25rem; }
+    .header-inner { flex-direction: column; align-items: center; text-align: center; }
+    .header-text h1 { font-size: 1.35rem; }
+    .header-meta { justify-content: center; }
+    .gauge-circle { width: 110px; height: 110px; }
+    .gauge-number { font-size: 2rem; }
+    .card-body { padding-left: 1.5rem; }
+    .card-top { flex-wrap: wrap; }
+    .section-score { margin-left: 0; }
+    .screenshot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════ HEADER ════════════════════════════════════════════════ -->
+<header class="report-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <h1>Local SEO Checklist Audit</h1>
+      <div class="subtitle">ABS Commercial Cleaning &mdash; Austin, TX</div>
+      <div class="header-meta">
+        <span>abscleaning.com</span>
+        <span>July 9, 2026</span>
+        <span>16-Point Audit</span>
+      </div>
+    </div>
+    <div class="score-gauge">
+      <div class="gauge-circle">
+        <div class="gauge-number">2</div>
+        <div class="gauge-total">of 16</div>
+      </div>
+      <div class="gauge-label">Items Passing</div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════ SUMMARY BAR ══════════════════════════════════════════════ -->
+<div class="container">
+  <div class="summary-bar">
+    <div class="summary-card">
+      <div class="label">Overall Score</div>
+      <div class="value fail-color">12.5%</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Passing</div>
+      <div class="value pass-color">2</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Needs Work</div>
+      <div class="value warn-color">8</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Failing</div>
+      <div class="value fail-color">6</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ CRITICAL ALERT ════════════════════════════════════════════ -->
+  <div class="critical-alert">
+    <div class="alert-icon">&#9888;</div>
+    <div>
+      <h3>Critical Finding: 4 Duplicate GBP Listings Detected</h3>
+      <p>ABS Commercial Cleaning has <strong>4 separate Google Business Profile listings</strong>, splitting 27 total reviews across them instead of concentrating authority on a single profile. This dilution is likely the single biggest factor hurting Local Pack rankings. The strongest listing (18 reviews, 4.9 stars) is geolocated near San Marcos &mdash; not Austin. Consolidating to one verified Austin listing should be the top priority.</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════ TIER 1: GAME CHANGERS ══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge">Tier 1</span>
+      <h2>Game Changers</h2>
+      <span class="section-score">1 of 9 passing</span>
+    </div>
+
+    <!-- #01 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#01</span>
+        <span class="card-title">Visible Address (Brick-and-Mortar) vs Hidden SAB</span>
+        <span class="status-badge status-fail">Fail</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          All 4 GBP listings are configured as Service Area Businesses with hidden addresses. No visible physical address appears on any listing, despite the website displaying 2028 East Ben White Blvd, Austin TX 78741.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          If ABS operates from a real office at 2028 E. Ben White Blvd, convert at least the primary Austin listing to show the physical address. Storefront/office listings generally outperform SABs in Local Pack rankings.
+        </div>
+      </div>
+    </div>
+
+    <!-- #02 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#02</span>
+        <span class="card-title">Physical Location Within City Boundaries</span>
+        <span class="status-badge status-pass">Pass</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          Website address (2028 East Ben White Blvd, #240-4424, Austin, TX 78741) is within Austin city limits. One of the 4 GBP listings has coordinates in Austin proper (30.296114, -97.73297). <strong>However:</strong> the listing with 18 reviews is pinned near San Marcos (29.90, -98.09), not Austin. The Austin-specific listing has only 2 reviews.
+        </div>
+      </div>
+    </div>
+
+    <!-- #03 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#03</span>
+        <span class="card-title">Google Ads / LSAs</span>
+        <span class="status-badge status-fail">Fail</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          No LSAs or Google Ads appeared for "commercial cleaning Austin TX." ABS does not rank on page 1 organically either. Competitors like ServiceMaster Clean and JK Commercial Cleaning dominate. A Google Ads conversion tracking pixel (googleadservices.com) was found on the site, suggesting past ad campaigns that are no longer running.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          LSAs and Google Ads are critical in this competitive market. With zero organic page 1 presence, paid ads are the fastest path to visibility. Reactivate campaigns and consider LSAs for the trust badge benefit.
+        </div>
+      </div>
+    </div>
+
+    <!-- #04 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#04</span>
+        <span class="card-title">Keywords in Business Name</span>
+        <span class="status-badge status-warn">Needs Work</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          Business name "ABS Commercial Cleaning" contains the service keyword ("Commercial Cleaning") but no city/location keyword. The name varies across listings &mdash; some include "LLC", some do not.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Consider filing a DBA such as "ABS Commercial Cleaning Austin" to include the city keyword. Standardize the name across all listings to eliminate inconsistencies.
+        </div>
+      </div>
+    </div>
+
+    <!-- #05 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#05</span>
+        <span class="card-title">GBP Categories (Primary + All Slots)</span>
+        <span class="status-badge status-fail">Fail</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          Primary categories are inconsistent: 3 listings use "Janitorial service" and 1 uses "Cleaning service." No secondary categories are set on any listing. With 9 services offered (carpet cleaning, pressure washing, office cleaning, etc.), many applicable secondary category slots sit empty.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Set primary category to <strong>"Commercial cleaning service"</strong> (most specific match). Add secondary categories: Janitorial service, Carpet cleaning service, Window cleaning service, Floor cleaning service, Pressure washing service. Audit quarterly for new categories.
+        </div>
+      </div>
+    </div>
+
+    <!-- #06 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#06</span>
+        <span class="card-title">Strategic Press Releases</span>
+        <span class="status-badge status-warn">Needs Work</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          One press release found from November 2022 on WGNO/EIN Presswire about "ABS/CBS Offers Commercial Cleaning and Maintenance Services." No recent press releases discovered (nothing in 2025 or 2026).
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Publish strategic press releases quarterly. Link to relevant service pages with brand anchors. Topics: expansion news, new service launches, community involvement, milestone anniversaries.
+        </div>
+      </div>
+    </div>
+
+    <!-- #07 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#07</span>
+        <span class="card-title">Dedicated, Optimized Service Pages</span>
+        <span class="status-badge status-fail">Fail</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          The website has 9 service page URLs in the sitemap (carpet cleaning, office cleaning, pressure washing, etc.), but <strong>every page returns the identical title tag:</strong> "Commercial Cleaning Company Texas | ABS Commercial Cleaning" and the same H1. Pages appear to serve the same or nearly identical content regardless of the URL. No service+city differentiation.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Each service page needs a unique title tag with service+city (e.g., "Office Cleaning Austin TX | ABS Commercial Cleaning"), unique H1, unique content with process details, pricing signals, and social proof specific to that service.
+        </div>
+      </div>
+    </div>
+
+    <!-- #08 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#08</span>
+        <span class="card-title">Review Velocity</span>
+        <span class="status-badge status-warn">Needs Work</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          27 total reviews across 4 listings (4 + 18 + 2 + 3). The main listing (18 reviews, 4.9 stars) has decent recent velocity: reviews 3 weeks ago, 1 month ago, and 2 months ago. But 27 total reviews split across 4 listings is very weak for a 20+ year business. The Austin-specific listing has only 2 reviews.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Consolidate to 1&ndash;2 listings maximum. Implement a systematic review request process for every completed job &mdash; one-tap SMS review link. Target 4+ reviews per month on the primary listing.
+        </div>
+      </div>
+    </div>
+
+    <!-- #09 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#09</span>
+        <span class="card-title">Extended GBP Hours</span>
+        <span class="status-badge status-warn">Needs Work</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          All listings show Mon&ndash;Fri 9:00 AM &ndash; 5:00 PM, closed on weekends. One reviewer noted "They answer calls after hours when needed," indicating the business is reachable beyond listed hours but not reflecting this on GBP.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Extend hours to the full window someone answers the phone. If using an answering service, list those extended hours. Being marked "Closed" suppresses rankings during off-hours.
+        </div>
+      </div>
+    </div>
+  </div><!-- /section -->
+
+  <!-- ═══════════════════════════════ TIER 4: TECHNICAL & CONTENT ═════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge">Tier 4</span>
+      <h2>Technical &amp; Content</h2>
+      <span class="section-score">1 of 7 passing</span>
+    </div>
+
+    <!-- #23 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#23</span>
+        <span class="card-title">Title Tags: Service + City First</span>
+        <span class="status-badge status-fail">Fail</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          <strong>Every page on the site</strong> uses the identical title tag: "Commercial Cleaning Company Texas | ABS Commercial Cleaning." Homepage, service pages, and location pages all share the same title. No service+city differentiation. H1 tags are also identical across pages.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Every service page needs a unique title leading with service+city: "Office Cleaning Austin TX | ABS Commercial Cleaning", "Carpet Cleaning Austin TX | ABS Commercial Cleaning", etc. Location pages need city-specific titles as well.
+        </div>
+      </div>
+    </div>
+
+    <!-- #24 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#24</span>
+        <span class="card-title">Structured Data Markup</span>
+        <span class="status-badge status-warn">Needs Work</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          Homepage has Organization schema (correct NAP), WebSite schema with search action, FAQPage schema (4 Q&amp;As), and VideoObject schema. <strong>Missing:</strong> LocalBusiness schema (should replace Organization), Service schema on service pages. No schema found on individual service pages. Schema name matches GBP but categories don't align.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Replace Organization with LocalBusiness schema. Add Service schema to each service page. Ensure hours, geo coordinates, and service area match GBP exactly.
+        </div>
+      </div>
+    </div>
+
+    <!-- #25 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#25</span>
+        <span class="card-title">Mobile-First, Fast, Frictionless UX</span>
+        <span class="status-badge status-warn">Needs Work</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          Good UX elements: sticky header with "Call: (800) 640-9446" button, clickable tel: links, "Get a Quote" popup form. <strong>However, PageSpeed is poor:</strong> LCP 11.6s (threshold: 2.5s), TBT 360ms (amber). Main culprit: a 9.7MB MP4 video auto-loading on homepage. Total payload: 17.5MB. CLS is excellent at 0.004. SEO score is 100. No CrUX data available.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Lazy-load or defer the hero video. Compress/optimize the video file. Remove unused JavaScript (410 KiB potential savings). Remove 7 unused Zoho preconnect hints. These changes alone could cut LCP dramatically.
+        </div>
+      </div>
+    </div>
+
+    <!-- #26 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#26</span>
+        <span class="card-title">Internal Linking Strategy</span>
+        <span class="status-badge status-pass">Pass</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          Good navigation structure. All 9 service pages, 5 location pages, and 6 facility type pages are linked from the main navigation. Service subcategories are accessible from the Services menu. Footer includes links to blog, contact, careers, and all locations. <strong>Could improve</strong> by adding contextual cross-links within page content (e.g., office cleaning page linking to carpet cleaning).
+        </div>
+      </div>
+    </div>
+
+    <!-- #27 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#27</span>
+        <span class="card-title">City / Service-Area Pages</span>
+        <span class="status-badge status-warn">Needs Work</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          5 location pages exist (Austin, Houston, Dallas, San Antonio, Fort Worth). However, the Austin page uses the same title tag as every other page, mentions Austin but has no unique local details, no local case studies, no map embed, no area-specific testimonials, and no local FAQs. Content appears semi-templated across all location pages.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Each location page needs genuinely unique content: real jobs done in that city, local testimonials, area-specific FAQs, embedded Google Map, unique title such as "Commercial Cleaning Austin TX | ABS Commercial Cleaning."
+        </div>
+      </div>
+    </div>
+
+    <!-- #28 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#28</span>
+        <span class="card-title">Unique, Experience-Based Content</span>
+        <span class="status-badge status-fail">Fail</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          No pricing information or ranges anywhere on the site. No case studies or project breakdowns. The "Don't Just Take Our Word for It" testimonial section heading exists but <strong>no actual testimonials are displayed</strong>. Content is generic service descriptions without real-world examples. No photos of actual work in content. FAQ section has only 4 generic questions.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Add real pricing ranges, project case studies with before/after photos, detailed process breakdowns, and populate the testimonials section. Write from firsthand experience &mdash; what makes ABS different from dozens of competitors.
+        </div>
+      </div>
+    </div>
+
+    <!-- #29 -->
+    <div class="audit-card">
+      <div class="card-top">
+        <span class="card-number">#29</span>
+        <span class="card-title">GBP Photos (Monthly Refresh)</span>
+        <span class="status-badge status-warn">Needs Work</span>
+      </div>
+      <div class="card-body">
+        <div class="evidence">
+          <div class="evidence-label">Evidence</div>
+          The 18-review listing has owner and interior photos visible. However, the other 3 listings appear to have sparse photo sections. Exact photo count and recency of uploads cannot be fully confirmed, but multiple listings having few or no photos is a concern.
+        </div>
+        <div class="recommendation">
+          <div class="rec-label">Recommendation</div>
+          Upload real work photos, team photos, and equipment photos monthly to the primary listing. Aim for 20+ total photos minimum. Fresh photos biweekly is ideal for ranking signals.
+        </div>
+      </div>
+    </div>
+  </div><!-- /section -->
+
+  <!-- ═══════════════════════════════════ SCREENSHOTS ═════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Audit Screenshots</h2>
+    </div>
+    <div class="screenshot-grid">
+      <div class="screenshot-card">
+        <img src="screenshots/gbp-overview.png" alt="Google Business Profile overview showing multiple listings" loading="lazy">
+        <div class="caption">GBP Overview &mdash; 4 Duplicate Listings</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="screenshots/gbp-listing-18reviews.png" alt="GBP listing with 18 reviews" loading="lazy">
+        <div class="caption">Primary Listing &mdash; 18 Reviews, 4.9 Stars</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="screenshots/gbp-listing-austin.png" alt="Austin GBP listing with 2 reviews" loading="lazy">
+        <div class="caption">Austin Listing &mdash; Only 2 Reviews</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="screenshots/gbp-categories.png" alt="GBP categories analysis" loading="lazy">
+        <div class="caption">GBP Categories &mdash; Inconsistent Primaries</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="screenshots/serp-ads.png" alt="SERP showing no ABS ads" loading="lazy">
+        <div class="caption">SERP &mdash; No Ads or Organic Presence</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="screenshots/pagespeed-mobile.png" alt="PageSpeed Insights mobile results" loading="lazy">
+        <div class="caption">PageSpeed Mobile &mdash; LCP 11.6s</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ PRIORITY ACTION PLAN ═════════════════════════════════════════ -->
+  <div class="section action-plan">
+    <div class="section-header">
+      <h2>Priority Action Plan</h2>
+    </div>
+
+    <!-- Fix Now -->
+    <div class="action-group">
+      <div class="action-group-header">
+        <span class="priority-dot urgent"></span>
+        <h3>Fix Now &mdash; Urgent (Weeks 1&ndash;2)</h3>
+      </div>
+      <ul class="action-list">
+        <li class="action-item">
+          <span class="action-num">1</span>
+          <span class="action-text"><strong>Consolidate 4 GBP listings into 1.</strong> Request removal/merge of duplicates via Google. Concentrate all review authority on the Austin-address listing. Correct the pin location to the actual office address.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">2</span>
+          <span class="action-text"><strong>Convert primary listing from SAB to storefront.</strong> Display the physical address at 2028 E. Ben White Blvd, Austin TX 78741 to unlock full Local Pack eligibility.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">3</span>
+          <span class="action-text"><strong>Fix GBP categories.</strong> Set primary to "Commercial cleaning service." Add all applicable secondary categories (Janitorial, Carpet cleaning, Window cleaning, Floor cleaning, Pressure washing).</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">4</span>
+          <span class="action-text"><strong>Write unique title tags for every page.</strong> Lead with service+city: "Office Cleaning Austin TX | ABS Commercial Cleaning." No two pages should share a title.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">5</span>
+          <span class="action-text"><strong>Reactivate Google Ads / launch LSAs.</strong> With zero organic page 1 presence, paid ads are the fastest route to lead generation while organic work ramps up.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Improve Soon -->
+    <div class="action-group">
+      <div class="action-group-header">
+        <span class="priority-dot soon"></span>
+        <h3>Improve Soon &mdash; High Impact (Weeks 3&ndash;8)</h3>
+      </div>
+      <ul class="action-list">
+        <li class="action-item">
+          <span class="action-num">6</span>
+          <span class="action-text"><strong>Rewrite all 9 service pages</strong> with unique content, process details, pricing signals, before/after photos, and service-specific testimonials.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">7</span>
+          <span class="action-text"><strong>Build a review generation engine.</strong> Create a one-tap SMS review link. Request reviews after every completed job. Target 4+ per month on the primary listing.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">8</span>
+          <span class="action-text"><strong>Fix site speed.</strong> Lazy-load the hero video, compress the 9.7MB MP4, remove unused JS (410 KiB savings), and clean up Zoho preconnect hints. Target LCP under 2.5s.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">9</span>
+          <span class="action-text"><strong>Add unique content to location pages.</strong> Real local jobs, area-specific testimonials, embedded Google Maps, unique FAQs, and city-specific titles for all 5 location pages.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">10</span>
+          <span class="action-text"><strong>Upgrade structured data.</strong> Replace Organization with LocalBusiness schema. Add Service schema to each service page. Align hours, coordinates, and service area with GBP.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">11</span>
+          <span class="action-text"><strong>Extend GBP business hours</strong> to reflect all hours someone answers the phone, including evenings and weekends if applicable.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">12</span>
+          <span class="action-text"><strong>Create experience-based content.</strong> Add pricing ranges, case studies with before/after photos, populate the empty testimonials section, and expand the FAQ from 4 to 15+ questions.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Maintain -->
+    <div class="action-group">
+      <div class="action-group-header">
+        <span class="priority-dot maintain"></span>
+        <h3>Maintain &mdash; Ongoing</h3>
+      </div>
+      <ul class="action-list">
+        <li class="action-item">
+          <span class="action-num">13</span>
+          <span class="action-text"><strong>Upload GBP photos monthly.</strong> Real work photos, team photos, equipment shots. Minimum 20+ total, with fresh uploads biweekly.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">14</span>
+          <span class="action-text"><strong>Publish quarterly press releases</strong> with brand anchor links to service pages. Topics: expansion, new services, community involvement.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">15</span>
+          <span class="action-text"><strong>Standardize business name</strong> across all platforms. Consider a DBA filing for "ABS Commercial Cleaning Austin" to add the city keyword.</span>
+        </li>
+        <li class="action-item">
+          <span class="action-num">16</span>
+          <span class="action-text"><strong>Add contextual cross-links</strong> within page content to strengthen the internal linking strategy already in good shape via navigation.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ═══════════════════════════════════════════ FOOTER ════════════════════════════════════════════════ -->
+<footer class="report-footer">
+  Based on the Local SEO Impact Checklist &middot; Audit by Growth Archon &middot; July 9, 2026
+</footer>
+
+</body>
+</html>
